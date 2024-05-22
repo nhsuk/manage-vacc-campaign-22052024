@@ -1,0 +1,141 @@
+{% set pagetitle ="Summary of selected filters" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds">
+    <h1>
+      Summary of your cohort filters
+    </h1>
+
+
+{{condemned}}
+
+    {% from 'radios/macro.njk' import radios %}
+
+    {{ radios({
+      "idPrefix": "example-inline",
+      "name": "example-inline",
+      "classes": "nhsuk-radios--inline",
+      "fieldset": {
+        "legend": {
+          "text": "Are you sure you want to delete {{condemned}}?",
+          "classes": "nhsuk-fieldset__legend--l",
+          "isPageHeading": true
+        }
+      },
+      "items": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ]
+    }) }}
+
+
+
+
+
+    {% set filtersListArray = [] %}
+    {% set cohortsArray = [] %}
+
+    {% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+    {% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+    {% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+    {% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+    {% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+    {% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+
+    {% if (data['commonFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['commonFilters']) %} {% endif %}
+    {% if (data['ageFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['ageFilters']) %} {% endif %}
+    {% if (data['locationFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['locationFilters']) %} {% endif %}
+    {% if (data['allFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['allFilters']) %} {% endif %}
+
+
+
+    {% if cohortsArray.length > 0 %}
+
+    <p class="nhsuk-body">These filters will be applied to your cohorts:</p>
+    {% for selected in cohortsArray %}
+    <ul class="nhsuk-list">
+      <li>{{selected}}</li>
+    </ul>
+    {% endfor %}
+    {% endif %}
+
+
+
+
+
+
+    {% if filtersListArray.length > 0 %}
+    {% for filters in filtersListArray %}
+    <dl class="nhsuk-summary-list">
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">
+          Filter
+        </dt>
+        <dd class="nhsuk-summary-list__value">{{filters}}
+        </dd>
+        <dd class="nhsuk-summary-list__actions">
+          <ul class="nhsuk-summary-list__actions-list">
+            <!-- <li class="nhsuk-summary-list__actions-list-item">
+              <a href="#">On<span class="nhsuk-u-visually-hidden"> filter on {{filters}}</span></a>
+            </li> -->
+
+            <li class="nhsuk-summary-list__actions-list-item">
+              <a href="add-filter-library?filteredit=library">Edit<span class="nhsuk-u-visually-hidden"> edit {{filters}}</span></a>
+            </li>
+            <li class="nhsuk-summary-list__actions-list-item">
+              <a href="summary-filters-delete?condemned={{filters}}">Delete<span class="nhsuk-u-visually-hidden"> delete {{filters}}</span></a>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </dl>
+    {% endfor %}
+    {% endif %}
+
+    <div>
+
+
+      <ul class="nhsuk-list">
+        <li><a class="nhsuk-link nhsuk-link--no-visited-state" href="add-filter-alt">Add a new filter</a></li>
+        <li><a class="nhsuk-link nhsuk-link--no-visited-state" href="add-filter-library">Pick a library filter</a></li>
+      </ul>
+    </div>
+
+    {{ button({
+      href: "task-list?filters=done",
+      text: "Save and continue"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}

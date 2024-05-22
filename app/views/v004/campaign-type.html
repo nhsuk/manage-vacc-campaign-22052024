@@ -1,0 +1,204 @@
+{% set pagetitle ="What type of campaign would you like to create?" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+      {% if data['change'] == 'type' %}
+      {% set head = 'Select the type of campaign' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'name' %}
+      {% set head = 'What type of campaign would you like to create?' %}
+      {% endif %}
+
+
+      {% if data['change'] == 'target' %}
+      {% set head = 'Which disease is the target of the campaign?' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'name' %}
+      {% set head = 'What type of campaign would you like to create?' %}
+      {% endif %}
+
+
+{% if data['editType'] == 'true' %}
+  {% set head = 'Change the type of campaign' %}
+    {% set action = 'task-list' %}
+{% endif %}
+
+      <form action="{{ action }}" method="post">
+  <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+        <H1 class="nhsuk-heading-xl">
+          {{ head }}</h1>
+
+
+
+
+
+
+      <form action="name" method="post">
+
+
+
+
+
+
+        {% set vaccinationHTML %}
+
+        <h2 class="nhsuk-heading-m">Which disease is the target of the campaign?</h2>
+
+
+        {{ radios({
+          "idPrefix": "campaign-target",
+          "name": "campaign-target",
+            "legend": {
+              "text": "",
+              "classes": "nhsuk-fieldset__legend--m",
+              "isPageHeading": "false"
+          },
+
+          "items": [
+            {
+              "value": "COVID-19",
+              "text": "COVID-19",
+              checked: checked('campaign-target','COVID-19')
+            },
+            {
+              "value": "Flu",
+              "text": "Flu",
+              checked: checked('campaign-target','Flu')
+            },
+            {
+              "value": "Co-admin, COVID-19 and Flu",
+              "text": "Co-admin, COVID-19 and Flu",
+              checked: checked('campaign-target','Co-admin, COVID-19 and Flu')
+            },
+            {
+              "value": "Mumps, Measles and Rubella",
+              "text": "Mumps, Measles and Rubella",
+              checked: checked('campaign-target','Mumps, Measles and Rubella')
+            }
+          ]
+        }) }}
+        {% endset %}
+
+
+        {% set screeningHTML %}
+        <h2 class="nhsuk-heading-m">Which pathway is the target of the campaign?</h2>
+
+        {{ radios({
+          "idPrefix": "campaign-target",
+          "name": "campaign-target",
+          "fieldset": {
+            "legend": {
+              "text": "",
+              "classes": "nhsuk-fieldset__legend--l",
+              "isPageHeading": "false"
+            }
+          },
+          "items": [
+            {
+              "value": "Screening in pregnancy",
+              "text": "Screening in pregnancy",
+              checked: checked('campaign-target','Screening in pregnancy')
+            },
+            {
+              "value": "Breast screening",
+              "text": "Breast screening",
+              checked: checked('campaign-target','Breast screening')
+            },
+            {
+              "value": "Cervical screening",
+              "text": "Cervical screening",
+              checked: checked('campaign-target','Cervical screening')
+            },
+            {
+              "value": "Screening for newborn babies",
+              "text": "Screening for newborn babies",
+              checked: checked('campaign-target','Screening for newborn babies')
+            },
+            {
+              "value": "Bowel cancer screening",
+              "text": "Bowel cancer screening",
+              checked: checked('campaign-target','Bowel cancer screening')
+            },
+            {
+              "value": "Diabetic eye screening",
+              "text": "Diabetic eye screening",
+              checked: checked('campaign-target','Diabetic eye screening')
+            }
+          ]
+        }) }}
+        {% endset %}
+
+        {% from 'radios/macro.njk' import radios %}
+
+
+
+        {{ radios({
+          "idPrefix": "campaign-type",
+          "name": "campaign-type",
+          "fieldset": {
+            "legend": {
+              "text": "You may only select one.",
+              "classes": "nhsuk-fieldset__legend--s",
+              "isPageHeading": "false"
+            }
+          },
+          "items": [
+            {
+              "value": "Vaccination",
+              checked: checked('campaign-type','Vaccination'),
+              "text": "Vaccination",
+              "conditional": {
+                html: vaccinationHTML
+              }
+            },
+            {
+              "value": "Screening",
+              checked: checked('campaign-type','Screening'),
+              "text": "Screening",
+              conditional: {
+                html: screeningHTML
+              }
+            }
+          ]
+        }) }}
+
+
+
+
+
+
+        {{ button({
+          text: "Save and continue"
+        }) }}
+      </form>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

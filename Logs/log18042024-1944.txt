@@ -1,0 +1,100 @@
+2024-04-18T18:27:21.027781+00:00 app[web.1]: at Object.<anonymous> (/app/app.js:62:7)
+2024-04-18T18:27:21.027782+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1369:14)
+2024-04-18T18:27:21.027782+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1427:10)
+2024-04-18T18:27:21.027782+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1206:32) {
+2024-04-18T18:27:21.027783+00:00 app[web.1]: code: 'MODULE_NOT_FOUND',
+2024-04-18T18:27:21.027783+00:00 app[web.1]: requireStack: [ '/app/app/filters.js', '/app/lib/utils.js', '/app/app.js' ]
+2024-04-18T18:27:21.027786+00:00 app[web.1]: }
+2024-04-18T18:27:21.027786+00:00 app[web.1]: 
+2024-04-18T18:27:21.027786+00:00 app[web.1]: Node.js v20.12.2
+2024-04-18T18:27:21.033612+00:00 app[web.1]: npm notice
+2024-04-18T18:27:21.033755+00:00 app[web.1]: npm notice New patch version of npm available! 10.5.0 -> 10.5.2
+2024-04-18T18:27:21.033855+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.5.2>
+2024-04-18T18:27:21.033974+00:00 app[web.1]: npm notice Run `npm install -g npm@10.5.2` to update!
+2024-04-18T18:27:21.034012+00:00 app[web.1]: npm notice
+2024-04-18T18:27:21.103369+00:00 heroku[web.1]: Process exited with status 1
+2024-04-18T18:27:21.127077+00:00 heroku[web.1]: State changed from starting to crashed
+2024-04-18T18:28:17.000000+00:00 app[api]: Build started by user ismail.ismail9@nhs.net
+2024-04-18T18:29:02.000000+00:00 app[api]: Build succeeded
+2024-04-18T18:29:02.141360+00:00 app[api]: Deploy f8557be3 by user ismail.ismail9@nhs.net
+2024-04-18T18:29:02.141360+00:00 app[api]: Release v16 created by user ismail.ismail9@nhs.net
+2024-04-18T18:29:03.463402+00:00 heroku[web.1]: State changed from crashed to starting
+2024-04-18T18:29:11.097996+00:00 heroku[web.1]: Starting process with command `npm start`
+2024-04-18T18:29:12.642791+00:00 app[web.1]: 
+2024-04-18T18:29:12.642803+00:00 app[web.1]: > nhsuk-prototype-kit@4.10.0 start
+2024-04-18T18:29:12.642803+00:00 app[web.1]: > node app.js
+2024-04-18T18:29:12.642803+00:00 app[web.1]: 
+2024-04-18T18:29:12.769797+00:00 app[web.1]: node:internal/modules/cjs/loader:1146
+2024-04-18T18:29:12.769799+00:00 app[web.1]: throw err;
+2024-04-18T18:29:12.769799+00:00 app[web.1]: ^
+2024-04-18T18:29:12.769800+00:00 app[web.1]: 
+2024-04-18T18:29:12.769800+00:00 app[web.1]: Error: Cannot find module 'nunjucks-date-filter'
+2024-04-18T18:29:12.769800+00:00 app[web.1]: Require stack:
+2024-04-18T18:29:12.769801+00:00 app[web.1]: - /app/app/filters.js
+2024-04-18T18:29:12.769801+00:00 app[web.1]: - /app/lib/utils.js
+2024-04-18T18:29:12.769801+00:00 app[web.1]: - /app/app.js
+2024-04-18T18:29:12.769802+00:00 app[web.1]: at Module._resolveFilename (node:internal/modules/cjs/loader:1143:15)
+2024-04-18T18:29:12.769802+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:984:27)
+2024-04-18T18:29:12.769802+00:00 app[web.1]: at Module.require (node:internal/modules/cjs/loader:1231:19)
+2024-04-18T18:29:12.769803+00:00 app[web.1]: at require (node:internal/modules/helpers:179:18)
+2024-04-18T18:29:12.769803+00:00 app[web.1]: at module.exports (/app/app/filters.js:16:20)
+2024-04-18T18:29:12.769804+00:00 app[web.1]: at exports.addNunjucksFilters (/app/lib/utils.js:11:51)
+2024-04-18T18:29:12.769804+00:00 app[web.1]: at Object.<anonymous> (/app/app.js:62:7)
+2024-04-18T18:29:12.769804+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1369:14)
+2024-04-18T18:29:12.769806+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1427:10)
+2024-04-18T18:29:12.769806+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1206:32) {
+2024-04-18T18:29:12.769806+00:00 app[web.1]: code: 'MODULE_NOT_FOUND',
+2024-04-18T18:29:12.769807+00:00 app[web.1]: requireStack: [ '/app/app/filters.js', '/app/lib/utils.js', '/app/app.js' ]
+2024-04-18T18:29:12.769807+00:00 app[web.1]: }
+2024-04-18T18:29:12.769807+00:00 app[web.1]: 
+2024-04-18T18:29:12.769807+00:00 app[web.1]: Node.js v20.12.2
+2024-04-18T18:29:12.795386+00:00 app[web.1]: npm notice
+2024-04-18T18:29:12.795532+00:00 app[web.1]: npm notice New patch version of npm available! 10.5.0 -> 10.5.2
+2024-04-18T18:29:12.795654+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.5.2>
+2024-04-18T18:29:12.795793+00:00 app[web.1]: npm notice Run `npm install -g npm@10.5.2` to update!
+2024-04-18T18:29:12.795847+00:00 app[web.1]: npm notice
+2024-04-18T18:29:12.874422+00:00 heroku[web.1]: Process exited with status 1
+2024-04-18T18:29:12.896770+00:00 heroku[web.1]: State changed from starting to crashed
+2024-04-18T18:29:14.437817+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com request_id=6a781395-1cf4-46a4-bbbd-eae5973d2a55 fwd="92.236.53.146" dyno= connect= service= status=503 bytes= protocol=https
+2024-04-18T18:29:14.521003+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com request_id=c4e4490e-0bf4-458e-8e3f-b0dc1922c925 fwd="92.236.53.146" dyno= connect= service= status=503 bytes= protocol=https
+2024-04-18T18:29:30.476809+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com request_id=da7b9e6e-1cb2-4330-ae37-1bd5016b010b fwd="92.236.53.146" dyno= connect= service= status=503 bytes= protocol=https
+2024-04-18T18:29:31.016772+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com request_id=bfcc1bf0-f366-41e3-b583-81167bdc58f4 fwd="92.236.53.146" dyno= connect= service= status=503 bytes= protocol=https
+2024-04-18T18:35:35.318542+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com request_id=c0d62e7b-ef94-42fa-a36e-9c0c17617db7 fwd="92.236.53.146" dyno= connect= service= status=503 bytes= protocol=https
+2024-04-18T18:35:35.446254+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com request_id=a7af8b14-eddf-480c-957e-2dfaa0d29ce1 fwd="92.236.53.146" dyno= connect= service= status=503 bytes= protocol=https
+2024-04-18T18:38:46.260223+00:00 heroku[web.1]: State changed from crashed to starting
+2024-04-18T18:38:52.323432+00:00 heroku[web.1]: Starting process with command `npm start`
+2024-04-18T18:38:53.751876+00:00 app[web.1]: 
+2024-04-18T18:38:53.751896+00:00 app[web.1]: > nhsuk-prototype-kit@4.10.0 start
+2024-04-18T18:38:53.751896+00:00 app[web.1]: > node app.js
+2024-04-18T18:38:53.751897+00:00 app[web.1]: 
+2024-04-18T18:38:53.882762+00:00 app[web.1]: node:internal/modules/cjs/loader:1146
+2024-04-18T18:38:53.882764+00:00 app[web.1]: throw err;
+2024-04-18T18:38:53.882764+00:00 app[web.1]: ^
+2024-04-18T18:38:53.882764+00:00 app[web.1]: 
+2024-04-18T18:38:53.882765+00:00 app[web.1]: Error: Cannot find module 'nunjucks-date-filter'
+2024-04-18T18:38:53.882765+00:00 app[web.1]: Require stack:
+2024-04-18T18:38:53.882765+00:00 app[web.1]: - /app/app/filters.js
+2024-04-18T18:38:53.882765+00:00 app[web.1]: - /app/lib/utils.js
+2024-04-18T18:38:53.882766+00:00 app[web.1]: - /app/app.js
+2024-04-18T18:38:53.882766+00:00 app[web.1]: at Module._resolveFilename (node:internal/modules/cjs/loader:1143:15)
+2024-04-18T18:38:53.882766+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:984:27)
+2024-04-18T18:38:53.882766+00:00 app[web.1]: at Module.require (node:internal/modules/cjs/loader:1231:19)
+2024-04-18T18:38:53.882766+00:00 app[web.1]: at require (node:internal/modules/helpers:179:18)
+2024-04-18T18:38:53.882767+00:00 app[web.1]: at module.exports (/app/app/filters.js:16:20)
+2024-04-18T18:38:53.882767+00:00 app[web.1]: at exports.addNunjucksFilters (/app/lib/utils.js:11:51)
+2024-04-18T18:38:53.882767+00:00 app[web.1]: at Object.<anonymous> (/app/app.js:62:7)
+2024-04-18T18:38:53.882767+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1369:14)
+2024-04-18T18:38:53.882767+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1427:10)
+2024-04-18T18:38:53.882768+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1206:32) {
+2024-04-18T18:38:53.882768+00:00 app[web.1]: code: 'MODULE_NOT_FOUND',
+2024-04-18T18:38:53.882768+00:00 app[web.1]: requireStack: [ '/app/app/filters.js', '/app/lib/utils.js', '/app/app.js' ]
+2024-04-18T18:38:53.882768+00:00 app[web.1]: }
+2024-04-18T18:38:53.882774+00:00 app[web.1]: 
+2024-04-18T18:38:53.882775+00:00 app[web.1]: Node.js v20.12.2
+2024-04-18T18:38:53.893537+00:00 app[web.1]: npm notice
+2024-04-18T18:38:53.893598+00:00 app[web.1]: npm notice New patch version of npm available! 10.5.0 -> 10.5.2
+2024-04-18T18:38:53.893711+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.5.2>
+2024-04-18T18:38:53.893839+00:00 app[web.1]: npm notice Run `npm install -g npm@10.5.2` to update!
+2024-04-18T18:38:53.893883+00:00 app[web.1]: npm notice
+2024-04-18T18:38:53.949145+00:00 heroku[web.1]: Process exited with status 1
+2024-04-18T18:38:53.969956+00:00 heroku[web.1]: State changed from starting to crashed

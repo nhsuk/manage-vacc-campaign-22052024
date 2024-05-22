@@ -1,0 +1,79 @@
+{% set pagetitle ="Campaign name" %}
+{% set versionNumber ="003" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length > 0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      {% if data['change'] == 'name' %}
+      {% set head = 'Enter the campaign name' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'dates' %}
+      {% set head = 'Create a campaign name' %}
+      {% endif %}
+
+
+{% if data['editName'] == 'true' %}
+  {% set head = 'Enter the campaign name' %}
+    {% set action = 'task-list' %}
+{% endif %}
+
+      <form action="{{ action }}" method="post">
+  <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+        <h1>
+          {{ head }}
+        </h1>
+      <p class="nhsuk-body">Choose a name that describes the campaign and is easy to understand.</p>
+        {% from 'input/macro.njk' import input %}
+
+        {{ input({
+          "label": {
+            "text": "Campaign name"
+          },
+    "hint": {
+    "text": "eg COVID-19 seasonal spring vaccination 2024"
+  },
+          "id": "name",
+          "name": "name",
+          "value": data['name']
+
+        }) }}
+
+
+
+
+        {{ button({
+          text: "Save and continue"
+        }) }}
+      </form>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

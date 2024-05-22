@@ -1,0 +1,75 @@
+{% set pagetitle ="Create iteration - select iteration date" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-quarters">
+
+    <form action="task-list-govuk?iterationNum=2" method="post">
+
+      <span class="nhsuk-caption-l">{{ data['iteration-name']|default("Create iteration") }}</span>
+      <h1 clss="nhsuk-heading-l">When will it run?</h1>
+
+      <p class="nhsuk-body">Lorem ipsum guidance about iteration dates.</p>
+
+      <span class="nhsuk-caption-m nhsuk-caption--top" for="iterationDate">Iteration date (optional)</span>
+      <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['iterationDate']}}"  type="date" placeholder="yyyy-mm-dd" id="iterationDate" name="iterationDate">
+
+
+
+
+
+    <div class="nhsuk-u-padding-top-6">
+      {{ button({
+        text: "Save and continue"
+      }) }}
+    </div>
+  </form>
+
+
+
+
+
+
+</div>
+</div>
+
+<script>
+
+  var todayDate = new Date().toISOString().slice(0, 10);
+
+  const fromEl = document.getElementById('fromDate');
+  const fromElist = document.getElementById('fromDate');
+  const toEl = document.getElementById('toDate');
+  fromEl.min = todayDate.toString();
+
+  fromElist.addEventListener('change', (event) => {
+    console.log(fromEl.value)
+    toEl.min = fromEl.value
+  });
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% set pagetitle ="Selected cohorts - Select and Invite" %}
+{% set versionNumber ="002" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds">
+    <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+    <h1>
+      Selected cohorts
+    </h1>
+
+
+<p class="nhsuk-body">These are the selected cohorts for the campaign.</p>
+
+
+
+
+
+
+
+    {% set cohortsArray = [] %}
+
+    {% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+    {% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+    {% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+    {% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+    {% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+    {% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+
+    <!-- {% for item in cohortsArray %}
+    <ul class="nhsuk-list--bullet">
+        <li>{{item}}</li>
+    </ul>
+    {% endfor %} -->
+  {% for item in cohortsArray %}
+    <dl class="nhsuk-summary-list nhsuk-summary-list--no-border">
+
+      <!-- <div class="nhsuk-summary-list__row"> -->
+
+        <dt class="nhsuk-summary-list__key">
+          Cohort
+        </dt>
+
+        <dd class="nhsuk-summary-list__value">{{item}}
+
+
+          <!-- <ul class="nhsuk-list">
+              <li>{{item}}</li>
+          </ul> -->
+
+
+        </dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="select-cohorts?repickCohorts=true">
+            Update<span class="nhsuk-u-visually-hidden"> {{item}} cohort</span>
+          </a>
+        </dd>
+
+      <!-- </div> -->
+
+    </dl>
+          {% endfor %}
+
+
+
+    {{ button({
+      href: "task-list?selectCohorts=done",
+      text: "Save and continue"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}

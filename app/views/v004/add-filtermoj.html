@@ -1,0 +1,603 @@
+{% set pagetitle ="Add a filter" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+  .moj-filter {
+    background-color: govuk-colour("white");
+    box-shadow: inset 0 0 0 1px govuk-colour("mid-grey");
+
+    &:focus {
+      box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+    }
+  }
+
+
+  .moj-filter__header {
+    background-color: lightgrey;
+    font-size: 0; // Hide whitespace between elements
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: justify; // Trick to remove the need for floats
+
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 100%;
+    }
+
+
+  }
+
+
+  // JavaScript
+  .moj-filter__legend {
+    overflow: visible; // Override govuk to allow for focus style to be seen
+    width: 100%;
+
+    button {
+      @include govuk-font($size: 24, $weight: bold);
+      background-color: transparent;
+      box-sizing: border-box;
+      border-radius: 0;
+      border: 0 none;
+      cursor: pointer; // Adam would not approve
+      display: block;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      text-align: left;
+      width: 100%;
+      -webkit-appearance: none;
+
+      // Fix unwanted button padding in Firefox
+      &::-moz-focus-inner {
+        padding: 0;
+        border: 0;
+      }
+
+      &::after {
+        background-image: url(#{$moj-images-path}icon-toggle-plus-minus.svg);
+        background-position: 0 0;
+        content: "";
+        display: block;
+        height: 16px;
+        margin-top: -8px; // Half the height of the icon
+        position: absolute; top: 50%; right: 0;
+        width: 16px;
+      }
+
+      &[aria-expanded="true"] {
+        &::after {
+          background-position: 16px 16px;
+        }
+      }
+
+      &:focus {
+        // @include govuk-focusable;
+      }
+
+    }
+
+  }
+
+
+  .moj-filter__header-title,
+  .moj-filter__header-action {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+
+  .moj-filter__close {
+    // @include govuk-focusable;
+    color: govuk-colour("black");
+    cursor: pointer; // I know Adam won’t like this
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+
+
+    &:focus {
+      background-color: $govuk-focus-colour;
+      color: $govuk-focus-text-colour;
+      box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+      outline: none;
+    }
+
+    // Fix unwanted button padding in Firefox
+    &::-moz-focus-inner {
+      padding: 0;
+      border: 0;
+    }
+
+    &::before {
+      background-image: url(#{$moj-images-path}icon-close-cross-black.svg);
+      content: "";
+      display: inline-block;
+      height: 14px;
+      margin-right: govuk-spacing(1);
+      position: relative;
+      top: -1px; // Alignment tweak
+      vertical-align: middle;
+      width: 14px;
+    }
+
+  }
+
+
+  .moj-filter__close {
+    @include govuk-font(19);
+  }
+
+
+  .moj-filter__selected {
+    background-color: govuk-colour("light-grey");
+    box-shadow: inset 0 0 0 1px govuk-colour("mid-grey");
+    padding: govuk-spacing(4);
+
+    ul:last-of-type {
+      margin-bottom: 0; // IE9 +
+    }
+
+  }
+
+
+  .moj-filter__selected-heading {
+    font-size: 0; // Hide whitespace between elements
+    text-align: justify; // Trick to remove the need for floats
+
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 100%;
+    }
+
+  }
+
+
+  .moj-filter__heading-title,
+  .moj-filter__heading-action {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+
+  .moj-filter-tags {
+    font-size: 0;
+    margin-bottom: 5px; // Needs to adjust to 15px on mobile
+    padding-left: 0;
+
+    li {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+  }
+
+
+  .moj-filter__tag {
+    background-color: govuk-colour("white");
+    border: 1px solid govuk-colour("black");
+    color: govuk-colour("black");
+    display: inline-block;black
+
+    &:link,
+    &:visited {
+      color: black;
+    }
+
+    &:focus {
+      color: $govuk-focus-text-colour;
+      background-color: $govuk-focus-colour;
+    }
+
+    &:hover {
+      background-color: govuk-colour("black");
+      color: govuk-colour("white");
+    }
+
+    &:after {
+      background-image: url(#{$moj-images-path}icon-tag-remove-cross.svg);
+      content: "";
+      display: inline-block;
+      font-weight: bold;
+      height: 10px;
+      margin-left: govuk-spacing(1);
+      vertical-align: middle;
+      width: 10px;
+    }
+
+    &:hover:after {
+      background-image: url(#{$moj-images-path}icon-tag-remove-cross-white.svg);
+    }
+
+  }
+
+
+  .moj-filter__options {
+    box-shadow: inset 0 0 0 1px govuk-colour("mid-grey");
+    margin-top: -1px;
+    padding: govuk-spacing(4);
+
+    div:last-of-type {
+      margin-bottom: 0; // IE9 +
+    }
+
+  }
+
+
+
+</style>
+
+
+{{ sCheck }}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+
+      <div class="moj-filter">
+
+        <div class="moj-filter__header">
+
+          <div class="moj-filter__header-title">
+            <h2 class="govuk-heading-m">Filter</h2>
+          </div>
+
+          <div class="moj-filter__header-action">
+
+          </div>
+
+        </div>
+
+        <div class="moj-filter__content">
+
+          <div class="moj-filter__selected">
+
+            <div class="moj-filter__selected-heading">
+
+              <div class="moj-filter__heading-title">
+                <h2 class="govuk-heading-m">Selected filters</h2>
+              </div>
+
+              <div class="moj-filter__heading-action">
+                <p><a class="govuk-link govuk-link--no-visited-state" href="">Clear filters</a></p>
+              </div>
+
+            </div>
+
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Type</h3>
+
+            <ul class="moj-filter-tags">
+
+              <li><a class="moj-filter__tag" href="/path/to/remove/this"><span class="govuk-visually-hidden">Remove this filter</span> Blue</a></li>
+
+              <li><a class="moj-filter__tag" href="/path/to/remove/this"><span class="govuk-visually-hidden">Remove this filter</span> Yellow</a></li>
+
+            </ul>
+
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Status</h3>
+
+            <ul class="moj-filter-tags">
+
+              <li><a class="moj-filter__tag" href="/path/to/remove/this"><span class="govuk-visually-hidden">Remove this filter</span> Completed</a></li>
+
+            </ul>
+
+          </div>
+
+          <div class="moj-filter__options">
+
+            <button type="submit" class="govuk-button" data-module="govuk-button" data-test-id="submit-button">
+              Apply filters
+            </button>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-label--m" for="keywords">
+                Keywords
+              </label>
+
+              <input class="govuk-input" id="keywords" name="keywords" type="text">
+
+            </div>
+
+            <div class="govuk-form-group">
+
+              <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+                  Type
+
+                </legend>
+
+                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="type" name="type" type="checkbox" value="1" checked>
+                    <label class="govuk-label govuk-checkboxes__label" for="type">
+                      Blue (18)
+                    </label>
+
+                  </div>
+
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="type-2" name="type" type="checkbox" value="2" checked>
+                    <label class="govuk-label govuk-checkboxes__label" for="type-2">
+                      Yellow (5)
+                    </label>
+
+                  </div>
+
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="type-3" name="type" type="checkbox" value="3">
+                    <label class="govuk-label govuk-checkboxes__label" for="type-3">
+                      Red (2)
+                    </label>
+
+                  </div>
+
+                </div>
+
+              </fieldset>
+
+            </div>
+
+            <div class="govuk-form-group">
+
+              <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+                  Status
+
+                </legend>
+
+                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="status" name="status" type="checkbox" value="complete" checked>
+                    <label class="govuk-label govuk-checkboxes__label" for="status">
+                      Completed (2)
+                    </label>
+
+                  </div>
+
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="status-2" name="status" type="checkbox" value="incomplete">
+                    <label class="govuk-label govuk-checkboxes__label" for="status-2">
+                      Incomplete (5)
+                    </label>
+
+                  </div>
+
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="status-3" name="status" type="checkbox" value="inprogress">
+                    <label class="govuk-label govuk-checkboxes__label" for="status-3">
+                      In progress (3)
+                    </label>
+
+                  </div>
+
+                </div>
+
+              </fieldset>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">{{ data['campaign-target']}} {{ data['campaign-type']|lower}}</span>
+<h1 class="nhsuk-heading-l">COVID-19 U16 Immunosuppressed
+
+  {% if data['fromDate']|length > 0 %}
+        <span class="nhsuk-body-m nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
+  {% else %}
+                <!-- <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span> -->
+  {% endif %}
+
+  </h1>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+    <script>
+
+
+
+
+
+    let selector = document.getElementById("reason");
+
+    selector.addEventListener("keyup", () => {
+      console.log("keypress")
+
+
+      selector.addEventListener("change", () => {
+
+        switch (selector.value) {
+          case "Add a new reason to the list":
+          showDiv('addReasonPanel');
+            break;
+          case "remove":
+            break;
+        }
+        }, { once: true });
+    });
+
+    selector.addEventListener("click", () => {
+      console.log("keypress")
+
+
+      selector.addEventListener("change", () => {
+
+        switch (selector.value) {
+          case "Add a new reason to the list":
+          showDiv('addReasonPanel');
+            break;
+          case "remove":
+            break;
+        }
+        }, { once: true });
+    });
+
+    function addToReasonSelector(adder) {
+      console.log(adder)
+      var newOption = document.createElement("option")
+      newOption.innerHTML = adder;
+      selector.appendChild(newOption).selected = "true";
+      selector.focus();
+      hideDiv('addReasonPanel');
+      document.getElementById('addReason').value = '';
+    }
+
+
+
+    function showDiv(div1) {
+      document.getElementById(div1).style.display = 'block';
+      if (div1 == "notesPanel"){
+        const textA = document.getElementById("textA");
+        textA.focus();
+      } else if (div1 == "addReasonPanel") {
+        document.getElementById(div1).style.display = 'block';
+        const reaBox = document.getElementById("addReason");
+        reaBox.focus();
+      }
+    }
+
+    function hideDiv(div1) {
+      document.getElementById(div1).style.display = 'none';
+    }
+
+
+    const newReason = document.getElementById("newreason");
+
+    newReason.addEventListener("focus", (event) => {
+      console.log(newReason.value)
+    });
+
+
+    function shDiv(div1) {
+      document.getElementById(div1).style.display = 'block';
+    }
+
+    selector.addEventListener("click", () => {
+    // if default value is changed
+      selector.addEventListener("change", () => {
+      // if value switched by client
+        switch (selector.value) {
+          case "add":
+          //do somthing with  , "add" value
+            result.innerHTML = selector.value;
+            break;  // then take break
+          case "remove":
+          //do somthing with  , "remove" value
+            result.innerHTML = selector.value;
+            break; // then take break
+        }
+      });
+    });
+
+
+
+
+    </script>
+
+{% endblock %}
+
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="example">
+    Cost per item, in pounds
+  </label>
+  <div class="nhsuk-input__wrapper">
+
+    <div class="nhsuk-input__prefix" aria-hidden="true">£</div>
+
+    <input class="nhsuk-input nhsuk-input--width-5" id="example" name="example" type="text">
+    <div class="nhsuk-input__suffix" aria-hidden="true">per item</div>
+
+  </div>
+
+</div>
+
+<div class="nhsuk-form-group">
+
+  <fieldset class="nhsuk-fieldset">
+    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+      <h1 class="nhsuk-fieldset__heading">
+        Are you 18 or over?
+      </h1>
+    </legend>
+
+    <div class="nhsuk-radios">
+
+      <div class="nhsuk-radios__item">
+        <input class="nhsuk-radios__input" id="example-1" name="example" type="radio" value="yes">
+        <label class="nhsuk-label nhsuk-radios__label" for="example-1">
+          Yes
+        </label>
+      </div>
+
+      <div class="nhsuk-radios__item">
+        <input class="nhsuk-radios__input" id="example-2" name="example" type="radio" value="no">
+        <label class="nhsuk-label nhsuk-radios__label" for="example-2">
+          No
+        </label>
+        </div>SQ                                                                                                                                          Q
+    </div>
+  </fieldset>
+
+</div>
+
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="select-1">
+    Label text goes here
+  </label>
+  <select class="nhsuk-select" id="select-1" name="select-1">
+    <option value="1">NHS.UK frontend option 1</option>
+    <option value="2" selected>NHS.UK frontend option 2</option>
+    <option value="3" disabled>NHS.UK frontend option 3</option>
+  </select>
+</div>

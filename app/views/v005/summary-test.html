@@ -1,0 +1,154 @@
+
+
+   {% set pagetitle ="Summary of selected cohorts" %}
+   {% set versionNumber ="004" %}
+   {% extends 'layout.html' %}
+   {% block header %}
+   {% include 'foundations/header-signed-in-campaign.html' %}
+   {% endblock %}
+
+   {% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+   {% block pageTitle %}
+     {{ pagetitle }}
+   {% endblock %}
+
+
+   {% block outerContent %}
+   {{ backLink({
+     "href": "javascript:window.history.back()",
+     "text": "Back",
+     "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+   }) }}
+   {% endblock %}
+
+   {% block content %}
+
+   {% set filters =
+      {
+         "1":
+         {
+            "filterId": "uuid",
+            "name": "Over 75 years",
+            "estSize": 3612542,
+            "refreshDate": "11 April 2024",
+            "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+         },
+         "2":
+         {
+            "filterId": "uuid",
+            "name": "Over 85 years",
+            "estSize": 1442553,
+            "refreshDate": "4 March 2024",
+            "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+         },
+         "3":
+         {
+            "filterId": "uuid",
+            "name": "Over 5 years",
+            "estSize": 34444986,
+            "refreshDate": "14 May 2024",
+            "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+         },
+         "4":
+         {
+            "filterId": "uuid",
+            "name": "All Integrated Care Boards excluding London",
+            "estSize": 21542825,
+            "refreshDate": "14 May 2024",
+            "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+         },
+         "5":
+         {
+            "filterId": "uuid",
+            "name": "No record of vaccine given",
+            "estSize": 5364262,
+            "Est. date": "14 May 2024",
+            "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+         }
+      }
+      %}
+
+
+      {% for item in data['commonFilters'] %}
+      {% endfor %}
+
+   {% set loader = [] %}
+
+   {% if data['commonFilters'].length > 0 %}
+   {% set loader = (loader.push(data['commonFilters']), loader) %}
+
+   {% endif %}
+
+
+
+   {% set testRay = [] %}
+   {% for key, value in filters %}
+   {% for thing in loader %}
+   {% if thing == value.name  %}
+
+   {% else %}
+   {% endif %}
+   {% endfor %}
+   {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+   <form action="/goToTL" method="post">
+
+   <div class="nhsuk-grid-row">
+     <div class="nhsuk-grid-column-two-thirds">
+       <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+       <h1>
+         Selected filters and suppressions
+       </h1>
+
+   <p class="nhsuk-body">These are the selected filters for the campaign.</p>
+
+   {% include './foundations/cohortTable.html' %}
+   {% include './foundations/suppressTable.html' %}
+
+
+   <dl class="nhsuk-summary-list">
+
+      {% for key, value in filters %}
+    {% for item in data['commonFilters'] %}
+    {% if item == value.name  %}
+    <div class="nhsuk-summary-list__row">
+
+      <dt class="nhsuk-summary-list__key">
+         Filter
+      </dt>
+
+      <dd class="nhsuk-summary-list__value">{{value.name}}<BR>Est. {{value.estSize | thouCommaNum}}
+      <dd class="nhsuk-summary-list__actions">
+         <a href="select-cohorts?repickCohorts=true">
+           Update<span class="nhsuk-u-visually-hidden"> filters</span>
+         </a>
+      </dd>
+
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+
+   </dl>
+
+
+
+       {{ button({
+         text: "Save and continue"
+       }) }}
+       </form>
+     </div>
+   </div>
+
+   {% endblock %}

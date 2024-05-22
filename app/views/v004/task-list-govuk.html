@@ -1,0 +1,297 @@
+{% set pagetitle ="Task list" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-quarters">
+
+    <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">{{ data['campaign-target']}} {{ data['campaign-type']|lower}}</span>
+    <h1 class="nhsuk-heading-xl">{{ data['name'] }}
+
+      {% if data['fromDate']|length > 0 %}
+      <span class="nhsuk-body-m nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
+      {% else %}
+      {% endif %}
+
+    </h1>
+
+
+    <style>
+
+
+      .govuk-tag {
+        display: inline-block;
+        margin-top: -2px;
+        margin-bottom: -3px;
+        padding-top: 2px;
+        padding-right: 8px;
+        padding-bottom: 3px;
+        padding-left: 8px;
+        text-decoration: none;
+        overflow-wrap: break-word;
+        font-weight: bold;
+        font-size:17px;
+        font-weight:normal;
+      }
+
+      .govuk-tag--gris {
+        background:dimgrey;
+      }
+
+      .govuk-tag--grey {
+  background:#f0f4f5;
+}
+
+      .govuk-task-list {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding: 0;
+        list-style-type: none;
+      }
+
+      .govuk-task-list__item {
+        display: table;
+        position: relative;
+        width: 100%;
+        margin-bottom: 0;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-bottom: 0.5px solid lightgrey;
+        font-size:17px;
+      }
+
+      .govuk-task-list__item:first-child {
+        border-top: 0.5px solid lightgrey;
+      }
+
+      .govuk-task-list__item--with-link:hover {
+        background-color:#d8dde0;
+        border-bottom: 1px solid lightgrey;
+      }
+
+      .govuk-task-list__name-and-hint {
+        display: table-cell;
+        vertical-align: top;
+
+      }
+
+      .govuk-task-list__status {
+        display: table-cell;
+        float:right;
+        text-align: right;
+        padding-right:5px;
+        vertical-align: top;
+      }
+
+      .govuk-task-list__link::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .govuk-task-list__hint {
+        margin-top: 5px;
+      }
+
+      .nhsuk-body {
+        font-size:17px;
+        margin-top:3px;
+        margin-bottom:2px;
+
+      }
+
+
+
+    </style>
+
+
+
+  <h2 class="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Campaign admin</h2>
+    <ul class="govuk-task-list">
+      <li class="govuk-task-list__item govuk-task-list__item--with-link">
+        <div class="govuk-task-list__name-and-hint">
+          <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="#" aria-describedby="company-details-1-status">
+            Update campaign name, start and end dates
+
+
+
+          </a>
+        </div>
+        <div class="govuk-task-list__status" id="company-details-2-status">
+          <strong class="govuk-tag">
+            Optional
+          </strong>
+        </div>
+
+
+
+      </li>
+      <li class="govuk-task-list__item govuk-task-list__item--with-link">
+        <div class="govuk-task-list__name-and-hint">
+          <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="#" aria-describedby="company-details-2-status">
+            Change campaign type and target
+          </a>
+        </div>
+        <div class="govuk-task-list__status" id="company-details-2-status">
+          <strong class="govuk-tag">
+            Optional
+          </strong>
+        </div>
+      </li>
+      </ul>
+
+
+      {% set cohortsArray = [] %}
+
+      {% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+      {% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+      {% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+      {% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+      {% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+      {% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+{% macro newIterationTasklist(title="",count=" ") %}
+<h2 style=" background:white" class="nhsuk-heading-xs nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-0">{{title}} #{{ count |int }}</h2>
+{% endmacro %}
+
+{% macro newHeading(title="") %}
+<h2 style="border-bottom: 1px solid blue; background:white;" class="nhsuk-heading-xs nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-0">{{title}}</h2>
+{% endmacro %}
+
+{% macro taskListItem(title="'title'", link='#', colour='', status='') %}
+  <li style="background:white;" class="govuk-task-list__item  govuk-task-list__item--with-link govuk-task-list__item:first-child">
+    <div class="govuk-task-list__name-and-hint">
+      <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="{{link}}" aria-describedby="company-details-2-status">
+        {{title}}
+      </a>
+    </div>
+    <div class="govuk-task-list__status" id="company-details-2-status">
+      <strong class="govuk-tag nhsuk-tag--{{colour}}">
+        {{status}}
+      </strong>
+    </div>
+  </li>
+{% endmacro %}
+
+{% macro taskListContent(title="'title'") %}
+  <li style="background:white;border:0;padding-bottom:-8px;line-height:15px;margin-left:15px" class="govuk-task-list__item">
+    <div class="govuk-task-list__name-and-hint">
+      {{title}}
+    </div>
+  </li>
+{% endmacro %}
+
+
+    {% set filtersListArray = [] %}
+
+    {% if (data['commonFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['commonFilters']) %} {% endif %}
+    {% if (data['ageFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['ageFilters']) %} {% endif %}
+    {% if (data['locationFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['locationFilters']) %} {% endif %}
+    {% if (data['allFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['allFilters']) %} {% endif %}
+
+
+
+  {{ newIterationTasklist('Iteration ','1')}}
+
+  <ul class="govuk-task-list">
+
+  {% if data['selectCohorts'] !== 'done' %}
+  {{ taskListItem(title="Select your campaign cohorts",link="select-cohorts",colour='blue',status="Not started") }}
+  {% else %}
+
+
+  <!-- {{ newHeading('Selected cohorts')}} -->
+  {{ taskListItem(title="Edit selected cohorts",link="select-cohorts",colour='', status="Optional") }}
+  <p class="govuk-task-list__name-and-hint nhsuk-body" style="background:white">Information about the cohort, sizing etc from Foundry</p>
+
+
+
+    {% for items in cohortsArray|default('COVID-19 vaccination for people aged 75 to 115 years old') %}
+
+    {{ taskListContent(title=items | truncate(75))|default('COVID-19 vaccination for people aged 75 to 115 years old') }}
+    {% endfor %}
+
+</ul>
+<ul class="govuk-task-list">
+
+    {% if data['filters'] !== 'done'  %}
+    {{ taskListItem(title="Apply filters and suppressions to your cohorts",link="add-filter-alt",colour='blue',status="Not started") }}
+    {% else %}
+    {{ taskListItem(title="Edit your filters and suppressions",link="add-filter-alt",status="Optional") }}
+
+    {% for items in filtersListArray %}
+
+
+    {{ taskListContent(title=items | truncate(75)) }}
+
+
+    {% endfor %}
+
+    {% if data['suppCollect'].length > 0 %}
+
+    {% for items in data['suppCollect'] %}
+
+
+    {{ taskListContent(title=items | truncate(75)) }}
+
+    {% endfor %}
+    {% endif %}
+
+  </ul>
+
+
+
+
+    <ul class="govuk-task-list">
+
+    {{ taskListItem(title="Create a new iteration",link="#",status="Optional") }}
+
+
+    {% endif %}
+
+  {% endif %}
+
+  <!-- {{ taskListItem(title="Add filters",link="#",status="Cannot start") }} -->
+
+</ul>
+
+
+
+
+
+</div>
+
+
+  </div>
+
+
+<script>
+  function showDiv(div1) {
+    document.getElementById(div1).style.display = 'block';
+  }
+
+  function hideDiv(div1) {
+    document.getElementById(div1).style.display = 'none';
+  }
+</script>
+
+{% endblock %}

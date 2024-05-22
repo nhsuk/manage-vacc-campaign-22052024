@@ -1,0 +1,119 @@
+{% set pagetitle ="Timeline" %}
+{% set versionNumber ="003" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+  .dwp-timeline__events {
+    padding: 0;
+    list-style-type: none;
+    border-left: 3px solid #1d70b8;
+
+
+
+  }
+  .dwp-timeline__events--entry {
+    position: relative;
+    top: -10px;
+    margin: 32px 0;
+    padding-left: 18px;
+
+  }
+  .dwp-timeline__events--entry::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: -1px;
+    width: 11px;
+    height: 3px;
+    background-color: #1d70b8;
+
+  }
+
+.spacer {
+  padding-bottom:5px;
+  margin-top:-5px;
+  margin-bottom:-5px;
+
+      font-size:17px;
+}
+
+.headspacer {
+  padding-bottom:5px;
+  margin-top:-5px;
+  margin-bottom:-5px;
+  font-size:19px;
+}
+
+</style>
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+      {% set cohortsArray = [] %}
+
+      {% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+      {% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+      {% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+      {% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+      {% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+      {% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+
+
+
+
+<h1 class="nhsuk-heading-l">Timeline DWP</h1>
+
+<div class="dwp-timeline">
+<h1 class="nhsuk-heading-m">Appointments</h1>
+<ol class="dwp-timeline__events nhsuk-list">
+{% for items in cohortsArray %}
+{{ items | truncate(75) }}
+{% if cohortsArray.length > 0 %}
+{% endif %}
+{% endfor %}
+
+<li class="dwp-timeline__events--entry spacer">
+  <h2 class="nhsuk-heading-s headspacer">Accepted</h2>
+  <p class="spacer">by John Smith</p>
+  <p class="spacer">11 Aug 2021</p>
+</li>
+<li class="dwp-timeline__events--entry">
+  <h2 class="nhsuk-heading-s headspacer">Declined</h2>
+  <p class="nhsuk-body-s spacer">by John Smith</p>
+  <p class="nhsuk-body-s spacer">10 Aug 2021</p>
+</li>
+</ol>
+</div>
+
+
+</div>
+
+
+
+    </div>
+
+
+{% endblock %}

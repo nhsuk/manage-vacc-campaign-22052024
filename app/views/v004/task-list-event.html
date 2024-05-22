@@ -1,0 +1,273 @@
+{% set pagetitle ="Task list" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+.lines {
+  padding:7px;
+  margin-top:2px;
+  margin-bottom:2px;
+  border-top:0.5px solid lightgrey;
+}
+
+  .linesLast {
+    padding:7px;
+    margin-top:2px;
+    margin-bottom:2px;
+    border-top:0.5px solid lightgrey;
+    border-bottom:0.5px solid lightgrey;
+    font-size:17px;
+
+  }
+.tagPos {
+  position:relative;
+  right:0;
+  float:right;
+  margin-top:0px;
+  border:0;
+  font-size:17px;
+
+}
+
+.progress {
+  float:right;
+  font-size:17px;
+
+  margin-top:4px;
+  background:#E5EEF7;
+  padding-top:1px;
+  padding-bottom:1px;
+    padding-left:10px;
+  padding-right:10px;
+
+}
+
+.notyet {
+  float:right;
+  margin-top:4px;
+  background:#CCDFF1;
+  padding-top:1px;
+  padding-bottom:1px;
+    padding-left:10px;
+  padding-right:10px;
+
+  font-size:17px;
+
+
+}
+
+.completed {
+  float:right;
+  margin-top:4px;
+  padding-top:1px;
+  padding-bottom:1px;
+    padding-left:10px;
+  padding-right:10px;
+  font-size:17px;
+
+}
+
+
+
+.cannot {
+  float:right;
+  font-size:17px;
+  margin-top:4px;
+  background:#CCDFF1;
+  padding-top:1px;
+  padding-bottom:1px;
+    padding-left:10px;
+  padding-right:10px;
+}
+
+
+.clean-line {
+padding-top:2px;
+padding-bottom:2px;
+border-top:0.5px solid lightgrey;
+font-size:17px;
+
+
+}
+
+.clean-line-last {
+  padding-top:2px;
+  padding-bottom:10px;
+  font-size:17px;
+
+border-top:0.5px solid lightgrey;
+border-bottom:0.5px solid lightgrey;
+
+
+
+}
+
+.hint {
+  padding-top:5px;
+  padding-bottom:10px;
+  font-size:15px;
+
+
+
+
+}
+
+}
+
+</style>
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+
+
+
+
+      <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span>
+<h1 class="nhsuk-heading-xl">{{ data['name']|default("Covid-19 Spring 2024 Booster") }}
+
+  {% if data['fromDate']|length > 0 %}
+        <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
+  {% else %}
+                <!-- <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span> -->
+  {% endif %}
+
+</h1>
+</div>
+  <div class="nhsuk-grid-column-two-thirds">
+<p class="nhsuk-body">Create or update the campaign information.</p>
+
+<h2 class="nhsuk-heading-xs nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Campaign admin</h2>
+<ul class="nhsuk-list">
+  <li class="clean-line"><a class="nhsuk-link nhsuk-link--no-visited-state" href="name?editName=true" aria-describedby=" campaign name">Campaign name</a>
+    <span class="completed">Completed</span>
+</li>
+
+
+  <li class="clean-line"><a class="nhsuk-link nhsuk-link--no-visited-state" href="dates?editDates=true" aria-describedby=" campaign dates">Campaign dates</a>
+    {% if (data['fromDate']|length > 0) and (data['toDate']|length > 0) %}
+    <span class="completed">Completed</span>
+{% elif (data['fromDate']|length > 0)  %}
+      <span class="progress">In progress</span>
+    {% else %}
+    <span class="notyet">Not started</span>
+    {% endif %}
+
+  <li class="clean-line"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" budget status">Campaign budget status</a>
+    <span class="notyet">Not started</span>
+</li>
+
+<li class="clean-line-last"><a class="nhsuk-link nhsuk-link--no-visited-state" href="#" aria-describedby=" Assign team roles">Assign a manager, approver and reviewer</a>
+  <span class="notyet">Not started</span>
+
+</li>
+
+
+<h2 class="nhsuk-heading-xs nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Target cohorts</h2>
+
+<li class="clean-line"><a class="nhsuk-link nhsuk-link nhsuk-link--no-visited-state" href="select-cohorts">Select campaign cohorts</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<li class="clean-line"><a class="nhsuk-link nhsuk-link nhsuk-link--no-visited-state" href="select-cohorts">Select campaign cohorts</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+
+<li class="clean-line-last"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" budget status">Apply constraints to cohort selection</a>
+  <span class="notyet">Not started</span>
+
+</li>
+
+
+
+
+<h2 class="nhsuk-heading-xs nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Define rhythm of sending invites and reminders</h2>
+<li class="clean-line-last"><a class="nhsuk-link nhsuk-link nhsuk-link--no-visited-state" href="#">Choose the steps required for campaign style</a>
+<span class="notyet">Not started</span>
+</li>
+
+
+<h2 class="nhsuk-heading-xs nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Create and manage campaign assets</h2>
+<li class="clean-line"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" Manage campaign assets">Select languages and accessible formats required</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+
+<li class="clean-line"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" Manage campaign assets">Edit / commission campaign content</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<li class="clean-line-last"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" Manage campaign assets">Obtain sign off for campaign assets</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<h2 class="nhsuk-heading-xs nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Build schedule</h2>
+<li class="clean-line"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" Supply, workforce, booking slots">Consider impact on supply, workforce and capacity</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+<li class="clean-line-last"><a class="nhsuk-link nhsuk-link nhsuk-link--no-visited-state" href="#">Package up invitations and with dates for campaign run</a>
+<span class="cannot">Cannot start</span>
+</li>
+
+</ul>
+
+
+
+
+
+
+</div>
+
+
+
+    </div>
+
+
+{% endblock %}

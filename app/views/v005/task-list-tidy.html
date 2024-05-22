@@ -1,0 +1,300 @@
+{% set pagetitle ="Task list" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+.lines {
+  padding:7px;
+  margin-top:2px;
+  margin-bottom:2px;
+  border-top:0.5px solid lightgrey;
+}
+
+  .linesLast {
+    padding:7px;
+    margin-top:2px;
+    margin-bottom:2px;
+    border-top:0.5px solid lightgrey;
+    border-bottom:0.5px solid lightgrey;
+  }
+.tagPos {
+  position:relative;
+  right:0;
+  float:right;
+  margin-top:0px;
+  border:0;
+
+}
+
+.progress {
+  float:right;
+  margin-top:2px;
+  background:#E5EEF7;
+  padding-top:2px;
+  padding-bottom:2px;
+  font-size:17px;
+  padding-left:8px;
+  padding-right:8px;
+
+}
+
+.notyet {
+  float:right;
+  margin-top:2px;
+  background:#CCDFF1;
+  margin-top:2px;
+  font-size:17px;
+    padding-top:2px;
+    padding-bottom:2px;
+  padding-left:5px;
+  padding-right:5px;
+}
+
+.completed {
+  float:right;
+  font-size:17px;
+}
+
+
+
+.cannot {
+  float:right;
+  font-size:17px;
+}
+
+
+}
+
+</style>
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+
+      {%- from "govuk/components/tag/macro.njk" import govukTag -%}
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th class="govuk-table__header" scope="col"> Name of user </th>
+            <th class="govuk-table__header" scope="col"> Status </th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              Rachel Silver
+            </td>
+            <td class="govuk-table__cell">
+              {{govukTag({
+                text: "Inactive",
+                classes: "govuk-tag--grey"
+              })}}
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              Jesse Smith
+            </td>
+            <td class="govuk-table__cell">
+              {{govukTag({
+                text: "Inactive",
+                classes: "govuk-tag--grey"
+              })}}
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              Joshua Wessel
+            </td>
+            <td class="govuk-table__cell">
+              {{govukTag({
+                text: "Active"
+              })}}
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              Rachael Pepper
+            </td>
+            <td class="govuk-table__cell">
+              {{govukTag({
+                text: "Active"
+              })}}
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              Stuart Say
+            </td>
+            <td class="govuk-table__cell">
+              {{govukTag({
+                text: "Inactive",
+                classes: "govuk-tag--grey"
+              })}}
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              Laura Frith
+            </td>
+            <td class="govuk-table__cell">
+              {{govukTag({
+                text: "Active"
+              })}}
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              Tim Harvey
+            </td>
+            <td class="govuk-table__cell">
+              {{govukTag({
+                text: "Inactive",
+                classes: "govuk-tag--grey"
+              })}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span>
+<h1 class="nhsuk-heading-xl">{{ data['name']|default("Covid-19 Spring 2024 Booster") }}
+
+  {% if data['fromDate']|length > 0 %}
+        <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
+  {% else %}
+                <!-- <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span> -->
+  {% endif %}
+
+</h1>
+<p class="nhsuk-body">Create or update the campaign information.</p>
+
+
+<ul class="nhsuk-list">
+</div>
+  <div class="nhsuk-grid-column-two-thirds">
+
+    <h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Campaign admin details</h2>
+<li class="lines"><a class="nhsuk-link" href="name?editName=true">Campaign name</a>
+<span class="completed">Completed</span>
+</li>
+
+
+
+<li class="lines"><a class="nhsuk-link" href="dates?editDates=true">Campaign dates</a>
+  {% if data['fromDate']|length > 0 %}
+<span class="completed">Completed</span>
+  {% else %}
+  <span class="notyet">Not started</span>
+  {% endif %}
+</li>
+
+
+
+<li class="lines"><a class="nhsuk-link" href="#">Upload campaign budget</a>
+  {% if data['fromDate']|length > 0 %}
+<span class="completed">Completed</span>
+  {% else %}
+  <span class="notyet">Not started</span>
+  {% endif %}
+</li>
+
+<h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Build campaign team</h2>
+
+<li class="lines"><a class="nhsuk-link" href="#">Assign a manager, approver and reviewer</a>
+<span class="progress">In progress</span>
+</li>
+
+<h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Target campaign cohorts</h2>
+
+
+
+<li class="lines"><a class="nhsuk-link" href="select-cohorts">Commission new campaign cohorts</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<li class="lines"><a class="nhsuk-link" href="select-cohorts">Select campaign cohorts</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<li class="lines"><a class="nhsuk-link" href="select-cohorts">Estimate size of campaign</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<li class="lines"><a class="nhsuk-link" href="#">Apply common constraints to cohort selection</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Define strategy for targetted communications</h2>
+<li class="lines"><a class="nhsuk-link" href="#">Identify campaign stages and contact style</a>
+<span class="notyet">Not started</span>
+</li>
+<li class="lines"><a class="nhsuk-link" href="#">Set number of invitations and dates for campaign run</a>
+<span class="notyet">Not started</span>
+</li>
+
+
+<h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Manage campaign assets</h2>
+
+<li class="lines"><a class="nhsuk-link" href="#">Assign campaign asset porduction</a>
+<span class="notyet">Not started</span>
+</li>
+
+<li class="lines"><a class="nhsuk-link" href="#">Review / approve campaign assets</a>
+<span class="notyet">Not started</span>
+</li>
+
+<li class="lines"><a class="nhsuk-link" href="#">Manage language translations and accessible media</a>
+<span class="notyet">Not started</span>
+</li>
+<li class="lines"><a class="nhsuk-link" href="#">Perform quality review</a>
+<span class="notyet">Not started</span>
+</li>
+
+
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

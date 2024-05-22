@@ -1,0 +1,281 @@
+{% set pagetitle ="Select Cohorts" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+      <h1 class="nhsuk-heading-xl">Select campaign cohorts</h1>
+
+<!-- {{ data['repickCohorts']}} -->
+
+{% set allCohortList = ["COVID-19 vaccination for people aged 75 to 115 years old","COVID-19 vaccination for people aged 6 months to 74 years old with a weakened immune system","COVID-19 vaccination for people who live in a care home for older adults","COVID-19 65+ Autumn Winter 2023","COVID-19 12+ Severely Immunosuppressed","COVID-19 5-11 Severely Immunosuppressed","COVID-19 Under16 Asplenia","COVID-19 Under16 Chronic Heart Conditions","COVID-19 Under16 Chronic Kidney Liver Digestive","COVID-19 Under 16 Chronic neurological Disease","COVID-19 Under 16 Chronic respiratory Disease","COVID-19 Under 16 Endocrine Disorders","COVID-19 Under 16 Immunosuppression","COVID-19 Under 16 Pregnancy","COVID-19 Under 16 Serious Genetic Abnormalities","COVID-19 16+ Asplenia","COVID-19 16+ Chronic Heart and Vascular Disease","COVID-19 16+ Chronic Kidney Disease","COVID-19 16+ Chronic Liver Disease","COVID-19 16+ Chronic Neurological Disease","COVID-19 16+ Chronic Respiratory Disease","COVID-19 16+ Diabetes and Endocrine Disorders","COVID-19 16+ Immunosuppression","COVID-19 16+ Morbid Obesity","COVID-19 16+ Pregnant Women","COVID-19 16+ Severe Mental Illness","Flu 2-3 Autumn Winter 2023","Flu 4-16 Autumn Winter 2023","Flu 65+ Autumn Winter 2023","Flu Chronic Respiratory Disease","Flu Chronic Heart Disease","Flu Chronic Kidney Disease","Flu Chronic Liver Disease","Flu Chronic Neurological Disease","Flu Coded Eligibility","Flu Diabetes","Flu Immunosuppression","Flu Morbid Obesity"] %}
+
+
+{% set covidCohortList = ["75 to 115 years old seasonal spring 2024 vaccination","65+ Autumn Winter 2023","12+ Severely Immunosuppressed","5-11 Severely Immunosuppressed","Under 16 Asplenia","Under 16 Chronic Heart Conditions","Under 16 Chronic Kidney Liver Digestive","Under 16 Chronic neurological Disease","Under 16 Chronic respiratory Disease","Under 16 Endocrine Disorders","Under 16 Immunosuppression","Under 16 Pregnancy","Under 16 Serious Genetic Abnormalities","16+ Asplenia","16+ Chronic Heart and Vascular Disease","16+ Chronic Kidney Disease","16+ Chronic Liver Disease","16+ Chronic Neurological Disease","16+ Chronic Respiratory Disease","16+ Diabetes and Endocrine Disorders","16+ Immunosuppression","16+ Morbid Obesity","16+ Pregnant Women","16+ Severe Mental Illness"] %}
+
+{% set fluCohortList = ["2 to 3 years old autumn winter 2023","4 to 16 years old autumn winter 2023","65+ Autumn Winter 2023","Chronic Respiratory Disease","Chronic Heart Disease","Chronic Kidney Disease","Chronic Liver Disease","Chronic Neurological Disease","Coded Eligibility","Diabetes","Immunosuppression","Morbid Obesity"] %}
+
+{% set under16CohortList = ["COVID-19 12+ Severely Immunosuppressed","COVID-19 5-11 Severely Immunosuppressed","COVID-19 Under16 Asplenia","COVID-19 Under16 Chronic Heart Conditions","COVID-19 Under16 Chronic Kidney Liver Digestive","COVID-19 Under 16 Chronic neurological Disease","COVID-19 Under 16 Chronic respiratory Disease","COVID-19 Under 16 Endocrine Disorders","COVID-19 Under 16 Immunosuppression","COVID-19 Under 16 Pregnancy","COVID-19 Under 16 Serious Genetic Abnormalities"] %}
+<!-- {% set immunoCohortList = ["COVID-19 12+ Severely Immunosuppressed","COVID-19 5-11 Severely Immunosuppressed","COVID-19 Under 16 Immunosuppression","COVID-19 16+ Immunosuppression","Flu Immunosuppression"] %} -->
+
+{% set newCohortList = [["COVID-19 vaccination for people aged 75 to 115 years old","15 April 2024"],["COVID-19 vaccination for people aged 6 months to 74 years old with a weakened immune system","15 April 2024"],["COVID-19 vaccination for people who live in a care home for older adults","15 April 2024"]] %}
+
+<form action="summary-cohorts?repickCohorts=false" method="post">
+
+
+<h2 class="nhsuk-heading-l">Recently added cohorts [{{ newCohortList.length }}]</h2>
+
+      {% for items,date in newCohortList %}
+
+      {{ checkboxes({
+          "idPrefix": "newCohorts",
+          "name": "newCohorts",
+          "fieldset": {
+            "legend": {
+              "text": "",
+              "classes": "nhsuk-fieldset__legend--l",
+              isPageHeading: false
+            }
+          },
+          "items": [
+            {
+              "value": items,
+              "text": items,
+              "hint": {
+                "text": date
+              },
+              checked: checked('newCohorts',items)
+            }
+          ]
+        }) }}
+        {% endfor %}
+
+
+
+
+{% set allHTML %}
+
+
+      {% for items in allCohortList %}
+
+      {{ checkboxes({
+          "idPrefix": "allCohorts",
+          "name": "allCohorts",
+          "fieldset": {
+            "legend": {
+              "text": "",
+              "classes": "nhsuk-fieldset__legend--l",
+              isPageHeading: false
+            }
+          },
+          "items": [
+            {
+              "value": items,
+              "text": items,
+              checked: checked('allCohorts',items)
+            }
+          ]
+        }) }}
+        {% endfor %}
+
+{% endset %}
+
+{% set covidHTML %}
+
+
+{% for items in covidCohortList %}
+
+{{ checkboxes({
+    "idPrefix": "covidCohorts",
+    "name": "covidCohorts",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+      {
+        "value": "COVID-19 "+items,
+        "text": items,
+        checked: checked('covidCohorts',"COVID-19 "+items)
+      }
+    ]
+  }) }}
+  {% endfor %}
+
+{% endset %}
+
+{% set fluHTML %}
+
+
+{% for items in fluCohortList %}
+
+{{ checkboxes({
+    "idPrefix": "fluCohorts",
+    "name": "fluCohorts",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+      {
+        "value": "Flu "+items,
+        "text": items,
+        checked: checked('fluCohorts',"Flu "+items)
+      }
+    ]
+  }) }}
+  {% endfor %}
+
+{% endset %}
+
+{% set under16HTML %}
+
+
+{% for items in under16CohortList %}
+
+{{ checkboxes({
+    "idPrefix": "under16Cohorts",
+    "name": "under16Cohorts",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+      {
+        "value": items,
+        "text": items,
+        checked: checked('under16Cohorts',items)
+      }
+    ]
+  }) }}
+  {% endfor %}
+
+{% endset %}
+
+{% set immunoHTML %}
+
+        {% for things in immunoCohortList %}
+
+        {{ checkboxes({
+            "idPrefix": "immunoCohorts",
+            "name": "immunoCohorts",
+            "fieldset": {
+              "legend": {
+                "text": "",
+                "classes": "nhsuk-fieldset__legend--l",
+                isPageHeading: false
+              }
+            },
+            "items": [
+              {
+                "value": things,
+                "text": things,
+                checked: checked('immunoCohorts',things)
+              }
+            ]
+          }) }}
+          {% endfor %}
+{% endset %}
+
+
+  {% from 'details/macro.njk' import details %}
+
+  {% if data['covidCohorts'].length > 0 %}
+  {% set covidOpen = 'true' %}
+  {% endif %}
+
+  {% if data['under16Cohorts'].length > 0 %}
+  {% set u16Open = 'true' %}
+  {% endif %}
+
+  {% if data['immunoCohorts'].length > 0 %}
+  {% set immunoOpen = 'true' %}
+  {% endif %}
+
+  {% if data['fluCohorts'].length > 0 %}
+  {% set fluOpen = 'true' %}
+  {% endif %}
+
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": covidOpen,
+    "text": "COVID-19 vaccinations ["+covidCohortList.length+" cohorts]",
+    "HTML": covidHTML
+  }) }}
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": fluOpen,
+    "text": "Flu vaccinations ["+fluCohortList.length+" cohorts]",
+    "HTML": fluHTML
+  }) }}
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": u16Open,
+    "text": "Vaccinations for children under 16 years old ["+under16CohortList.length+" cohorts]",
+    "HTML": under16HTML
+  }) }}
+
+
+
+  {% from 'details/macro.njk' import details %}
+
+  <!-- {{ details({
+    "classes": "nhsuk-expander",
+    "open": immunoOpen,
+    "text": "Immunosuppression ["+immunoCohortList.length+" cohorts]",
+    "HTML": immunoHTML
+  }) }} -->
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "text": "All cohorts ["+allCohortList.length+"]",
+    "HTML": allHTML
+  }) }}
+
+  {{ button({
+    text: "Save and continue"
+  }) }}
+
+
+<div style="margin-top:-30px">
+<HR>
+  <p class="nhsuk-body-m nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-3" style="margin-top:-30px">The cohort I need isn't here, what should I do?<BR><a href="" class="nhsuk-link nhsuk-link--no-visited-state">Request a new cohort</a></p>
+</div>
+
+</form>
+
+    </div>
+  </div>
+
+{% endblock %}

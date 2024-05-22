@@ -1,0 +1,100 @@
+<!-- Use this page as the index for your project -->
+
+<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+
+<!-- Extends the layout from /views/layout.html -->
+{% extends 'layout.html' %}
+
+
+
+{% block header %}
+{{ header({
+  "service": {
+    "name": "Vaccine Select and Invite Manager"
+  },
+  "showNav": "false",
+  "showSearch": "false",
+  "searchAction": " "
+  })
+}}
+{% endblock %}
+{% set versionNumber ="001" %}
+
+
+{% block pageTitle %}
+    {{serviceName}}
+{% endblock %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block outerContent %}
+{% endblock %}
+{% block content %}
+
+{% set latestVersion = 'v001' %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+      <span class="nhsuk-caption-l nhsuk-caption--top">Version {{latestVersion}}</span>
+
+
+
+      <h1 class="nhsuk-heading-xl">Prototype framework</h1>
+
+      <h2 class="nhsuk-heading-l">Pages</h2>
+
+      <ul class="nhsuk-list--bullet">
+          <li><a href="home">Home</a></li>
+          <li><a href="dates">Dates</a></li>
+          <li><a href="my-campaign-tasks">My campaign tasks</a></li>
+          <li><a href="name-dates">Name-dates</a></li>
+          <li><a href="select-cohorts">Select cohorts</a></li>
+          <li><a href="name">Name</a></li>
+          <li><a href="sign-in">Sign-in</a></li>
+          <li><a href="summary-cohorts">Summary cohorts</a></li>
+          <li><a href="summary">Summary</a></li>
+          <li><a href="task-list">Task list</a></li>
+          <li><a href="task-1">Task 1</a></li>
+      </ul>
+
+      {% if data|length == 0 %}
+
+      {% from 'warning-callout/macro.njk' import warningCallout %}
+
+      {{ warningCallout({
+        "heading": "Prototype session data",
+        "HTML": "<p>There is an absence of any session data stored. Sorry.</p>"
+      }) }}
+
+      {% else %}
+      {% for key, item in data %}
+        <dl class="nhsuk-summary-list">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">
+             {{ key }}
+            </dt>
+            <dd class="nhsuk-summary-list__value">
+
+
+              <ul class="nhsuk-list">
+                  <li>{{item}}</li>
+              </ul>
+
+
+            </dd>
+
+          </div>
+
+        </dl>
+        {% endfor %}
+      {% endif %}
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,116 @@
+{% set pagetitle ="Create a new campaign - Select and Invite" %}
+{% set versionNumber ="002" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+{% if data['editDetails'] == 'true' %}
+{% set viewDetails = 'Update an existing campaign' %}
+{% else %}
+{% set viewDetails = 'Create a new campaign' %}
+{% endif %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+      <h1 class="nhsuk-heading-xl">{{viewDetails}}</h1>
+
+      <h2 class="nhsuk-heading-l">
+Create a campaign name
+</h2>
+
+<p class="nhsuk-body">Choose a name that describes the campaign and is easy to understand.</p>
+
+
+      <!-- <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+
+
+      <!-- {% if data['change'] == 'name' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'dates' %}
+      {% endif %} -->
+
+
+
+      <form action="name-dates-finished" method="post">
+
+
+        {% from 'input/macro.njk' import input %}
+
+        {{ input({
+          "label": {
+            "text": "Campaign name"
+          },
+          "hint": {
+            "text": "eg COVID-19 seasonal spring vaccinations 2024"
+          },
+          "id": "name",
+          "name": "name",
+          "value": data['name']
+        }) }}
+
+<HR>
+        <h2 class="nhsuk-heading-l">
+  Enter the campaign start and end dates</h2>
+
+  <p class="nhsuk-body">The dates you enter won't start or end the campaign. They will be used to make sure the data is available during this period.</p>
+
+
+        <div class="nhsuk-grid-row nhsuk-u-padding-bottom-3">
+
+
+              <div class="nhsuk-grid-column-one-half">
+
+                <label class="nhsuk-label" for="fromDate">Start date</label>
+                <!-- <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}" type="date" placeholder="dd-mm-yyyy" id="fromDate" name="fromDate"> -->
+                <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}" type="date" placeholder="dd-mm-yyyy" id="fromDate" name="fromDate">
+
+
+
+              </div>
+
+              <div class="nhsuk-grid-column-one-half">
+
+                <label class="nhsuk-label" for="toDate">End date</label>
+                <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['toDate']}}" type="date" placeholder="dd-mm-yyyy" id="toDate" name="toDate">
+
+
+
+              </div>
+
+        </div>
+
+
+<div class="nhsuk-u-padding-top-9">
+        {{ button({
+          text: "Save and continue"
+        }) }}
+</div>
+      </form>
+
+
+
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% set pagetitle ="Create a new campaign - Select and Invite" %}
+{% set versionNumber ="001" %}
+
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+{% if data['editDetails'] == 'true' %}
+{% set viewDetails = 'Edit campaign details' %}
+{% else %}
+{% set viewDetails = 'Create a new campaign' %}
+{% endif %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+
+
+      <!-- <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+
+
+      <!-- {% if data['change'] == 'name' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'dates' %}
+      {% endif %} -->
+
+
+
+      <form action="task-list" method="post">
+
+        {% from 'radios/macro.njk' import radios %}
+
+    {{ radios({
+    "idPrefix": "name-dates-status",
+    "name": "name-dates-status",
+    "fieldset": {
+      "legend": {
+        "text": "Have you finished editing these details?",
+        "classes": "nhsuk-fieldset__legend--xl",
+        "isPageHeading": true
+      }
+    },
+    "items": [
+    {
+      "value": "yes",
+      "text": "Yes, mark it as completed",
+      checked: checked("name-dates-status", "yes"),
+      "hint": {
+        "text": "You can return to view and edit the details later on."
+      }
+    },
+      {
+        "value": "no",
+        checked: checked("name-dates-status", "no"),
+        "text": "No, I’ll come back to it later"
+      },
+      {
+        "value": "no",
+        checked: checked("name-dates-status", "no, something else"),
+        "text": "No, I need to do something specific lorem ipsum"
+      }
+    ]
+    }) }}
+
+        {{ button({
+          text: "Continue"
+        }) }}
+      </form>
+
+
+
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

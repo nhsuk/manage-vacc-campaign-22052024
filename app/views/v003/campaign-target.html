@@ -1,0 +1,132 @@
+{% set pagetitle ="Vaccine" %}
+{% set versionNumber ="003" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length > 0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      <h1 class="nhsuk-heading-xl"></h1>
+
+      <form action="#" method="post">
+
+        {% set vaccinationHTML %}
+
+        {{ radios({
+          "idPrefix": "campaign-target",
+          "name": "campaign-target",
+          "fieldset": {
+            "legend": {
+              "text": "Which disease is the target of the campaign?",
+              "classes": "nhsuk-fieldset__legend--m",
+              "isPageHeading": "false"
+            }
+          },
+          "hint": {
+            "text": "Select one option"
+          },
+          "items": [
+            {
+              "value": "COVID-19",
+              "text": "COVID-19",
+              "checked": "checked('campaign-target','COVID-19')"
+            },
+            {
+              "value": "Seasonal Flu",
+              "text": "Seasonal Flu",
+              "checked": "checked('campaign-target','Seasonal Flu')"
+            },
+            {
+              "value": "COVID-19 and Seasonal Flu co-admin",
+              "text": "COVID-19 and Seasonal Flu co-admin",
+              "checked": "checked('campaign-target','COVID-19 and Seasonal Flu co-admin')"
+            }
+          ]
+        }) }}
+        {% endset %}
+
+
+        {% set screeningHTML %}
+
+        {{ radios({
+          "idPrefix": "campaign-target",
+          "name": "campaign-target",
+          "fieldset": {
+            "legend": {
+              "text": "Which disease is the target of the campaign?",
+              "classes": "nhsuk-fieldset__legend--m",
+              "isPageHeading": "false"
+            }
+          },
+          "hint": {
+            "text": "Select one option"
+          },
+          "items": [
+            {
+              "value": "COVID-19",
+              "text": "COVID-19",
+              "checked": "checked('campaign-target','COVID-19')"
+            },
+            {
+              "value": "Seasonal Flu",
+              "text": "Seasonal Flu",
+              "checked": "checked('campaign-target','Seasonal Flu')"
+            },
+            {
+              "value": "COVID-19 and Seasonal Flu co-admin",
+              "text": "COVID-19 and Seasonal Flu co-admin",
+              "checked": "checked('campaign-target','COVID-19 and Seasonal Flu co-admin')"
+            }
+          ]
+        }) }}
+        {% endset %}
+
+
+{% if data['campaign-type'] == "Vaccination" %}
+{{ vaccinationHTML }}
+{% elif data['campaign-type'] == "Screening" %}
+{{ call screeningHTML }}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+        {{ button({
+          text: "Save and continue"
+        }) }}
+      </form>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

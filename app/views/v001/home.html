@@ -1,0 +1,83 @@
+{% set pagetitle ="Home - Select and Invite" %}
+{% set versionNumber ="001" %}
+
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length >0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+
+  <div class="nhsuk-width-container-fluid">
+
+
+    {% block content %}
+  <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+      <div class="nhsuk-grid-row">
+
+
+
+        <div class="nhsuk-grid-column-full">
+
+        <h1>Welcome back {{ data['email-address']|default("name@nhs.net") }}</h1>
+
+        {% from 'card/macro.njk' import card %}
+        {% if data['name']|length >0 %}
+        <ul class="nhsuk-grid-row nhsuk-card-group">
+
+        <li class="nhsuk-grid-column-one-half nhsuk-card-group__item">
+          {{ card({
+            "href": "task-list",
+            "primary": "true",
+            "clickable": "true",
+            "heading": data['name']|default("Covid-19 Spring 2024 Booster"),
+            "headingClasses": "nhsuk-heading-m",
+            "description": "Continue setting up your campaign."
+          }) }}
+        </li>
+</ul>
+    {% endif %}
+
+  <ul class="nhsuk-grid-row nhsuk-card-group">
+    <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        "href": "name",
+        "clickable": "true",
+        "headingLevel": 2,
+        "heading": "Create a new vaccination campaign",
+        "headingClasses": "nhsuk-heading-xs"
+      }) }}
+    </li>
+
+    <!-- <li class="nhsuk-grid-column-one-half nhsuk-card-group__item">
+      {{ card({
+        "href": "#",
+        "clickable": "true",
+        "headingLevel": 2,
+        "heading": "Update an existing vaccination campaign",
+        "headingClasses": "nhsuk-heading-xs"
+      }) }}
+    </li> -->
+
+  </ul>
+
+
+    </div>
+  </main>
+</div>
+
+{% endblock %}
+
+{% from 'card/macro.njk' import card %}
+
+<ul class="nhsuk-grid-row nhsuk-card-group">

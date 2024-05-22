@@ -1,0 +1,126 @@
+{% set pagetitle ="Test page" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-quarters">
+
+
+
+{% set val =
+   {
+      "cohortsList":
+      {
+         "1":
+         {
+            "cohortId": "uuid",
+            "name": "Under 16 Chronic neurological Disease",
+            "estSize": "5782",
+            "refreshDate": "11 April 2024",
+            "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+         },
+         "2":
+         {
+            "cohortId": "uuid",
+            "name": "Age 75+",
+            "estSize": "2820102",
+            "refreshDate": "4 March 2024",
+            "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+         },
+         "3":
+         {
+            "cohortId": "uuid",
+            "name": "Age 75-84",
+            "estSize": "3442325",
+            "refreshDate": "14 May 2024",
+            "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+         },
+         "4":
+         {
+            "cohortId": "uuid",
+            "name": "Immunosuppressed (5-74s)",
+            "estSize": "1149754",
+            "refreshDate": "14 May 2024",
+            "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+         },
+         "5":
+         {
+            "cohortId": "uuid",
+            "name": "16+ Chronic neurological Disease",
+            "estSize": "5782",
+            "refreshDate": "14 May 2024",
+            "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+         },
+         "6":
+         {
+            "cohortId": "uuid",
+            "name": "Age 75+ (London)",
+            "estSize": "720102",
+            "refreshDate": "14 May 2024",
+            "description": "Donec efficitur et ligula ut blandit. Curabitur fringilla molestie dignissim."
+         },
+         "7":
+         {
+            "cohortId": "uuid",
+            "name": "Under 5s",
+            "estSize": "125782",
+            "refreshDate": "14 May 2024",
+            "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+         },
+         "8":
+         {
+            "cohortId": "uuid",
+            "name": "Age 85+",
+            "estSize": "427932",
+            "refreshDate": "17 May 2024",
+            "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+         },
+         "9":
+         {
+            "cohortId": "uuid",
+            "name": "Age 5-74 immunosuppressed",
+            "estSize": "1149754",
+            "refreshDate": "14 May 2024",
+            "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+         },
+         "10":
+         {
+            "cohortId": "uuid",
+            "name": "16+ Serious Genetic Abnormalities",
+            "estSize": "19264",
+            "refreshDate": "21 April 2024",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas ante rutrum, iaculis odio eget, fringilla mauris."
+         }
+      }
+   }
+   %}
+
+{{ val | dump }}
+
+
+{% endblock %}
+//sample JSON Data
+const sampleData = [{
+        "user": {
+            "custom": [{
+                "payload": "{ f_name=user, l_name=name, source=facebook, contact=email }"
+            }]
+        }
+    }];
+
+module.exports = sampleData;

@@ -1,0 +1,345 @@
+{% set pagetitle ="Select Cohorts" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+   "href": "javascript:window.history.back()",
+   "text": "Back",
+   "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<style>
+   input[type="checkbox"]:checked  {
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: 0;
+      background: white;
+      height: 40px;
+      width: 40px;
+      border: 2px solid black;
+      color: black;
+   }
+
+   input[type="checkbox"]:after {
+      content:"";
+      position: absolute;
+      left: 40%;
+      top: 20%;
+      width: 15%;
+      height: 40%;
+      border: 5px solid #000000;
+      border-width: 0 4px 4px 0;
+      transform: rotate(45deg);
+      display: none;
+   }
+
+   input[type="checkbox"]:checked:after {
+      display: block;
+   }
+</style>
+
+<form action="/cohortSummary" method="post">
+
+
+
+   <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-three-quarters">
+         <span style="" class="nhsuk-caption-m">{{data['campaign-target']}} {{data['campaign-type']|lower|replace(" campaign"," ")}}</span>
+         <h1 class="nhsuk-heading-xl">Choose cohorts</h1>
+
+
+         {% set val =
+            {
+               "1":
+               {
+                  "cohortId": "uuid",
+                  "name": "Under 16 Chronic neurological Disease",
+                  "estSize": "5,782",
+                  "refreshDate": "11 April 2024",
+                  "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+               },
+               "2":
+               {
+                  "cohortId": "uuid",
+                  "name": "Age 75+",
+                  "estSize": "2,820,102",
+                  "refreshDate": "4 March 2024",
+                  "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+               },
+               "3":
+               {
+                  "cohortId": "uuid",
+                  "name": "Age 75-84",
+                  "estSize": "3,442,325",
+                  "refreshDate": "14 May 2024",
+                  "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+               },
+               "4":
+               {
+                  "cohortId": "uuid",
+                  "name": "Immunosuppressed (5-74s)",
+                  "estSize": "1,149,754",
+                  "refreshDate": "14 May 2024",
+                  "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+               },
+               "5":
+               {
+                  "cohortId": "uuid",
+                  "name": "16+ Chronic neurological Disease",
+                  "estSize": "5,782",
+                  "refreshDate": "14 May 2024",
+                  "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+               },
+               "6":
+               {
+                  "cohortId": "uuid",
+                  "name": "Age 75+ (London)",
+                  "estSize": "720,102",
+                  "refreshDate": "14 May 2024",
+                  "description": "Donec efficitur et ligula ut blandit. Curabitur fringilla molestie dignissim."
+               },
+               "7":
+               {
+                  "cohortId": "uuid",
+                  "name": "Under 5s",
+                  "estSize": "125,782",
+                  "refreshDate": "14 May 2024",
+                  "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+               },
+               "8":
+               {
+                  "cohortId": "uuid",
+                  "name": "Age 85+",
+                  "estSize": "427,932",
+                  "refreshDate": "17 May 2024",
+                  "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+               },
+               "9":
+               {
+                  "cohortId": "uuid",
+                  "name": "Age 5-74 immunosuppressed",
+                  "estSize": "1,149,754",
+                  "refreshDate": "14 May 2024",
+                  "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+               },
+               "10":
+               {
+                  "cohortId": "uuid",
+                  "name": "16+ Serious Genetic Abnormalities",
+                  "estSize": "19,264",
+                  "refreshDate": "21 April 2024",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas ante rutrum, iaculis odio eget, fringilla mauris."
+               }
+            }
+            %}
+
+
+
+
+            <!-- {{ data['repickCohorts']}} -->
+
+            <div id="cohortName">
+            </div>
+
+<h2 class="nhsuk-heading-l">Recently added cohorts [{{val|length}}]</h2>
+
+
+{% for key, value in val %}
+
+{{ checkboxes({
+   "name": "cohorts",
+   "fieldset": {
+      "legend": {
+         "text": "",
+         "classes": "nhsuk-fieldset__legend--l",
+         isPageHeading: false
+      }
+   },
+   "items": [
+   {
+      "id": value.cohortId | generateUUID,
+      "checked": checked('cohorts',[value.name, value.estSize]),
+      "value": value.name+","+value.estSize,
+      "text": value.name+" [est. "+value.estSize+"]",
+      "hint": {
+         "value": value.estSize,
+         "text": value.description+" ("+value.refreshDate+")"
+      }
+   }
+   ]
+}) }}
+{% endfor %}
+
+
+
+{% set covidHTML %}
+
+
+{% for key, value in val %}
+
+
+{% set sizing = b.recent %}
+
+{{ checkboxes({
+   "name": "cohorts-drop",
+   "fieldset": {
+      "legend": {
+         "text": "",
+         "classes": "nhsuk-fieldset__legend--l",
+         isPageHeading: false
+      }
+   },
+   "items": [
+   {
+      "id": value.cohortId | generateUUID,
+      "checked": checked('cohorts-drop',[value.name, value.estSize]),
+      "value": [value.name+","+value.estSize],
+      "text": value.name+" [est. "+value.estSize+"]",
+      "hint": {
+         "text": value.description+" ("+value.refreshDate+")"
+      }
+   }
+   ]
+}) }}
+
+
+{% endfor %}
+
+{% endset %}
+
+{{ details({
+   "classes": "nhsuk-expander",
+   "open": "true",
+   "text": "All cohorts",
+   "HTML": covidHTML
+}) }}
+
+{{ button({
+   text: "Save and continue"
+}) }}
+</form>
+
+<div style="margin-top:-30px">
+   <HR>
+      <p class="nhsuk-body-m nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-3" style="margin-top:-30px">The cohort I need isn't here, what should I do?<BR><a href="" class="nhsuk-link nhsuk-link--no-visited-state">Request a new cohort</a></p>
+      </div>
+
+
+   </div>
+</div>
+
+<script>
+
+   //    const cohorts = JSON.parse(window.sessionStorage.getItem("cohorts"));
+   //    var cList = Object.values(cohorts.cohortsList);
+   //    var level = cList;
+   //
+   //    const cohortName = document.getElementById("cohortName");
+   //    const cohortLabel = document.getElementById("cohortLabel");
+   //
+   //    function formatNums(num,sep,dec,u) {
+   //     sep=sep||',';
+   //     u=u||'\\d';
+   //     if(typeof num!='string') {
+   //         num=String(num);
+   //         if( dec && dec!='.') num=num.replace('.',dec);
+   //     }
+   //     return num.replace(RegExp('\\'+(dec||'.')+u+'+|'+u+'(?=(?:'+u+'{3})+(?!'+u+'))','g'),function(a) {return a.length==1 ? a+sep : a})
+   // }
+   //
+   //    cohortName.value = cList;
+   //
+   //
+   //    console.log(level.name);
+
+   // for (var delta=0;delta<level.length;delta++){
+
+
+   // var createEl = document.createElement("input");
+   // createEl.setAttribute("class","nhsuk-checkboxes__input");
+   // createEl.type = "checkbox";
+   // console.log(level[delta].name+" [est. "+formatNums(level[delta].estSize)+"]")
+   // createEl.value = level[delta].name+" [est. "+formatNums(level[delta].estSize)+"]";
+   // createEl.appendChild(document.createTextNode(level[delta].name));
+
+   // var label = document.createElement("label");
+   // label.setAttribute("class","nhsuk-body-m");
+   // cohortName.value = level[delta].name;
+   // cohortName.appendChild(createEl)
+   // cohortName.appendChild(document.createTextNode(+" (est. size "+formatNums(level[delta].estSize)+")"));
+   // cohortLabel.appendChild(document.createTextNode(level[delta].description+" ("+level[delta].refreshDate+")"));
+
+
+   // cohortName.appendChild(createEl);
+   //
+   // cohortLabel.appendChild(label)
+   // console.log(formatNums(level[delta].estSize));
+   // cohortList.value = level[delta].name;
+   // console.log(cList[delta].name);
+   // createEl.value = level[delta].name;
+   // createEl.appendChild(document.createTextNode(level[delta].name));
+   // cohortList.appendChild(createEl);
+   // cohortList.appendChild(label);
+   // console.log(createEl);
+   // <!-- } -->
+
+   // createEl.setAttribute("id","cohortName'+delta+'");
+   // createEl.innerHTML = '<input class="nhsuk-checkboxes__input" name="cohortL" type="checkbox" id="cohortName'+delta+'" />< class="nhsuk-checkboxes__input" name="cohortL" type="checkbox" value="">'
+
+   // <label id="cohortLabel" class="nhsuk-label nhsuk-checkboxes__label" for="cohortL-1"> </label> </div>
+
+   // .innerHTML = '<tr>' +
+   //   '<td> <input type="text" id="title'+x+'" /></td>'+
+   //   '<td> <input type="text" id="description'+x+'" /></td></tr>';
+
+   // <div class="nhsuk-checkboxes"> <div class="nhsuk-checkboxes__item"> <input id="cohortName" class="nhsuk-checkboxes__input" name="cohortL" type="checkbox" value=""> <label id="cohortLabel" class="nhsuk-label nhsuk-checkboxes__label" for="cohortL-1"> </label> </div> </div>
+
+
+
+</script>
+
+{% endblock %}
+
+for (var t=0;t<level.length;t++) {
+
+   var hintText = level[t].description;
+
+
+   var label = document.createElement("label");
+   var checkBox = document.createElement("input");
+   var hint = document.createElement("hint");
+   checkBox.type = "checkbox";
+   checkBox.style.cssText = "width: 30px;height: 30px;padding: 0;margin: 0;vertical-align: bottom;position: relative;top: -30px;";
+   label.style.cssText = "display: block;padding-left: 15px;padding-top:30px;text-indent: 40px;";
+   hint.style.cssText = "display: block;padding-left: 55px;";
+   checkBox.value = level[t].title;
+   hint.value = level[t].description;
+   checkBox.setAttribute("id","behaviours-"+t);
+   checkBox.setAttribute("name","behaviours");
+
+   label.appendChild(document.createTextNode(level[t].title));
+
+   hea1.appendChild(label);
+
+   checkBox.value = level[t].title;
+   hea1.appendChild(checkBox);
+   hint.appendChild(document.createTextNode(level[t].description));
+   hea1.appendChild(hint);
+}

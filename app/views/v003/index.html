@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% set versionNumber ="003" %}
+{% block header %}
+
+{% include 'foundations/header-signed-out.html' %}
+
+
+
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      <h1>{{serviceName}}</h1>
+      <p>You can use this service if you:</p>
+      <ul>
+        <li>are inviting people who live in England for vaccinations</li>
+        <li>want to create a new vaccination campaign</li>
+        <li>want to update an existing vaccination campaign</li>
+      </ul>
+
+      <h2>Before you start</h2>
+
+      <p>You will need:</p>
+      <ul>
+        <li>xxxxx</li>
+        <li>xxxxx</li>
+        <li>xxxxx</li>
+      </ul>
+
+      <a class="nhsuk-button" href="sign-in" role="button" draggable="false">Start</a>
+
+
+    </div>
+  </div>
+{% endblock %}

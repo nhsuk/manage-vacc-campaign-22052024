@@ -1,0 +1,702 @@
+{% set pagetitle ="Tabs" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+      #background {
+      width:100%;
+      overflow: hidden;
+      background-color:#FFF;
+      box-shadow: 0 0 5px #888;
+      -moz-box-shadow: 0 0 5px #888;
+      -webkit-box-shadow: 0 0 5px#888;
+      clear:both;
+      }
+
+      body {
+      background-color: #005eb8;
+      margin: 0;
+      padding: 0;
+      }
+
+
+
+
+
+
+
+      
+      #background {
+      width:100%;
+      overflow: hidden;
+      background-color:#000;
+      box-shadow: 0 0 5px #888;
+      -moz-box-shadow: 0 0 5px #888;
+      -webkit-box-shadow: 0 0 5px#888;
+      clear:both;
+      }
+
+      #left {
+      width:50%;
+      padding:5%;
+      float:left;
+      }
+
+      #left p {
+      font-size:1em;
+      }
+
+      #right {
+      width:30%;
+      padding:5%;
+      float:left;
+      }
+
+      p:first-child:first-letter{
+      float: left;
+      color: #ffffff;
+      font-size: 75px;
+      line-height: 60px;
+      padding-top: 4px;
+      padding-right: 8px;
+      padding-left: 3px;
+      }
+
+      footer {
+      color: #ffffff;
+      font-size: .7em;
+      font-weight: normal;
+      margin: 1em 0;
+      padding: 0;
+      float:left;
+      }
+
+h1{
+      color:white;
+
+}
+
+
+</style>
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+
+
+{% if data['campaign-type'].length > 0 %}
+    <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">{{ data['campaign-target']}} {{ data['campaign-type']|lower}}</span>
+{% else %}
+    <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">COVID-19 vaccination campaign</span>
+{% endif %}
+    <h1 class="nhsuk-heading-xl">{{ data['name'] | default("Spring 2024 Covid-19 Booster") }}
+
+      {% if data['fromDate']|length > 0 %}
+      <span class="nhsuk-body-m nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
+      {% else %}
+      <span class="nhsuk-body-l nhsuk-u-padding-top-3">15 April - 26 June 2024</span>
+      {% endif %}
+
+    </h1>
+
+
+      <div class="nhsuk-tabs" data-module="nhsuk-tabs">
+        <h2 class="nhsuk-tabs__title">
+          Contents
+        </h2>
+
+        <ul class="nhsuk-tabs__list">
+
+          <li style="font-color:white;background:#005eb8;margin-left:1px" class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+            <a class="nhsuk-tabs__tab" style="color:white;" href="#group-1">
+              Group 1
+            </a>
+          </li>
+
+          <li style=";margin-left:1px" class="nhsuk-tabs__list-item">
+            <a class="nhsuk-tabs__tab" href="#group-2">
+              Group 2
+            </a>
+          </li>
+
+          <li style=";margin-left:1px" class="nhsuk-tabs__list-item">
+            <a class="nhsuk-tabs__tab" href="#group-3">
+              Group 3
+            </a>
+          </li>
+
+
+
+          <li style=";margin-left:1px" class="nhsuk-tabs__list-item">
+            <a class="nhsuk-tabs__tab" href="#group-4">
+              Group 4
+            </a>
+          </li>
+
+        </ul>
+
+        <div style=";background:#FFFFFF;;position:relative" class="nhsuk-tabs__panel" id="background ">
+
+             <div style="height:120px;position:absolute; left:0;top:0;right:0;background:#005eb8" class="nhsuk-tabs__panel" id="group-1">
+                   <h2 style="margin-top:-10px;border-bottom:0.25px solid white;color:white;" class="nhsuk-heading-l nhsuk-u-padding-top-0 nhsuk-u-padding-bottom-3">Group 1 85+ 75+ London</h2>
+
+
+
+
+                   <!-- {% if data['campaign-type'].length > 0 %}
+                       <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">{{ data['campaign-target']}} {{ data['campaign-type']|lower}}</span>
+                   {% else %}
+                       <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">COVID-19 vaccination campaign</span>
+                   {% endif %}
+                       <h1 class="nhsuk-heading-xl">{{ data['name'] | default("Spring 2024 Covid-19 Booster") }}
+
+                         {% if data['fromDate']|length > 0 %}
+                         <span class="nhsuk-body-m nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
+                         {% else %}
+                         <span class="nhsuk-body-m nhsuk-u-padding-top-3">29 April - 12 May 2024</span>
+                         {% endif %}
+
+                       </h1> -->
+
+
+                       <style>
+
+
+                         .govuk-tag {
+                           display: inline-block;
+                           margin-top: -2px;
+                           margin-bottom: -3px;
+                           padding-top: 2px;
+                           padding-right: 8px;
+                           padding-bottom: 3px;
+                           padding-left: 8px;
+                           text-decoration: none;
+                           overflow-wrap: break-word;
+                           font-weight: bold;
+                           font-size:17px;
+                           font-weight:normal;
+                         }
+
+                         .govuk-tag--gris {
+                           background:dimgrey;
+                         }
+
+                         .govuk-tag--grey {
+                     background:#f0f4f5;
+                   }
+
+                         .govuk-task-list {
+                           padding-top: 10px;
+                           padding-bottom: 1px;
+                           padding: 0;
+                           list-style-type: none;
+                         }
+
+                         .govuk-task-list__item {
+                           display: table;
+                           position: relative;
+                           width: 100%;
+                           margin-bottom: 0;
+                           padding-top: 15px;
+                           padding-bottom: 1px;
+                           border-top: 0.25px solid lightgrey;
+                           font-size:19px;
+                           font-weight:900;
+                         }
+
+                         .govuk-task-list__item:first-child {
+                           border-top: 0.25px solid lightgrey;
+                         }
+
+                         .govuk-task-list__item--with-link:hover {
+                           background-color:#d8dde0;
+                           border-bottom: 0.25px solid lightgrey;
+                         }
+
+                         .govuk-task-list__name-and-hint {
+                           display: table-cell;
+                           vertical-align: top;
+
+                         }
+
+                         .govuk-task-list__status {
+                           display: table-cell;
+                           float:right;
+                           text-align: right;
+                           padding-right:5px;
+                           vertical-align: top;
+                         }
+
+                         .govuk-task-list__link::after {
+                           content: "";
+                           display: block;
+                           position: absolute;
+                           top: 0;
+                           right: 0;
+                           bottom: 0;
+                           left: 0;
+                         }
+
+                         .govuk-task-list__hint {
+                           margin-top: 5px;
+                         }
+
+                         .nhsuk-body {
+                           font-size:17px;
+                           margin-top:3px;
+                           margin-bottom:2px;
+
+                         }
+
+
+
+                       </style>
+
+
+
+
+                       {% set cohortsArray = [] %}
+
+                       {% if (data['selectedCohorts-1'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['selectedCohorts-1']) %} {% endif %}
+                       {% if (data['selectedCohorts-2'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['selectedCohorts-2']) %} {% endif %}
+
+
+
+                   {% macro newIterationTasklist(title="",date="",hint="",count=" ") %}
+                   <h3 style=";" class="nhsuk-heading-l nhsuk-u-padding-top-2 nhsuk-u-margin-bottom-0">{{title}} {{ count |int }}
+                         <h4 style="background:#FFFFFF ;;font-weight:900;;;" class="nhsuk-heading-xs">
+                          {{date}}
+                         </h4>
+                         <div style="background:#FFFFFF ;color:#425563;font-weight:100;font-size:16px;padding-bottom:10px;border-bottom:1px solid lightgrey" id="company-details-3-hint" class="govuk-task-list__hint">
+                          {{hint}}
+                         </div>
+                   </h3>
+                   {% endmacro %}
+
+
+
+                   {% macro taskListItem(title="'title'", hint='', link='#', colour='', status='') %}
+                     <li style=";" class="govuk-task-list__item  govuk-task-list__item--with-link govuk-task-list__item:first-child">
+                       <div class="govuk-task-list__name-and-hint">
+                         <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="{{link}}" aria-describedby="company-details-2-status">
+                           {{title}}
+                         </a>
+                         <div style="padding-bottom:1px;color:#425563;font-weight:100;font-size:16px" id="company-details-3-hint" class="govuk-task-list__hint">
+                           {{hint}}
+                         </div>
+                       </div>
+                       <div style="margin-top:2px;" class="govuk-task-list__status" id="company-details-2-status">
+                         <strong class="govuk-tag nhsuk-tag--{{colour}}">
+                           {{status}}
+                         </strong>
+                       </div>
+                     </li>
+                   {% endmacro %}
+
+                   {% macro taskListContent(title="'title'") %}
+                     <li style=";border:0;padding-bottom:-8px;;" class="govuk-task-list__item">
+                       <div class="govuk-task-list__name-and-hint">
+                         {{title}}
+                       </div>
+                     </li>
+                   {% endmacro %}
+
+
+                       {% set filtersListArray = [] %}
+
+                       {% if (data['commonFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['commonFilters']) %} {% endif %}
+                       {% if (data['ageFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['ageFilters']) %} {% endif %}
+                       {% if (data['locationFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['locationFilters']) %} {% endif %}
+                       {% if (data['allFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['allFilters']) %} {% endif %}
+                     <div style="background:#FFFFFF;margin-top:40px;" class="">
+
+                           <span style="margin-color:#425563;" class="nhsuk-caption-s">Iteration 1</span>
+
+                     {{ newIterationTasklist('Immunosuppressed (5-74s) and Age 75+',data['iterationDate']|default("12 March 2024")|formatDate,'Iteration means the rules that will be applied to the campaign.','')}}
+
+
+                     <ul style="" class="govuk-task-list">
+
+                     {% if cohortsArray.length == 0 %}
+                     {{ taskListItem(title="Choose the cohorts",hint="Cohort means the eligibility criteria you can choose from.",link="select-cohorts",colour='blue',status="Not started") }}
+                     {% else %}
+                     {{ taskListItem(title="Edit the cohorts",hint="Cohort means the eligibility criteria you can choose from.",link="select-cohorts", status="Optional") }}
+                     <!-- <p class="govuk-task-list__name-and-hint nhsuk-body" style="background:white">Information about the cohort, sizing etc from Foundry</p> -->
+                     <!-- <p class="nhsuk-body-m nhsuk-u-padding-bottom-0 nhsuk-u-padding-top-3" style="margin-bottom:-1px">The following cohorts have been selected for this iteration:</p> -->
+
+
+
+                       <!-- {{ taskListContent(title=items | truncate(75))|default('COVID-19 vaccination for people aged 75 to 115 years old') }} -->
+
+                       <table class="nhsuk-table">
+                         <caption style="font-size:17px;font-weight:lighter" class="nhsuk-table__caption_s">The following cohorts have been selected for this iteration:</caption>
+                         <thead role="rowgroup" class="nhsuk-table__head">
+                           <tr style="" role="row">
+                             <th role="columnheader" class="" scope="col">
+                               Cohort / est. size
+                             </th>
+
+                           </tr>
+                         </thead>
+                         <tbody class="nhsuk-table__body">
+                               {% for items in cohortsArray %}
+
+                           <tr role="row" class="nhsuk-table__row">
+                             <td class="nhsuk-table__cell">{{items | replace("(est ","")| replace(")","")}}</td>
+
+                             <td class="nhsuk-table__cell "></td>
+                               {% endfor %}
+                           </tr>
+
+                         </tbody>
+                       </table>
+
+                       <!-- <ul style="line-height:12px;margin-left:10px;margin-top:-10px" class="nhsuk-list nhsuk-list--bullet">
+                       <li>{{items|truncate(75)}}</li>
+                       </ul> -->
+
+
+                   </ul>
+
+                   <ul class="govuk-task-list">
+
+                       {% if data['filters'] !== 'done'  %}
+                       {{ taskListItem(title="Apply filters and suppressions to the cohorts",hint="hint text lorem ipsum dolor sit amet",link="add-filter-alt",colour='blue',status="Not started") }}
+                       {% else %}
+                       {{ taskListItem(title="Update filters and suppressions for the cohorts",hint="hint text?",link="add-filter-alt",status="Optional") }}
+
+                       {% for items in filtersListArray %}
+
+
+                       {{ taskListContent(title=items | truncate(75)) }}
+
+
+                       {% endfor %}
+
+                       {% if data['suppCollect'].length > 0 %}
+
+                       {% for items in data['suppCollect'] %}
+
+
+                       {{ taskListContent(title=items | truncate(75)) }}
+
+                       {% endfor %}
+                       {% endif %}
+
+                     </ul>
+
+
+                     {% endif %}
+
+                   {% endif %}
+                   </div>
+                       <ul class="govuk-task-list">
+
+
+
+
+
+
+                     <!-- {{ taskListItem(title="Add filters",link="#",status="Cannot start") }} -->
+
+                   </ul>
+
+                   {% if (data['iterationNum'] == '2') %}
+                   <div style="background:#FFFFFF;padding:10px">
+
+
+                         <span style="color:#425563;font-size:16px;;" class="nhsuk-caption-xs" id="showIter">Iteration{{data['iterationNum']}} | {{ data['iterationDate']|default("12 March 2024")|formatDate }}</span>
+                         {{ newIterationTasklist(data['iteration-name'],'Iteration means the rules that will be applied to the campaign.')}}
+                        <span style="color:#212b32;padding-left:5px" class="nhsuk-caption-s"> {{ data['iterationDate']|default("12 March 2024")|formatDate }}
+
+
+                         <ul class="govuk-task-list">
+
+
+                       </ul>
+                   </div>
+
+
+
+
+
+                   {% else %}
+                   {% endif %}
+
+                   <ul class="govuk-task-list">
+
+                    {{ taskListItem(title="Create a new iteration",link="create-iteration",status="Optional") }}
+                   </ul>
+                   <details  class="nhsuk-details nhsuk-expander">
+                     <summary style="background:#f0f4f5" class="nhsuk-details__summary">
+                       <span class="nhsuk-details__summary-text">
+                         Manage the campaign
+                       </span>
+                     </summary>
+                     <div style="" class="nhsuk-details__text">
+                       <!-- <p>You can see your GP records by:</p>
+                       <ul>
+                         <li>asking for them at your GP surgery </li>
+                         <li>going online to see them (if you have signed up for <a href="/using-the-nhs/nhs-services/gps/gp-online-services/">GP online services</a>) </li>
+                       </ul> -->
+
+                       <ul style="" class="govuk-task-list">
+                         <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                           <div class="govuk-task-list__name-and-hint">
+                             <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="#" aria-describedby="company-details-1-status">
+                               Update campaign name, start and end dates
+                             </a>
+                           </div>
+                           <div class="govuk-task-list__status" id="company-details-2-status">
+                             <strong class="govuk-tag nhsuk-tag--white">
+                               Optional
+                             </strong>
+                           </div>
+                         </li>
+                         <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                           <div class="govuk-task-list__name-and-hint">
+                             <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="#" aria-describedby="company-details-2-status">
+                               Update campaign type and target
+                             </a>
+                           </div>
+                           <div class="govuk-task-list__status" id="company-details-2-status">
+                             <strong class="nhsuk-tag nhsuk-tag--red">
+                               Optional
+                             </strong>
+                           </div>
+                         </li>
+                       </ul>
+
+                     </div>
+                   </details>
+
+
+
+             </div>
+
+          <!-- <table role="table" class="nhsuk-table-responsive">
+            <caption class="nhsuk-table__caption">Group 1 85+ 75+ London</caption>
+            <h2 class="nhsuk-heading-l">86+ 75+ (London)</h2>
+            <thead role="rowgroup" class="nhsuk-table__head">
+              <tr role="row">
+                <th role="columnheader" class="" scope="col">
+                  Head 1
+                </th>
+                <th role="columnheader" class="" scope="col">
+                  Head 2
+                </th>
+                <th role="columnheader" class="" scope="col">
+                  Head 3
+                </th>
+                <th role="columnheader" class="" scope="col">
+                  Head 4
+                </th>
+              </tr>
+            </thead>
+            <tbody class="nhsuk-table__body">
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Head 1 </span>data a
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Head 2 </span>data b
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Head 3 </span>data c
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Head 4 </span>data d
+                </td>
+              </tr>
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                 <span class="nhsuk-table-responsive__heading">Head 1 </span>data e
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                 <span class="nhsuk-table-responsive__heading">Head 2 </span>data f
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                 <span class="nhsuk-table-responsive__heading">Head 3 </span>data g
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                 <span class="nhsuk-table-responsive__heading">Head 4 </span>data h
+                </td>
+              </tr>
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                 <span class="nhsuk-table-responsive__heading">Head 1 </span>data i
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                 <span class="nhsuk-table-responsive__heading">Head 2 </span>data j
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                 <span class="nhsuk-table-responsive__heading">Head 3 </span>data k
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                 <span class="nhsuk-table-responsive__heading">Head 4 </span>data l
+                </td>
+              </tr>
+            </tbody>
+          </table> -->
+
+        </div>
+
+        <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="group-2">
+
+          <table role="table" class="nhsuk-table-responsive">
+            <caption class="nhsuk-table__caption">G2 75-84 (Immunosuppressed London)</caption>
+            <thead role="rowgroup" class="nhsuk-table__head">
+              <tr role="row">
+                <th role="columnheader" class="" scope="col">
+                  Case manager
+                </th>
+                <th role="columnheader" class="" scope="col">
+                  Cases opened
+                </th>
+                <th role="columnheader" class="" scope="col">
+                  Cases closed
+                </th>
+              </tr>
+            </thead>
+            <tbody class="nhsuk-table__body">
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Case manager </span>David Francis
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases opened </span>24
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases closed </span>18
+                </td>
+              </tr>
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Case manager </span>Paul Farmer
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases opened </span>16
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases closed </span>20
+                </td>
+              </tr>
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Case manager </span>Rita Patel
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases opened </span>24
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases closed </span>27
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="group-3">
+
+          <table role="table" class="nhsuk-table-responsive">
+            <caption class="nhsuk-table__caption">G3 Immunosuppressed (Non-London)</caption>
+            <thead role="rowgroup" class="nhsuk-table__head">
+              <tr role="row">
+                <th role="columnheader" class="" scope="col">
+                  Case manager
+                </th>
+                <th role="columnheader" class="" scope="col">
+                  Cases opened
+                </th>
+                <th role="columnheader" class="" scope="col">
+                  Cases closed
+                </th>
+              </tr>
+            </thead>
+            <tbody class="nhsuk-table__body">
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Case manager </span>David Francis
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases opened </span>98
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases closed </span>95
+                </td>
+              </tr>
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Case manager </span>Paul Farmer
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases opened </span>122
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases closed </span>131
+                </td>
+              </tr>
+              <tr role="row" class="nhsuk-table__row">
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Case manager </span>Rita Patel
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases opened </span>126
+                </td>
+                <td role="cell" class="nhsuk-table__cell">
+                  <span class="nhsuk-table-responsive__heading">Cases closed </span>142
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="group-4">
+
+
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+    </div>
+
+
+{% endblock %}

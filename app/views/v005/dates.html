@@ -1,0 +1,103 @@
+{% set pagetitle ="Campaign dates" %}
+{% set versionNumber ="004" %}
+
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+
+      <h1>
+        Enter the campaign start and end dates
+      </h1>
+
+      <p class="nhsuk-body">The dates you enter will not start or end the campaign. They will be used to make sure the data is available during this period.</p>
+
+      {% if data['update'] == 'dates' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'summary' %}
+      {% endif %}
+
+
+
+
+{% if data['editDates'] == 'true' %}
+    {% set action = 'task-list' %}
+{% endif %}
+
+      <form action="{{ action }}" method="post">
+
+      <div class="nhsuk-grid-row nhsuk-u-padding-bottom-9">
+            <div class="nhsuk-grid-column-one-half">
+
+              <span class="nhsuk-caption-l nhsuk-caption--top" for="fromDate">Start date</span>
+              <!-- <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}" type="date" placeholder="dd-mm-yyyy" id="fromDate" name="fromDate"> -->
+              <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}"  type="date" placeholder="yyyy-mm-dd" id="fromDate" name="fromDate">
+
+
+
+            </div>
+
+            <div class="nhsuk-grid-column-one-half">
+
+              <span class="nhsuk-caption-l nhsuk-caption--top" for="toDate">End date</span>
+              <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px" min="{{ data['fromDate']}}" value="{{ data['toDate'] }}" type="date" placeholder="dd-mm-yyyy" id="toDate" name="toDate">
+
+
+
+            </div>
+      </div>
+
+
+
+      {{ button({
+        text: "Save and continue"
+      }) }}
+
+
+    </form>
+
+    </div>
+  </div>
+
+<script>
+
+  var todayDate = new Date().toISOString().slice(0, 10);
+
+  const fromEl = document.getElementById('fromDate');
+  const fromElist = document.getElementById('fromDate');
+  const toEl = document.getElementById('toDate');
+  fromEl.min = todayDate.toString();
+
+  fromElist.addEventListener('change', (event) => {
+  console.log(fromEl.value)
+  toEl.min = fromEl.value
+     });
+
+
+</script>
+
+
+
+
+{% endblock %}

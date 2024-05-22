@@ -1,0 +1,90 @@
+{% set pagetitle ="My campaign tasks - Select and Invite" %}
+{% set versionNumber ="002" %}
+
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+.progress {
+
+  margin-top:2px;
+  background:#E5EEF7;
+  padding-top:2px;
+  padding-bottom:2px;
+  font-size:17px;
+  padding-left:8px;
+  padding-right:8px;
+
+}
+
+</style>
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-three-quarters">
+
+
+      <table role="table" class="nhsuk-table-responsive">
+        <caption class="nhsuk-table__caption nhsuk-u-font-size-48">Campaign status</caption>
+        <thead role="rowgroup" class="nhsuk-table__head">
+          <tr role="row">
+            <th role="columnheader" class="" scope="col">
+              Campaign name
+            </th>
+            <th role="columnheader" class="" scope="col">
+              Date last updated
+            </th>
+            <th role="columnheader" class="" scope="col">
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr role="row" class="nhsuk-table__row">
+            <td role="cell" class="nhsuk-table__cell">
+              <span class="nhsuk-table-responsive__heading">Age </span><a href="task-list?progress=true">{{ data['name']|default("Covid-19 Spring 2024 Booster")}}</a>
+            </td>
+            <td role="cell" class="nhsuk-table__cell">
+              <span class="nhsuk-table-responsive__heading">Last update? </span> {{ data['fromDate']|lastUpdated }}
+            </td>
+            <td role="cell" class="nhsuk-table__cell">
+              <span class="nhsuk-table-responsive__heading">Status? </span>
+
+
+              <span class="progress">
+              In progress
+              </span>
+
+            </td>
+
+          </tr>
+
+
+        </tbody>
+      </table>
+
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

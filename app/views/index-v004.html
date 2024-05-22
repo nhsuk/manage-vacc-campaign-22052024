@@ -1,0 +1,143 @@
+<!-- Use this page as the index for your project -->
+
+<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+
+<!-- Extends the layout from /views/layout.html -->
+{% extends 'layout.html' %}
+
+
+
+{% block header %}
+{{ header({
+  "service": {
+    "name": "Manage a vaccination or screening campaign"
+  },
+  "showNav": "false",
+  "showSearch": "false",
+  "searchAction": " "
+  })
+}}
+{% endblock %}
+
+
+{% block pageTitle %}
+    {{serviceName}}
+{% endblock %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block outerContent %}
+{% endblock %}
+{% block content %}
+
+{% set latestVersion = 'v004' %}
+{% set v004HTML %}
+
+<h2 class="nhsuk-heading-l">Pages</h2>
+
+
+{% for items in filesArray %}
+<ul>
+<li>{{ items }}</li>
+</ul>
+{% endfor %}
+
+
+<!-- {% include 'listing.html' %} -->
+
+{% endset %}
+{% set v002HTML %}
+
+<h2 class="nhsuk-heading-l">Pages</h2>
+{% endset %}
+
+{% set v001HTML %}
+<h2 class="nhsuk-heading-l">Pages</h2>
+<p id="list">LIST</p>
+{% endset %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+      <span class="nhsuk-caption-l nhsuk-caption--top">Prototype {{latestVersion}}</span>
+
+
+      <h1 class="nhsuk-heading-xl">Manage a vaccination or screening campaign</h1>
+
+
+
+      {% from 'button/macro.njk' import button %}
+
+      {{ button({
+          "href": "v004/index",
+          "text": "Launch prototype"
+      }) }}
+{% set storedHTML %}
+
+      {% if data|length == 0 %}
+
+      {% from 'warning-callout/macro.njk' import warningCallout %}
+
+      {{ warningCallout({
+        "heading": "Prototype session data",
+        "HTML": "<p>There is an absence of any session data stored. Sorry.</p>"
+      }) }}
+
+      {% else %}
+
+
+
+      <a href="/clear-data">Clear all session data</a>
+
+  {% for key, item in data %}
+      <dl class="nhsuk-summary-list nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">{{key}}</dt>
+          <dd class="nhsuk-summary-list__value">{{item}}</dd>
+          </div>
+      </dl>
+
+              {% endfor %}
+            {% endif %}
+
+{% endset %}
+
+{% if data|length == 0 %}
+
+{% from 'warning-callout/macro.njk' import warningCallout %}
+
+{{ warningCallout({
+  "heading": "Prototype session data",
+  "HTML": "<p>No session data has been stored.</p>"
+}) }}
+
+{% else %}
+
+{{ details({
+  "classes": "nhsuk-expander",
+  "text": "Session data stored",
+  "HTML": storedHTML
+}) }}
+
+
+
+
+{% endif %}
+
+
+{{ details({
+  "classes": "nhsuk-expander",
+  "text": latestVersion,
+  "HTML": v004HTML
+}) }}
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}

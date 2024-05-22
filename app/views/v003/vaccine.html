@@ -1,0 +1,124 @@
+{% set pagetitle ="Vaccine" %}
+{% set versionNumber ="003" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length > 0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      {% if data['change'] == 'name' %}
+      {% set head = 'Which disease is the target of the campaign?' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'dates' %}
+      {% set head = 'Which disease is the target of the campaign?' %}
+      {% endif %}
+
+
+{% if data['editName'] == 'true' %}
+  {% set head = 'Which disease is the target of the campaign?' %}
+    {% set action = 'task-list' %}
+{% endif %}
+
+      <form action="{{ action }}" method="post">
+  <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+        <h1>
+          {{ head }}
+        </h1>
+      <!-- <p class="nhsuk-body">Choose a name that describes the campaign and is easy to understand.</p> -->
+
+      {% from 'radios/macro.njk' import radios %}
+      {% from 'fieldset/macro.njk' import fieldset %}
+      {% from 'hint/macro.njk' import hint %}
+
+      {% call fieldset({
+        legend: {
+          "text": "",
+          "classes": "nhsuk-fieldset__legend--m",
+          "isPageHeading": false
+        }
+        }) %}
+
+
+        {{ radios({
+          "idPrefix": "example-hints",
+          "name": "example-hints",
+          "items": [
+        {
+          "value": "COVID-19",
+          "text": "COVID-19"
+        },
+        {
+          "value": "Seasonal Flu",
+          "text": "Seasonal Flu"
+        },
+        {
+          "value": "Co-admin",
+          "text": "Co-admin of COVID-19 and Seasonal Flu"
+        }
+      ]
+      }) }}
+      {% endcall %}
+
+
+
+
+        {{ button({
+          text: "Save and continue"
+        }) }}
+      </form>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}
+
+
+{% from 'radios/macro.njk' import radios %}
+
+{{ radios({
+  "idPrefix": "example-inline",
+  "name": "example-inline",
+  "classes": "nhsuk-radios--inline",
+  "fieldset": {
+    "legend": {
+      "text": "Are you 18 or over?",
+      "classes": "nhsuk-fieldset__legend--l",
+      "isPageHeading": true
+    }
+  },
+  "items": [
+    {
+      "value": "yes",
+      "text": "Yes"
+    },
+    {
+      "value": "no",
+      "text": "No"
+    }
+  ]
+}) }}
