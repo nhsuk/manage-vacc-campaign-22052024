@@ -1,0 +1,152 @@
+<!-- Use this page as the index for your project -->
+
+<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+
+<!-- Extends the layout from /views/layout.html -->
+{% extends 'layout.html' %}
+
+
+
+{% block header %}
+{{ header({
+   "service": {
+      "name": serviceName
+   },
+   "showNav": "false",
+   "showSearch": "false",
+   "searchAction": " "
+})
+}}
+<a class="nhsuk-button nhsuk-link nhsuk-link--no-visited-state nhsuk-link--no-underline" draggable="false" role="button" style="text-decoration:none;;border-radius:1px;color:#FFFFFF;font-weight:800;font-size:17px;padding:8px;position:absolute;top:16px;right:50px;padding-left:15px;padding-right:15px" href="v006/start">Launch prototype</a>
+
+
+{% endblock %}
+
+
+{% block pageTitle %}
+{{serviceName}}
+{% endblock %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block outerContent %}
+{% endblock %}
+{% block content %}
+
+{% set latestVersion = 'v006' %}
+{% set v006HTML %}
+
+<h2 class="nhsuk-heading-l">Pages</h2>
+
+{% set latestDir = '/'+latestVersion %}
+
+{% set newWD = workingD.split('/') %}
+
+
+
+{% for items in filesArray %}
+<ul>
+   <li>{{ items }}</li>
+</ul>
+{% endfor %}
+
+
+
+<!-- {% include 'listing.html' %} -->
+
+{% endset %}
+{% set s01v006HTML %}
+<div style=";text-align:right;position:relative">
+   <a class="nhsuk-button--secondary nhsuk-link nhsuk-link--no-visited-state nhsuk-link--no-underline" draggable="false" role="button" style="text-decoration:none;;border-radius:1px;color:#FFFFFF;font-weight:800;font-size:15px;padding:8px;position:absolute;top:-60px;right:-5px;padding-left:15px;padding-right:15px" href="#">Launch Scenario #1</a>
+</div>
+<p class="nhsuk-body-m">In this scenario<br<br>Campaign naming></p>
+<ul class="nhsuk-list">
+   <li><a href="v006/summary">Onboarding information pulled through to a review<a/>   </li>
+</ul>
+{% endset %}
+
+{% set s02v006HTML %}
+<div style=";text-align:right;position:relative">
+   <a class="nhsuk-button--secondary nhsuk-link nhsuk-link--no-visited-state nhsuk-link--no-underline" draggable="false" role="button" style="text-decoration:none;;border-radius:1px;color:#FFFFFF;font-weight:800;font-size:15px;padding:8px;position:absolute;top:-60px;right:-5px;padding-left:15px;padding-right:15px" href="#">Launch Scenario #2</a>
+</div>
+<p class="nhsuk-body-m">In this scenario let's examine</p>
+<ul class="nhsuk-list">
+   <li>
+   </li>
+</ul>
+{% endset %}
+
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-three-quarters">
+      <span class="nhsuk-caption-l nhsuk-caption--top">Prototype {{latestVersion}}</span>
+      <h1 class="nhsuk-heading-xl">{{ serviceName }}</h1>
+
+      {% set storedHTML %}
+
+      {% if data|length == 0 %}
+      {% from 'warning-callout/macro.njk' import warningCallout %}
+      {{ warningCallout({
+         "heading": "Prototype session data",
+         "HTML": "<p>There is an absence of any session data stored. Sorry.</p>"
+      }) }}
+      {% else %}
+
+      <a href="/clear-data">Clear all session data</a>
+
+      {% for key, item in data %}
+      <dl class="nhsuk-summary-list nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
+         <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">{{key}}</dt>
+            <dd class="nhsuk-summary-list__value">{{item}}</dd>
+         </div>
+      </dl>
+
+      {% endfor %}
+      {% endif %}
+
+      {% endset %}
+
+
+
+
+
+      {{ details({
+         "classes": "nhsuk-expander",
+         "open": "true",
+         "text": "Scenario #1",
+         "HTML": s01v006HTML
+      }) }}
+
+      {{ details({
+         "classes": "nhsuk-expander",
+         "open": "true",
+         "text": "Scenario #2",
+         "HTML": s02v006HTML
+      }) }}
+
+      {{ details({
+         "classes": "nhsuk-expander",
+         "text": "All "+latestVersion+" pages",
+         "HTML": v006HTML
+      }) }}
+
+      {% if data|length == 0 %}
+
+      {% from 'warning-callout/macro.njk' import warningCallout %}
+
+      {{ warningCallout({
+         "heading": "Prototype session data",
+         "HTML": "<p>No session data has been stored.</p>"
+      }) }}
+      {% else %}
+      {{ details({
+         "classes": "nhsuk-expander",
+         "text": "Session data stored",
+         "HTML": storedHTML
+      }) }}
+      {% endif %}
+
+   </div>
+
+   {% endblock %}

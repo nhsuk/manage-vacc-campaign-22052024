@@ -1,0 +1,553 @@
+{% set pagetitle ="Add a filter" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+{% block content %}
+
+<style>
+
+  .js-signout {
+    text-align: right;
+    font-size: 16px;
+    font-family: 'proxima_nova', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    z-index: 60;
+    clear: none;
+    background: transparent;
+    border-bottom: 1px solid #bfc1c3;
+    vertical-align: top;
+    padding-bottom: 20px;
+    font-size: 17px;
+
+  }
+  .filterLine {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    text-align: left;
+    margin: 0;
+    float:left;
+    font-size: 17px;
+  }
+
+  .filterLabel {
+    font-size: 17px;
+  }
+
+  .filterLine, li {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 17px;
+  }
+  .newCR {
+    display: block;
+    vertical-align: top;
+    padding-left:5px;
+    font-size: 17px;
+
+  }
+  input:checked  {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: white;
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    color: black;
+  }
+
+  input:after {
+    content:"";
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 20%;
+    border: 5px solid #000000;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input:checked:after {
+    display: block;
+  }
+  li {
+    font-size:17px;
+    margin-top:3px;
+    margin-bottom:2px;
+  }
+</style>
+{% set cohortsArray = [] %}
+
+{% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+{% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+{% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+{% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+{% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+{% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+{% set cohortsArray = cohortsArray.concat("COVID-19 vaccination for people aged 75 to 115 years old") %}
+
+{% if cohortsArray.length > 0 %}
+{% endif %}
+
+
+{% set region = ['East of England','London','Midlands','North East and Yorkshire','North West','South East','South West'] %}
+
+{% set ICBlist = ['NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board','NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board','NHS Birmingham and Solihull Integrated Care Board','NHS Black Country Integrated Care Board','NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board','NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board','NHS Cambridgeshire and Peterborough Integrated Care Board','NHS Cheshire and Merseyside Integrated Care,Board','NHS Cornwall and the Isles of Scilly Integrated Care Board','NHS Coventry and Warwickshire Integrated Care Board','NHS Derby and Derbyshire Integrated Care Board','NHS Devon Integrated Care Board','NHS Dorset Integrated Care Board','NHS Frimley Integrated Care Board','NHS Gloucestershire Integrated Care Board','NHS Greater Manchester Integrated Care Board','NHS Hampshire and Isle of Wight Integrated Care Board','NHS Herefordshire and Worcestershire Integrated Care Board','NHS Hertfordshire and West Essex Integrated Care Board','NHS Humber and North Yorkshire Integrated Care Board','NHS Kent and Medway Integrated Care Board','NHS Lancashire and South Cumbria Integrated Care Board','NHS Leicester, Leicestershire and Rutland Integrated Care Board','NHS Lincolnshire Integrated Care Board','NHS Mid and South Essex Integrated Care Board','NHS Norfolk and Waveney Integrated Care Board','NHS North Central London Integrated Care Board','NHS North East and North Cumbria Integrated Care Board','NHS North East London Integrated Care Board','NHS North West London Integrated Care Board','NHS Northamptonshire Integrated Care Board','NHS Nottingham and Nottinghamshire Integrated Care Board','NHS Shropshire, Telford and Wrekin Integrated Care Board','NHS Somerset Integrated Care Board','NHS South East London Integrated Care Board','NHS South West London Integrated Care Board','NHS South Yorkshire Integrated Care Board','NHS Staffordshire and Stoke-on-Trent Integrated Care Board','NHS Suffolk and North East Essex Integrated Care Board','NHS Surrey Heartlands Integrated Care Board','NHS Sussex Integrated Care Board','NHS West Yorkshire Integrated Care Board'] %}
+
+{% set HoS = 'none' %}
+
+
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds">
+    <caption class="nhsuk-table__caption"><h1 class="nhsuk-heading-xl">Add a Filter by {{ att|lower|replace('-',' ')}}</h1></caption>
+
+    <table class="nhsuk-table">
+      <thead role="rowgroup" class="nhsuk-table__head">
+        <tr role="row">
+          <th role="columnheader" class="" scope="col">
+            Cohort
+          </th>
+          <th role="columnheader" class="" scope="col">
+            Size (est)
+          </th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        {% if cohortsArray.length > 0 %}
+        {% for selected in cohortsArray %}
+        <tr role="row" class="nhsuk-table__row">
+          <td class="nhsuk-table__cell">{{selected}}</td>
+          <td class="nhsuk-table__cell ">nnn,nnn</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <input type="hidden" id="defaultSelect" value="{{ data['selectedAttrib'] |default('location') }}">
+
+  <form action="/summary-filters?suf1=outputSuff1&suf2=outputSuff2" method="post">
+    <ul class="nhsuk-list filterLine">
+
+      <!-- const personAttributeSelector = document.getElementById("personAttributeSelector"); -->
+
+      <input type="hidden" id="preselected" value="{{ att }}">
+
+
+      <li style="padding-left:10px">
+        <div class="nhsuk-form-group">
+          <label class="filterLabel nhsuk-label" for="personAttributeSelector">
+            Person attribute
+          </label>
+          <select  class="nhsuk-select" id="personAttributeSelector" name="personAttributeSelector">
+            <option disabled selected value="--">Select</option>
+
+            <option id="attr1" value="age">Age</option>
+            <option id="attr2" value="given-vaccine">Given vaccine</option>
+            <option id="attr3" value="location">Location</option>
+
+
+
+          </select>
+        </div>
+      </li>
+
+      <!-- const genericOperators = document.getElementById("genericOperators"); -->
+
+      <li style="">
+        <div style="display:{{HoS}}" id ="genericOperators" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="genericOperators">
+            Operator
+          </label>
+          <select  class="nhsuk-select" id="genericOperatorsList" name="genericOperatorsList">
+            <option disabled selected value="Select">Select</option>
+            <option value="exact-match">Exact match</option>
+            <option value="starts-with">Starts with</option>
+            <option value="ends-with">Ends with</option>
+            <option value="greater-than">Greater than</option>
+            <option value="greater-than-equal-to">Greater than/equal to</option>
+            <option value="less than">Less than</option>
+            <option value="less-than-equal-to">Less than/equal to</option>
+            <option id="betweenxy" value="between">between x and y</option>
+          </select>
+        </div>
+      </li>
+
+      <li style="">
+        <div style="display:{{HoS}}" id ="givenVaccineOperators" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="givenVaccineOperators">
+            Operator
+          </label>
+          <select  class="nhsuk-select" id="givenVaccineOperators" name="givenVaccineOperators">
+            <option disabled selected value="Select">Select</option>
+            <option value="3months">More than 3 months ago</option>
+            <option value="6months">More than 6 months ago</option>
+            <option value="12months">Over 12 months ago</option>
+            <option value="--">--</option>
+            <option value="exact-match">Exact match</option>
+            <option value="greater-than">Greater than</option>
+            <option value="greater-than-equal-to">Greater than/equal to</option>
+            <option value="less than">Less than</option>
+            <option value="less-than-equal-to">Less than/equal to</option>
+          </select>
+        </div>
+      </li>
+
+
+      <!-- const locationSelectList = document.getElementById("locationSelectList"); -->
+      <li style=";">
+        <div style="display:{{HoS}}" id ="locationSelectList" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="locationSelectListOptions">
+            Location options
+          </label>
+          <select  class="nhsuk-select" id="locationSelectListOptions" name="locationSelectListOptions">
+            <option disabled selected value="Select">Select a location variable</option>
+            <option id="icb" value="icb">Integrated Care Board</option>
+            <option id="region" value="region">NHS England Region</option>
+            <option id="gpPractice" value="gp">PCN / GP practice</option>
+            <option id="city" value="city">City</option>
+          </select>
+        </div>
+      </li>
+
+      <!-- const locationICB = document.getElementById("locationICB"); -->
+      <li style="margin-left:10px">
+        <div style="display:{{HoS}}" id ="locationICB" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="locationICB">
+            Integrated Care Board list (42)
+          </label>
+          <select style="width:70%" class="nhsuk-select" id="locationICB" name="locationICB">
+            <option disabled selected value="Select">Select Integrated Care Board from the list</option>
+
+            {% for icb in ICBlist %}
+            <option id="{{icbitem}}" value="{{icb}}">{{icb}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </li>
+
+      <!-- const locationRegion = document.getElementById("locationRegion"); -->
+      <li style=";margin-left:10px">
+        <div style="display:{{HoS}}" id ="locationRegion" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="locationRegion">
+            NHS England Region
+          </label>
+          <select style="width:100%" class="nhsuk-select" id="locationRegion" name="locationRegion">
+            <option disabled selected value="Select">NHS England Region list</option>
+
+            {% for entry in region %}
+            <option id="{{entry}}" value="{{entry}}">{{entry}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </li>
+
+
+      <li>
+        <div style="display:{{HoS}}" id ="value-1" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="value-1">
+            Value 1
+          </label>
+          <input class="nhsuk-input nhsuk-input--width-3" id="value-1" name="value-1" type="text">
+        </div>
+      </li>
+      <li>
+        <div style="display:{{HoS}}" id ="value-2" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="value-2">
+            Value 2
+          </label>
+          <input class="nhsuk-input nhsuk-input--width-3" id="value-2" name="value-2" type="text">
+        </div>
+      </li>
+
+      <li>
+        <div style="margin-left:-9px;display:{{HoS}}" id ="value-1-suffix" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="value-1-suffix">
+            Value 1
+          </label>
+          <div class="nhsuk-input__wrapper">
+            <input class="nhsuk-input nhsuk-input--width-3" id="value-1-suffix" name="value-1-suffix" type="text">
+            <div id ="suffix1" class="nhsuk-input__suffix" aria-hidden="true"></div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div style="display:{{HoS}}" id ="value-2-suffix" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="value-2-suffix">
+            Value 2
+          </label>
+          <div class="nhsuk-input__wrapper">
+            <input class="nhsuk-input nhsuk-input--width-3" id="value-2-suffix" name="value-2-suffix" type="text">
+            <div id ="suffix2" class="nhsuk-input__suffix" aria-hidden="true"></div>
+          </div>
+        </div>
+      </li>
+
+
+
+
+      <!-- const includeExcludeRadios = document.getElementById("includeExcludeRadios"); -->
+      <li class="newCR" style=";margin-left:5px">
+        <div  style="display:{{HoS}}" id ="includeExcludeRadios" class="nhsuk-form-group">
+          <div  class="nhsuk-radios">
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="includeExcludeRadios-1" name="includeExcludeRadios" type="radio" value="Include">
+              <label class="nhsuk-label nhsuk-radios__label" for="includeExcludeRadios-1">
+                Include only the matches
+              </label>
+            </div>
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="includeExcludeRadios-2" name="includeExcludeRadios" type="radio" value="Exclude">
+              <label class="nhsuk-label nhsuk-radios__label" for="includeExcludeRadios-2">
+                Exclude all the matches
+              </label>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- const saveButton = document.getElementById("saveButton"); -->
+      <button style="display:{{HoS}}" id="saveButton" class="nhsuk-button" data-module="nhsuk-button" type="submit">
+        Save filter
+      </button>
+    </ul>
+  </form>
+</div>
+<script>
+
+  const preselected = document.getElementById("preselected");
+  const personAttributeSelector = document.getElementById("personAttributeSelector");
+  const locationSelectList = document.getElementById("locationSelectList");
+  const locationSelectListOptions = document.getElementById("locationSelectListOptions");
+  const locationICB = document.getElementById("locationICB");
+  const locationRegion = document.getElementById("locationRegion");
+  const locationOperators = document.getElementById("locationOperators");
+  const genericOperators = document.getElementById("genericOperators");
+  const genericOperatorsList = document.getElementById("genericOperatorsList");
+  const value1 = document.getElementById("value-1");
+  const value2 = document.getElementById("value-2");
+  const value1Suffix = document.getElementById("value-1-suffix");
+  const value2Suffix = document.getElementById("value-2-suffix");
+  const suffix1 = document.getElementById("suffix1");
+  const suffix2 = document.getElementById("suffix2");
+  const includeExcludeRadios = document.getElementById("includeExcludeRadios");
+  const includeExcludeRadios1 = document.getElementById("includeExcludeRadios-1");
+  const includeExcludeRadios2 = document.getElementById("includeExcludeRadios-2");
+  const saveButton = document.getElementById("saveButton");
+  const defSel = document.getElementById("defaultSelect").value;
+  const newDefault = document.getElementById("attr2");
+  const betweenxy = document.getElementById("betweenxy");
+  const attr1 = document.getElementById("attr1");
+  const attr2 = document.getElementById("attr2");
+  const attr3 = document.getElementById("attr3");
+
+  switch (defSel) {
+    case "age":
+    console.log(defSel,attr1)
+    // attr1 = attr1.selected;
+    // attr2.innerHTML = newDefault.value;
+    // attr1.selected = "true";
+    document.getElementById('preselected').style.display = 'block';
+    document.getElementById('attr1').selected = 'true';
+    // document.getElementById('suffix1').innerHTML = '{{attr1}}';
+    document.getElementById('includeExcludeRadios').style.display = 'block';
+
+    showElement('genericOperators');
+    document.getElementById('value-1-suffix').style.display = 'block';
+    document.getElementById('suffix1').innerHTML = 'years';
+
+    // showElement('value-2')
+    hideElement('locationSelectList')
+    hideElement('locationICB')
+    hideElement('locationRegion')
+    break;
+    break;
+    case "given-vaccine":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    document.getElementById('attr2').selected = 'true';
+
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+    case "location":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    document.getElementById('attr3').selected = 'true';
+    showElement('locationSelectList')
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+  }
+
+
+
+  personAttributeSelector.addEventListener("click", function(event) {
+    personAttributeSelector.addEventListener("change", function(event) {
+      switch (personAttributeSelector.value && preselected) {
+        case "age":
+        document.getElementById('preselected').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = '{{att}}';
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+        showElement('genericOperators');
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'years';
+        const outputSuff1 = document.getElementById('suffix1').innerHTML;
+        const outputSuff2 = document.getElementById('suffix2').innerHTML;
+
+        // showElement('value-2')
+        hideElement('locationSelectList')
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        break;
+        case "location":
+        showElement('locationSelectList')
+        hideElement('genericOperators');
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        document.getElementById('value-1-suffix').style.display = 'none';
+        document.getElementById('value-2-suffix').style.display = 'none';
+
+        break;
+
+
+        case "given-vaccine":
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+        showElement('genericOperators');
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'days';
+        document.getElementById('value-2-suffix').style.display = 'none';
+
+
+        // showElement('value-2')
+        hideElement('locationSelectList')
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        break;
+      }
+    });
+  });
+
+  genericOperators.addEventListener("click", function(event) {
+    genericOperatorsList.addEventListener("change", function(event) {
+      document.getElementById('includeExcludeRadios').style.display = 'block';
+
+      document.getElementById('value-1-suffix').style.display = 'block';
+      document.getElementById('value-2-suffix').style.display = 'block';
+      document.getElementById('includeExcludeRadios').style.display = 'block';
+
+      if (genericOperatorsList.value == "between" && personAttributeSelector.value == "age") {
+        console.log(genericOperatorsList.value)
+        document.getElementById('value-1').style.display = 'none';
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('value-2-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'years';
+        document.getElementById('suffix2').innerHTML = 'years';
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+        hideElement('locationICB')
+        hideElement('locationRegion')
+      } else {
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('value-2-suffix').style.display = 'none';
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+      }
+    });
+  });
+
+
+  locationSelectList.addEventListener("click", function(event) {
+    locationSelectListOptions.addEventListener("change", function(event) {
+      switch (locationSelectListOptions.value) {
+        case "icb":
+        showElement('locationSelectList')
+        hideElement('genericOperators')
+        showElement('locationICB')
+        document.getElementById('value-1-suffix').style.display = 'none';
+
+
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+        break;
+
+        case "city":
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+        showElement('genericOperators')
+        // document.getElementById('value-1').style.display = 'block';
+        document.getElementById('value-2-suffix').style.display = 'none';
+        document.getElementById('value-1-suffix').style.display = 'none';
+        hideElement('locationICB')
+        hideElement('locationRegion');
+        break;
+        case "region":
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+        showElement('locationRegion');
+        hideElement('locationICB')
+        hideElement('genericOperators')
+        break;
+
+      }
+    });
+  });
+
+
+  includeExcludeRadios1.addEventListener("click", function(event) {
+    includeExcludeRadios1.addEventListener("change", function(event) {
+
+      showElement("saveButton")
+
+    });
+  });
+
+  includeExcludeRadios2.addEventListener("click", function(event) {
+    includeExcludeRadios2.addEventListener("change", function(event) {
+
+      showElement("saveButton")
+
+    });
+  });
+
+
+  function showElement(div1) {
+    document.getElementById(div1).style.display = 'block';
+
+  }
+
+
+  function showElementXtra(div1, sfx) {
+    document.getElementById(div1).style.display = 'block';
+    suffix1.innerHTML = sfx;
+  }
+
+  function hideElement(div1) {
+    document.getElementById(div1).style.display = 'none';
+  }
+</script>
+
+{% endblock %}

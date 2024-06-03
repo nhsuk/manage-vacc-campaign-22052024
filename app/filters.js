@@ -14,12 +14,18 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
   }
 
 
+  filters.subtract = function(string,varia){
+     return moment(string).subtract(varia,'years');
+  }
+
 
   filters.lastUpdated = string => {
     return moment().format("dddd DD MMMM YYYY");
   }
 
-
+  filters.statusDateTime = string => {
+    return moment().format("HH:MM, ddd DD MMMM YYYY");
+  }
 
   filters.generateUUID = string => {
      return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
@@ -30,6 +36,8 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
   filters.thouCommaNum = string => {
      return string.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
   };
+
+
 
 
 //   {% set regExp = r/^£?[1-9]{1,3}(,\d{3})*(\.\d{2})?$/g %}

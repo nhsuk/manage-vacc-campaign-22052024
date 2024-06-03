@@ -1,0 +1,127 @@
+{% set suppressions = { "1": { "suppressId": "uuid", "name": "User has opted out of receiving COVID-19 messages", "estSuppd": 12542, "refreshDate": "11 April 2024", "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl." }, "2": { "suppressId": "uuid", "name": "Care Home Residents", "estSuppd": 442553, "refreshDate": "4 March 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "3": { "suppressId": "uuid", "name": "Detained Estate", "estSuppd": 94986, "refreshDate": "14 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "4": { "suppressId": "uuid", "name": "DPHC/DMS Military staff", "estSuppd": 142825, "refreshDate": "14 May 2024", "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum." }, "5": { "suppressId": "uuid", "name": "Future COVID-19 vaccine booking", "estSuppd": 4262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." } } %}
+
+{% set suppressAddedArray = [] %}
+{% if (data['suppCollect'].length > 0) %} {% set suppressAddedArray = (suppressAddedArray.push(data['suppCollect']),suppressAddedArray) %} {% endif %}
+
+{% set loader = [] %}
+{% set testRay = [] %}
+
+{% if (data['suppCollect'].length > 0) %}
+{% for item in data['suppCollect']|slice(1) %}
+{% set loader = (loader.push(item), loader) %}
+{% for key, value in suppressions %}
+{% if (item == value.name)  %}
+{% set testRay = (testRay.push(value.estSuppd),testRay) %}
+
+{% endif %}
+
+{% endfor %}
+{% endfor %}
+
+{% endif %}
+
+{% if loader.length > 0 %}
+{% set sumCountSuppress = [] %}
+
+<details class="nhsuk-details nhsuk-u-width-full">
+   <summary class="nhsuk-details__summary">
+      <span class="nhsuk-details__summary-text">
+         Suppressions activated [{{ data['suppCollect'].length }}] {{sumCountSuppress | sum | thouCommaNum }
+      </span>
+   </summary>
+   <div class="nhsuk-details__text">
+
+
+
+
+<table style="" class="nhsuk-table">
+<thead role="rowgroup" class="nhsuk-table__head">
+<tr style="" role="row">
+   <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+      Suppressions activated
+   </th>
+   <th style="line-height:-121px;text-align:right" role="columnheader" class="" scope="col">
+      Est. size
+   </th>
+</tr>
+</thead>
+<tbody class="nhsuk-table__body">
+{% for key, value in suppressions %}
+{% for item in data['suppCollect'] %}
+{% if item == value.name  %}
+<tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+   <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+   <td style="text-align:right" class="nhsuk-table__cell "> - {{value.estSuppd| thouCommaNum}}</td>
+
+   {% set sumCountSuppress = (sumCountSuppress.push(value.estSuppd|int), sumCountSuppress) %}
+   {% set numb = sumCountCohort - sumCountSuppress %}
+
+</tr>
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+<tr role="row" class="nhsuk-table__row">
+   <td style="text-align:right" class="nhsuk-table__cell">Est. total</td>
+   <td style="text-align:right" id="" class="nhsuk-table__cell ">{{sumCountSuppress | sum | thouCommaNum }}</td>
+</tr>
+
+</tbody>
+</table>
+{% endif %}
+
+
+<dl class="nhsuk-summary-list">
+
+{% for key, value in suppressions %}
+{% for item in data['suppCollect'] %}
+{% if item == value.name  %}
+<div class="nhsuk-summary-list__row">
+
+<dt class="nhsuk-summary-list__key">
+   Suppress cohorts
+</dt>
+
+<dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR> - {{value.estSuppd| thouCommaNum}}</dd>
+   <dd class="nhsuk-summary-list__actions">
+      <a href="select-cohorts?repickCohorts=true">
+         Update<span class="nhsuk-u-visually-hidden"> suppress</span>
+      </a>
+   </dd>
+
+</div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+</dl>
+
+
+
+
+<dl class="nhsuk-summary-list">
+
+{% for key, value in suppressions %}
+{% for item in data['suppCollect'] %}
+{% if item == value.name  %}
+<div class="nhsuk-summary-list__row">
+
+   <dt class="nhsuk-summary-list__key">
+      Suppress cohorts
+   </dt>
+
+   <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR> - {{value.estSuppd| thouCommaNum}}</dd>
+      <dd class="nhsuk-summary-list__actions">
+         <a href="select-cohorts?repickCohorts=true">
+            Update<span class="nhsuk-u-visually-hidden"> suppress</span>
+         </a>
+      </dd>
+
+   </div>
+   {% endif %}
+   {% endfor %}
+   {% endfor %}
+
+</dl>
+</div>
+</details>

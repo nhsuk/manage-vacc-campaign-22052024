@@ -23,86 +23,157 @@
 
 {% block content %}
 
-<style>
+{% raw %}
 
-      #background {
-      width:100%;
-      overflow: hidden;
-      background-color:#FFF;
-      box-shadow: 0 0 5px #888;
-      -moz-box-shadow: 0 0 5px #888;
-      -webkit-box-shadow: 0 0 5px#888;
-      clear:both;
-      }
-
-      body {
-      background-color: #005eb8;
-      margin: 0;
-      padding: 0;
-      }
-
-
-
-
-
-
-
-      
-      #background {
-      width:100%;
-      overflow: hidden;
-      background-color:#000;
-      box-shadow: 0 0 5px #888;
-      -moz-box-shadow: 0 0 5px #888;
-      -webkit-box-shadow: 0 0 5px#888;
-      clear:both;
-      }
-
-      #left {
-      width:50%;
-      padding:5%;
-      float:left;
-      }
-
-      #left p {
-      font-size:1em;
-      }
-
-      #right {
-      width:30%;
-      padding:5%;
-      float:left;
-      }
-
-      p:first-child:first-letter{
-      float: left;
-      color: #ffffff;
-      font-size: 75px;
-      line-height: 60px;
-      padding-top: 4px;
-      padding-right: 8px;
-      padding-left: 3px;
-      }
-
-      footer {
-      color: #ffffff;
-      font-size: .7em;
-      font-weight: normal;
-      margin: 1em 0;
-      padding: 0;
-      float:left;
-      }
-
-h1{
-      color:white;
-
-}
-
+{% endraw %}
 
 </style>
 
+<script>
+
+import accessibleAutocomplete from 'accessible-autocomplete'
+
+const countries = [
+  'France',
+  'Germany',
+  'United Kingdom'
+]
+
+accessibleAutocomplete({
+  element: document.querySelector('#my-autocomplete-container'),
+  id: 'my-autocomplete', // To match it to the existing <label>.
+  source: countries
+})
+</script>
+
+
+
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
+
+      {% macro summaryList(data) %}
+     <ul>
+       {% for key, value in data %}
+         <li>{{ key }}: {{ value }}</li>
+       {% endfor %}
+     </ul>
+   {% endmacro %}
+
+
+      {% macro summaryList(data) %} <ul> {% for key, value in data %} <li>{{ key }}: {{ value }}</li> {% endfor %} </ul> {% endmacro %} {% macro dataTable(data) %} <table> <thead> <tr> {% for key in data|first|keys %} <th>{{ key }}</th> {% endfor %} </tr> </thead> <tbody> {% for row in data %} <tr> {% for key, value in row %} <td>{{ value }}</td> {% endfor %} </tr> {% endfor %} </tbody> </table> {% endmacro %}
+
+
+{{summaryList({ name: 'John', age: 30, email: 'john@example.com' }) }}
+
+         <details style="background:#f0f4f5;" class="nhsuk-details">
+            <summary class="nhsuk-details__summary">
+               <span style=";font-weight:900;font-size:19px;" class="nhsuk-details__summary-text">
+                  View in JSON format
+               </span>
+            </summary>
+<div style=";background:#f8f8f8;border-left:0;border:1px solid lightgrey;" class="nhsuk-details__text">
+
+
+
+<div style="text-align:right;">
+<a class="nhsuk-link nhsuk-link--no-visited-state nhsuk-u-font-size-14" href="#" style="text-align:right;min-width:58px;box-shadow: 0 2px 0 #007f3b;color:#007f3b;border:1px solid #007f3b;z-index:1;;;background:white;font-weight:400;padding:5px" onmouseout="myVar = setTimeout(myFunction, 8000); this.innerHTML='Copy code'" onclick="this.innerHTML='Copied'"><strong>Copy code</strong></a>
+
+
+
+
+
+
+
+
+                        <div class="nhsuk-form-group" style="text-align:left;min-height:10%;background:#f0f4f5">
+                          <h3 class="nhsuk-heading-m" for="exampleJson" style=""><span>
+
+                          </h3>
+
+                          <div class="nhsuk-hint" id="exampleJson-hint">
+                          </div>
+                          <div class="" style="padding-left:20px;padding-right:20px;color:#000000;font-weight:200;font-size:19px;font-family:Verdana, sans-serif;">
+<pre style="background:#f0f4f5;;padding:10px;width:75%;text-align:left">
+{
+     "AttributeLevel": "PERSON",
+     "AttributeName": "DATE_OF_BIRTH",
+     "Operator": "<",
+     "Comparator": "19090821"
+}
+</pre>
+
+                          </div>
+                          <!-- <textarea style="background:#f0f4f5;color:#ffeb3b;font-weight:200;font-size:19px;font-family:Verdana, sans-serif;" class="nhsuk-textarea nhsuk-u-width-full" value="{{ data['exampleJson'] }}" id="exampleJson" name="exampleJson" rows="6" aria-describedby="exampleJson-hint">{{ exampleJson }}</textarea> -->
+                        </div>
+                      </div>
+
+
+</div>
+         </details>
+</div>
+
+
+
+
+
+
+
+                  </div>
+
+
+
+
+
+
+
+<script>
+
+var fillBox = document.getElementById("exampleJson");
+const jsonContent = "'{ "Type": "F", "Name": "NoOver114 - Exclude anyone over 114 on the day from inclusion", "Description": "Exclude anyone anyone over 114 on the day from inclusion", "Priority": 80, "AttributeLevel": "PERSON", "AttributeName": "DATE_OF_BIRTH", "Operator": "<", "Comparator": "19090821"}'"
+fill.innerHTML = jsonContent;
+
+</script>
+
+
+
+     <script>
+
+
+function myFunction(){
+for (var ab=0;ab<950000;ab++){
+   console.log(ab)
+}
+}
+
+       const bullet = "–";
+       const bulletWithSpace = `${bullet} `;
+       const enter = 13;
+
+
+       const handleInput = (event) => {
+         const { keyCode, target } = event;
+         const { selectionStart, value } = target;
+
+         if (keyCode === enter) {
+           console.log('a');
+           target.value = [...value]
+             .map((c, i) => i === selectionStart - 1
+               ? `\n${bulletWithSpace}`
+               : c
+             )
+             .join('');
+             console.log(target.value);
+
+           target.selectionStart = selectionStart+bulletWithSpace.length;
+           target.selectionEnd = selectionStart+bulletWithSpace.length;
+         }
+
+         if (value[0] !== bullet) {
+           target.value = `${bulletWithSpace}${value}`;
+         }
+       }
+     </script>
+
 
 
 

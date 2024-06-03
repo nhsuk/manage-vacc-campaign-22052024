@@ -1,0 +1,370 @@
+{% set pagetitle ="Home" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length >0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %} {{ pagetitle }} {% endblock %}
+
+{% block content %}
+
+<style>
+   tr:nth-child(even) {
+      background-color: #DDE9F3;
+      line-height:15px;
+   }
+</style>
+
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-full">
+      <div id="container"></div>
+
+
+
+
+      <div style=";text-align:right;margin-left:0px">
+
+         <a id="start" class="nhsuk-link nhsuk-link--no-visited-state" style="display:inline;;;font-weight:800;font-size:19px" href="campaign-type">Start a new invitation campaign</a>
+
+
+      </div>
+      <h1 style="font-size:52px;" class="nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-0 nhsuk-heading-xl">Welcome back {{ data['email-address']|default("name@nhs.net") }}</h1>
+
+      <div class="nhsuk-width-container">
+         <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+            <h2 style="" class="nhsuk-heading-l nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-6">Campaign status</h2>
+            <div class="nhsuk-u-padding-bottom-9 nhsuk-u-padding-top-9" style=";padding-bottom:8px;padding-top:8px;">
+               <a id="duplicate" class="nhsuk-u-margin-bottom-6 nhsuk-link nhsuk-link--no-visited-state" style="font-weight:800;font-size:19px;width:100%;" href="#">Duplicate an invitation campaign</a>
+            </div>
+            <p class="nhsuk-body-m" id="reveal-copy">Select the previous campaign from the list below to create a duplicate of it.</p>
+            <table id="cListTable" role="table" class="nhsuk-table-responsive nhsuk-u-width-full">
+               <caption style="display:none" class="nhsuk-table__caption">Campaign status</caption>
+               <thead role="rowgroup" style="" class="nhsuk-table__head">
+                  <tr role="row">
+                     <th style="width:35%" role="columnheader" class="" scope="col">
+                        Name
+                     </th>
+                     <th style="width:30%" role="columnheader" class="" scope="col">
+                        Date last updated
+                     </th>
+                     <th style="width:30%" role="columnheader" class="" scope="col">
+                        Status
+                     </th>
+                  </tr>
+               </thead>
+               <tbody class="nhsuk-table__body">
+                  <tr role="row" class="nhsuk-table__row">
+                     <td role="cell" class="nhsuk-table__cell">
+                        <span class="nhsuk-table-responsive__heading">Age </span>
+                        <a class="nhsuk-link nhsuk-task-list__link nhsuk-link--no-visited-state href" href="#">Covid-19 Spring 2024 Booster</a>
+                     </td>
+                     <td role="cell" class="nhsuk-table__cell">
+                        <span class="nhsuk-table-responsive__heading">Last update? </span> {{ data['fromDate']|statusDateTime }}
+                     </td>
+                     <td role="cell" class="nhsuk-table__cell">
+                        <span class="nhsuk-table-responsive__heading">Status? </span>
+                        <strong style="font-size:16px;border:0" class="nhsuk-tag">
+                           Active
+                        </strong>
+                     </td>
+                  </tr>
+                  <tr role="row" class="nhsuk-table__row">
+                     <td role="cell" class="nhsuk-table__cell">
+                        <span class="nhsuk-table-responsive__heading">Age </span>
+                        <a class="nhsuk-link nhsuk-task-list__link nhsuk-link--no-visited-state href" href="#">Covid-19 IS 2024</a>
+                     </td>
+                     <td role="cell" class="nhsuk-table__cell">
+                        <span class="nhsuk-table-responsive__heading">Last update? </span> {{ data['fromDate']|statusDateTime }}
+                     </td>
+                     <td role="cell" class="nhsuk-table__cell">
+                        <span class="nhsuk-table-responsive__heading">Status? </span>
+                        <strong style="font-size:16px;border:0" class="nhsuk-tag nhsuk-tag--blue">
+                           Pending approval
+                        </strong>
+                     </tr>
+                     <tr role="row" class="nhsuk-table__row">
+                        <td role="cell" class="nhsuk-table__cell">
+                           <span class="nhsuk-table-responsive__heading">Age </span>
+                           <a class="nhsuk-link nhsuk-task-list__link nhsuk-link--no-visited-state href" href="#">Seasonal Flu Winter 2023</a>
+                        </td>
+                        <td role="cell" class="nhsuk-table__cell">
+                           <span class="nhsuk-table-responsive__heading">Last update? </span>09:04, Friday 03 Aug 2023
+                        </td>
+                        <td role="cell" class="nhsuk-table__cell">
+                           <span class="nhsuk-table-responsive__heading">Status? </span>
+                           <strong style="font-size:16px;border:0" class="nhsuk-tag nhsuk-tag--white">
+                              Ended
+                           </strong>
+                        </td>
+                     </tr>
+                     <tr role="row" class="nhsuk-table__row">
+                        <td role="cell" class="nhsuk-table__cell">
+                           <span class="nhsuk-table-responsive__heading">Age </span>
+                           <a class="nhsuk-link nhsuk-task-list__link nhsuk-link--no-visited-state href" href="#">Covid-19 Winter 2023 CEV</a>
+                        </td>
+                        <td role="cell" class="nhsuk-table__cell">
+                           <span class="nhsuk-table-responsive__heading">Last update? </span>09:04, Friday 03 Aug 2023
+                        </td>
+                        <td role="cell" class="nhsuk-table__cell">
+                           <span class="nhsuk-table-responsive__heading">Status? </span>
+                           <strong style="font-size:16px;border:0" class="nhsuk-tag nhsuk-tag--white">
+                              Ended
+                           </strong>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </main>
+         </div>
+      </div>
+   </div>
+   <script>
+
+      
+
+      const cListTable = document.getElementById("cListTable")
+      const start = document.getElementById("start");
+      const duplicate = document.getElementById("duplicate");
+      // let cell1 = document.getElementById("cell-1");
+      // let cell2 = document.getElementById("cell-2");
+      // let cell3 = document.getElementById("cell-3");
+      // let cell4 = document.getElementById("cell-4");
+
+
+      function createRadioElement(name, checked) {
+         const radioHtml = `<input type="radio" name="${name}"${checked ? ' checked="checked"' : ''}/>`;
+         const radioFragment = document.createElement('div');
+         radioFragment.innerHTML = radioHtml;
+         return radioFragment.firstChild;
+      }
+
+
+      // var table = document.getElementById( 'cListTable' );
+      //
+      // [].forEach.call( table.rows, function ( row, i ) {
+      //    [].forEach.call( row.cells, function ( cell, j ) {
+      //
+      //       cell.textContent = 'Cell ' + ( j + 1 ) + ' in Row ' + ( i + 1 );
+      //
+      //    });
+      // });
+
+      duplicate.addEventListener("click", function() {
+         alert(duplicate.innerHTML)
+         switch (duplicate.innerHTML) {
+            case "Duplicate an invitation campaign":
+            duplicate.innerHTML = "Cancel";
+            var radioTest1 = document.createElement("input");
+            radioTest1.type = "radio";
+            var newHeadRow = document.createElement("tr");
+            var newHeadC1 = document.createElement("th"); var newHeadC2 = document.createElement("th");
+            var newHeadC3 = document.createElement("th"); var newHeadC4 = document.createElement("th");
+            alert("headvars")
+
+
+            // newHeadC1.textContent = "Select row to duplicate";
+            // newHeadC2.textContent = "Name";
+            // newHeadC3.textContent = "Date last updated";
+            // newHeadC4.textContent = "Status";
+            // console.log(newHeadC1)
+            // newHeadRow.appendChild(newHeadC1)
+            // newHeadRow.appendChild(newHeadC1); newHeadRow.appendChild(newHeadC2); newHeadRow.appendChild(newHeadC3); newHeadRow.appendChild(newHeadC4);
+            // cListTable.deleteRow(0);
+            // cListTable.deleteRow(1);
+            // cListTable.deleteRow(2);
+            // cListTable.deleteRow(3);
+            // cListTable.deleteRow(4);
+            // cListTable.deleteRow(5);
+
+
+
+
+            // var row = cListTable.insertRow(4);
+            // var cell1 = row.insertCell(0);
+            // var cell2 = row.insertCell(1);
+            // var cell3 = row.insertCell(2);
+            // var cell4 = row.insertCell(3);
+            // cell1.innerHTML = radioTest1.value;
+            // cell2.innerHTML = "MMR Spring 2025 Campaign";
+            // cell3.innerHTML = "16:06, Fri 30 May 2024";
+            // cell4.innerHTML = "No update";
+            // row.appendChild(cell1);
+
+            var div1 = document.createElement('div');
+            div1.setAttribute("class", "nhsuk-radios");
+            div1.style.cssText = "background:black;width: 300px;height: 300px;float:left";
+
+            for (var loop=0;loop<23;loop++){
+               var newline = document.createElement('br');
+
+               var radioLaLa = document.createElement('input');
+               radioLaLa.setAttribute("type", "radio");
+               radioLaLa.setAttribute("id", "radio"+loop);
+               radioLaLa.setAttribute("class", "nhsuk-radios__input");
+               radioLaLa.style.cssText = "width: 30px;height: 30px;text-align:top";
+               var label = document.createElement('label');
+               label.setAttribute("class","nhsuk-label nhsuk-radios__label");
+               label.htmlFor = "radio"+loop;
+               radioLaLa.value = "Ansewr"+loop;
+               div1.appendChild(radioLaLa);
+               div1.appendChild(label);
+               div1.appendChild(newline);
+
+
+            }
+
+
+
+
+            // for(i=0;i<=10;i++){
+            //    var selecttag1=document.createElement("input");
+            //    selecttag1.setAttribute("type", "radio");
+            //    selecttag1.setAttribute("name", "irrSelectNo"+i);
+            //    selecttag1.setAttribute("value", "N");
+            //    selecttag1.setAttribute("id","irrSelectNo"+i);
+            //
+            //    var lbl1 = document.createElement("label");
+            //    lbl1.innerHTML = "YES";
+            //    cell3Div.appendChild(lbl);
+            //    cell3Div.appendChild(selecttag1);
+            // }
+
+
+
+            //
+            // var obj = cListTable.getElementsByTagName("thead")[0];
+            // cListTable.insertRow(obj);
+            // cListTable.getElementsByTagName("tbody")[0]
+            // var row = cListTable.insertRow(0);
+
+            // console.log(newHeadRow)
+            //
+            // for (var i=0;i<=)
+
+
+            break;
+            case "Cancel":
+            duplicate.innerHTML = "Duplicate an invitation campaign";
+            break;
+         }
+      });
+
+
+
+
+
+      function showDiv(div1) {
+         document.getElementById(div1).style.display = 'block';
+      }
+
+      function hideDiv(div1) {
+         document.getElementById(div1).style.display = 'none';
+      }
+
+   </script>
+   {% endblock %}
+   <!DOCTYPE html>
+   <html>
+   <head>
+      <style>
+         table, td {
+            border: 1px solid black;
+         }
+      </style>
+   </head>
+   <body>
+
+      <p>Click the buttons to create and delete row(s) for the table.</p>
+
+      <table id="myTable">
+         <tr>
+            <td>Row1 cell1</td>
+            <td>Row1 cell2</td>
+         </tr>
+         <tr>
+            <td>Row2 cell1</td>
+            <td>Row2 cell2</td>
+         </tr>
+         <tr>
+            <td>Row3 cell1</td>
+            <td>Row3 cell2</td>
+         </tr>
+      </table>
+      <br>
+
+      <button onclick="myCreateFunction()">Create row</button>
+      <button onclick="myDeleteFunction()">Delete row</button>
+
+      <script>
+         function myCreateFunction() {
+            var table = document.getElementById("myTable");
+            var row = table.insertRow(0);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = "NEW CELL1";
+            cell2.innerHTML = "NEW CELL2";
+         }
+
+         function myDeleteFunction() {
+            document.getElementById("myTable").deleteRow(0);
+         }
+      </script>
+
+   </body>
+   </html>
+
+
+   document.getElementById('submit').onclick = function() {
+      var radiobox = document.createElement('input');
+      radiobox.type = 'radio';
+      radiobox.id = 'num';
+      radiobox.value = '22+age';
+      var label = document.createElement('label')
+      label.htmlFor = 'num';
+      var description = document.createTextNode('22+age');
+      label.appendChild(description);
+      var newline = document.createElement('br');
+      var container = document.getElementById('container');
+      container.appendChild(radiobox);
+      container.appendChild(label);
+      container.appendChild(newline);
+   }
+
+
+
+
+   <div class="nhsuk-radios">
+      var div1 = document.createElement('div');
+      div1.setAttribute("class", "nhsuk-radios");
+      var radioLaLa = document.createElement('input');
+      radioLaLa.setAttribute("type", "radio");
+      radioLaLa.setAttribute("id", "radio"+loop);
+      radioLaLa.setAttribute("class", "nhsuk-radios__input");
+      var label = document.createElement('label');
+      label.setAttribute("class","nhsuk-label nhsuk-radios__label");
+      label.htmlFor = "radio"+loop;
+      radioLaLa.value = "Ansewr"+loop;
+      div1.appendChild(radioLaLa);
+      div1.appendChild(label);
+      div1.appendChild(newline);
+
+      <div class="nhsuk-radios__item">
+         <input class="nhsuk-radios__input" id="example-1" name="example" type="radio" value="yes">
+         <label class="nhsuk-label nhsuk-radios__label" for="example-1">
+            Yes
+         </label>
+      </div>
+
+      <div class="nhsuk-radios__item">
+         <input class="nhsuk-radios__input" id="example-2" name="example" type="radio" value="no">
+         <label class="nhsuk-label nhsuk-radios__label" for="example-2">
+            No
+         </label>
+      </div>

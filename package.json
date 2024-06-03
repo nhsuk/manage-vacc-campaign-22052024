@@ -19,6 +19,9 @@
     "@babel/preset-env": "^7.23.6",
     "@dwp/dwp-frontend": "^2.6.0",
     "@ministryofjustice/frontend": "^2.1.2",
+    "@nodelib/fs.scandir": "^3.0.0",
+    "@x-govuk/govuk-prototype-components": "^3.0.5",
+    "accessible-autocomplete": "^3.0.0",
     "basic-auth": "^2.0.1",
     "body-parser": "^1.20.2",
     "browser-sync": "^3.0.2",
@@ -42,6 +45,7 @@
     "nhsuk-frontend": "^8.1.0",
     "nunjucks": "^3.2.4",
     "path": "^0.12.7",
+    "radio-button-redirect": "^1.2.0",
     "recursive-readdir": "^2.2.3",
     "sass": "^1.69.5"
   },

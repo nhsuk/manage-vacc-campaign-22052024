@@ -1,0 +1,199 @@
+-----> Building on the Heroku-22 stack
+-----> Using buildpack: heroku/nodejs
+-----> Node.js app detected
+
+-----> Creating runtime environment
+
+       NPM_CONFIG_LOGLEVEL=error
+       NODE_VERBOSE=false
+       NODE_ENV=production
+       NODE_MODULES_CACHE=true
+
+-----> Installing binaries
+       engines.node (package.json):   ^20
+       engines.npm (package.json):    unspecified (use default)
+
+       Resolving node version ^20...
+       Downloading and installing node 20.13.1...
+       Using default npm version: 10.5.2
+
+-----> Restoring cache
+       - npm cache
+
+-----> Installing dependencies
+       Prebuild detected (node_modules already exists)
+       Rebuilding any native modules
+       rebuilt dependencies successfully
+       npm notice
+       npm notice New minor version of npm available! 10.5.2 -> 10.8.0
+       npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.8.0>
+       npm notice Run `npm install -g npm@10.8.0` to update!
+       npm notice
+       Installing any new modules (package.json)
+
+       > nhsuk-prototype-kit@4.10.0 postinstall
+       > npm run build
+
+
+       > nhsuk-prototype-kit@4.10.0 build
+       > gulp build
+
+       [10:25:38] Using gulpfile /tmp/build_adcf4e15/gulpfile.js
+       [10:25:38] Starting 'build'...
+       [10:25:38] Starting 'cleanPublic'...
+       [10:25:38] Finished 'cleanPublic' after 12 ms
+       [10:25:38] Starting 'compileStyles'...
+       [10:25:40] Finished 'compileStyles' after 1.58 s
+       [10:25:40] Starting 'compileScripts'...
+       [10:25:40] Finished 'compileScripts' after 605 ms
+       [10:25:40] Starting 'compileAssets'...
+       [10:25:41] Finished 'compileAssets' after 14 ms
+       [10:25:41] Finished 'build' after 2.22 s
+
+       up to date, audited 1379 packages in 6s
+
+       127 packages are looking for funding
+         run `npm fund` for details
+
+       12 vulnerabilities (3 moderate, 7 high, 2 critical)
+
+       To address issues that do not require attention, run:
+         npm audit fix
+
+       To address all issues (including breaking changes), run:
+         npm audit fix --force
+
+       Run `npm audit` for details.
+
+-----> Build
+       Running build
+
+       > nhsuk-prototype-kit@4.10.0 build
+       > gulp build
+
+       [10:25:41] Using gulpfile /tmp/build_adcf4e15/gulpfile.js
+       [10:25:41] Starting 'build'...
+       [10:25:41] Starting 'cleanPublic'...
+       [10:25:41] Finished 'cleanPublic' after 13 ms
+       [10:25:41] Starting 'compileStyles'...
+       [10:25:43] Finished 'compileStyles' after 1.53 s
+       [10:25:43] Starting 'compileScripts'...
+       [10:25:44] Finished 'compileScripts' after 644 ms
+       [10:25:44] Starting 'compileAssets'...
+       [10:25:44] Finished 'compileAssets' after 8.61 ms
+       [10:25:44] Finished 'build' after 2.2 s
+
+-----> Caching build
+       - npm cache
+
+-----> Pruning devDependencies
+
+       up to date, audited 944 packages in 2s
+
+       54 packages are looking for funding
+         run `npm fund` for details
+
+       12 vulnerabilities (3 moderate, 7 high, 2 critical)
+
+       To address issues that do not require attention, run:
+         npm audit fix
+
+       To address all issues (including breaking changes), run:
+         npm audit fix --force
+
+       Run `npm audit` for details.
+       npm notice
+       npm notice New minor version of npm available! 10.5.2 -> 10.8.0
+       npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.8.0>
+       npm notice Run `npm install -g npm@10.8.0` to update!
+       npm notice
+
+-----> Build succeeded!
+-----> Discovering process types
+       Procfile declares types     -> (none)
+       Default types for buildpack -> web
+-----> Compressing...
+       Done: 69.2M
+-----> Launching...
+       Released v47
+       https://manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com/ deployed to Heroku
+
+2024-05-22T10:25:20.000000+00:00 app[api]: Build started by user ismail.ismail9@nhs.net
+2024-05-22T10:25:58.916439+00:00 app[api]: Deploy 940f82f5 by user ismail.ismail9@nhs.net
+2024-05-22T10:25:58.916439+00:00 app[api]: Release v47 created by user ismail.ismail9@nhs.net
+2024-05-22T10:25:59.000000+00:00 app[api]: Build succeeded
+2024-05-22T10:26:00.400629+00:00 heroku[web.1]: Restarting
+2024-05-22T10:26:00.449820+00:00 heroku[web.1]: State changed from up to starting
+2024-05-22T10:26:01.267519+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2024-05-22T10:26:01.355848+00:00 heroku[web.1]: Process exited with status 143
+2024-05-22T10:26:06.686430+00:00 heroku[web.1]: Starting process with command `npm start`
+2024-05-22T10:26:07.843923+00:00 app[web.1]:
+2024-05-22T10:26:07.843959+00:00 app[web.1]: > nhsuk-prototype-kit@4.10.0 start
+2024-05-22T10:26:07.843959+00:00 app[web.1]: > node app.js
+2024-05-22T10:26:07.843960+00:00 app[web.1]:
+2024-05-22T10:26:07.965872+00:00 app[web.1]: node:internal/modules/cjs/loader:1148
+2024-05-22T10:26:07.965874+00:00 app[web.1]: throw err;
+2024-05-22T10:26:07.965874+00:00 app[web.1]: ^
+2024-05-22T10:26:07.965874+00:00 app[web.1]:
+2024-05-22T10:26:07.965875+00:00 app[web.1]: Error: Cannot find module './docs/documentation_routes'
+2024-05-22T10:26:07.965875+00:00 app[web.1]: Require stack:
+2024-05-22T10:26:07.965875+00:00 app[web.1]: - /app/app.js
+2024-05-22T10:26:07.965875+00:00 app[web.1]: at Module._resolveFilename (node:internal/modules/cjs/loader:1145:15)
+2024-05-22T10:26:07.965876+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:986:27)
+2024-05-22T10:26:07.965876+00:00 app[web.1]: at Module.require (node:internal/modules/cjs/loader:1233:19)
+2024-05-22T10:26:07.965879+00:00 app[web.1]: at require (node:internal/modules/helpers:179:18)
+2024-05-22T10:26:07.965879+00:00 app[web.1]: at Object.<anonymous> (/app/app.js:23:29)
+2024-05-22T10:26:07.965879+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2024-05-22T10:26:07.965879+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2024-05-22T10:26:07.965879+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1208:32)
+2024-05-22T10:26:07.965880+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:1024:12)
+2024-05-22T10:26:07.965880+00:00 app[web.1]: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:174:12) {
+2024-05-22T10:26:07.965880+00:00 app[web.1]: code: 'MODULE_NOT_FOUND',
+2024-05-22T10:26:07.965881+00:00 app[web.1]: requireStack: [ '/app/app.js' ]
+2024-05-22T10:26:07.965881+00:00 app[web.1]: }
+2024-05-22T10:26:07.965895+00:00 app[web.1]:
+2024-05-22T10:26:07.965896+00:00 app[web.1]: Node.js v20.13.1
+2024-05-22T10:26:07.989465+00:00 app[web.1]: npm notice
+2024-05-22T10:26:07.989585+00:00 app[web.1]: npm notice New minor version of npm available! 10.5.2 -> 10.8.0
+2024-05-22T10:26:07.989691+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.8.0>
+2024-05-22T10:26:07.989829+00:00 app[web.1]: npm notice Run `npm install -g npm@10.8.0` to update!
+2024-05-22T10:26:07.989878+00:00 app[web.1]: npm notice
+2024-05-22T10:26:08.049703+00:00 heroku[web.1]: Process exited with status 1
+2024-05-22T10:26:08.069831+00:00 heroku[web.1]: State changed from starting to crashed
+2024-05-22T10:26:08.072865+00:00 heroku[web.1]: State changed from crashed to starting
+2024-05-22T10:26:14.877556+00:00 heroku[web.1]: Starting process with command `npm start`
+2024-05-22T10:26:16.009864+00:00 app[web.1]:
+2024-05-22T10:26:16.009942+00:00 app[web.1]: > nhsuk-prototype-kit@4.10.0 start
+2024-05-22T10:26:16.009943+00:00 app[web.1]: > node app.js
+2024-05-22T10:26:16.009943+00:00 app[web.1]:
+2024-05-22T10:26:16.154788+00:00 app[web.1]: node:internal/modules/cjs/loader:1148
+2024-05-22T10:26:16.154789+00:00 app[web.1]: throw err;
+2024-05-22T10:26:16.154789+00:00 app[web.1]: ^
+2024-05-22T10:26:16.154790+00:00 app[web.1]:
+2024-05-22T10:26:16.154790+00:00 app[web.1]: Error: Cannot find module './docs/documentation_routes'
+2024-05-22T10:26:16.154790+00:00 app[web.1]: Require stack:
+2024-05-22T10:26:16.154791+00:00 app[web.1]: - /app/app.js
+2024-05-22T10:26:16.154793+00:00 app[web.1]: at Module._resolveFilename (node:internal/modules/cjs/loader:1145:15)
+2024-05-22T10:26:16.154793+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:986:27)
+2024-05-22T10:26:16.154793+00:00 app[web.1]: at Module.require (node:internal/modules/cjs/loader:1233:19)
+2024-05-22T10:26:16.154793+00:00 app[web.1]: at require (node:internal/modules/helpers:179:18)
+2024-05-22T10:26:16.154794+00:00 app[web.1]: at Object.<anonymous> (/app/app.js:23:29)
+2024-05-22T10:26:16.154794+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2024-05-22T10:26:16.154794+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2024-05-22T10:26:16.154794+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1208:32)
+2024-05-22T10:26:16.154795+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:1024:12)
+2024-05-22T10:26:16.154795+00:00 app[web.1]: at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:174:12) {
+2024-05-22T10:26:16.154795+00:00 app[web.1]: code: 'MODULE_NOT_FOUND',
+2024-05-22T10:26:16.154796+00:00 app[web.1]: requireStack: [ '/app/app.js' ]
+2024-05-22T10:26:16.154796+00:00 app[web.1]: }
+2024-05-22T10:26:16.154796+00:00 app[web.1]:
+2024-05-22T10:26:16.154796+00:00 app[web.1]: Node.js v20.13.1
+2024-05-22T10:26:16.161399+00:00 app[web.1]: npm notice
+2024-05-22T10:26:16.161579+00:00 app[web.1]: npm notice New minor version of npm available! 10.5.2 -> 10.8.0
+2024-05-22T10:26:16.161677+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.8.0>
+2024-05-22T10:26:16.161821+00:00 app[web.1]: npm notice Run `npm install -g npm@10.8.0` to update!
+2024-05-22T10:26:16.161866+00:00 app[web.1]: npm notice
+2024-05-22T10:26:16.231687+00:00 heroku[web.1]: Process exited with status 1
+2024-05-22T10:26:16.254606+00:00 heroku[web.1]: State changed from starting to crashed
+2024-05-22T10:26:17.119821+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com request_id=8d62571f-f910-4200-9799-757320e5bfde fwd="92.236.53.146" dyno= connect= service= status=503 bytes= protocol=https
+2024-05-22T10:26:17.632010+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=manage-a-vaccination-campaign-506da5c4ff56.herokuapp.com request_id=3396fc03-e93d-4b10-b9cd-310fb47001e0 fwd="92.236.53.146" dyno= connect= service= status=503 bytes= protocol=https

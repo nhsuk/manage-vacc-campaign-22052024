@@ -1,0 +1,79 @@
+{% set pagetitle ="Campaign name" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length > 0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% block pageTitle %} {{ pagetitle }} {% endblock %}
+{% block outerContent %} {{ backLink({ "href": "javascript:window.history.back()", "text": "Back", "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0" }) }} {% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds">
+      {% if data['update'] == 'name' %}
+      {% set head = 'Create a campaign name' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'dates' %}
+      {% set head = 'Create a campaign name' %}
+      {% endif %}
+      {% if data['editName'] == 'true' %}
+      {% set head = 'Enter the campaign name' %}
+      {% set action = 'task-list' %}
+      {% endif %}
+      <form action="{{ action }}" method="post">
+         <h1>
+            {{ head }}
+         </h1>
+         <p class="nhsuk-body">Choose a name that describes the campaign and is easy to understand. </p>
+         <p class="nhsuk-body">We recommend using this well-established convention for naming campaigns. So, based on your answers so far it could be:</p>
+
+
+
+
+   <style>
+      .lineup { display: inline-block; list-style-type: none; vertical-align: top; text-align: left; margin: 0; float:left; font-size: 17px; }
+      .form-inline { display: flex; flex-flow: row wrap; align-items: center; }
+      /* Add some margins for each label */ .form-inline label { margin: 5px 10px 5px 0; }
+      /* Style the input fields */ .form-inline input { vertical-align: middle; margin: 5px 10px 5px 0; padding: 10px; background-color: #fff; border: 1px solid #ddd; }
+      /* Style the submit button */ .form-inline button { padding: 10px 20px; background-color: blue; border: 1px solid #ddd; color: white; }
+      .form-inline button:hover { background-color: royalblue; }
+      /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */ @media (max-width: 800px) { .form-inline input { margin: 10px 0; } .form-inline { flex-direction: column; align-items: stretch; } }
+      .filterLine { display: inline-block; list-style-type: none; vertical-align: top; text-align: left; margin: 0; float:left; font-size: 17px; }
+      .filterLabel { font-size: 17px; }
+      .filterLine, li { display: inline-block; vertical-align: bottom; font-size: 17px; }
+      .newCR { display: block; vertical-align: top; padding-left:5px; font-size: 17px; }
+      input:checked  { cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: 0; height: 20px; width: 20px; border: 2px solid black; color: black; }
+      input:after { content:""; position: absolute; left: 40%; top: 20%; width: 15%; height: 20%; border: 5px solid #000000; border-width: 0 4px 4px 0; transform: rotate(45deg); display: none; }
+      input:checked:after { display: block; }
+      li { font-size:17px; margin-top:3px; margin-bottom:2px; }
+   </style>
+
+   <div style="display:inline-block" class="nhsuk-form-group"> <label class="filterLabel nhsuk-label" for="name-vaccine-type"> Vaccine type </label> <select  class="nhsuk-select" id="name-vaccine-type" name="name-vaccine-type"> <option disabled selected value="--">Select</option> <option id="c19" selected value="COVID-19">COVID-19</option> <option id="flu" value="Flu">Flu</option> <option id="coad" value="Flu">Covid-Flu co-admin</option> <option id="mmr" value="MMR">MMR</option> </select> </div>
+   <div style="display:inline-block" class="nhsuk-form-group"> <label class="filterLabel nhsuk-label" for="name-season"> Season </label> <select  class="nhsuk-select" id="name-season" name="name-season"> <option disabled selected value="--">Select</option> <option id="Summer" value="Summer">Summer</option> <option  id="Autumn" value="Autumn">Autumn</option> <option id="Winter" selected value="Winter">Winter</option> <option id="Spring" value="Spring">Spring</option> </select> </div>
+
+   <div style="display:inline-block" class="nhsuk-form-group">
+      <label class="filterLabel nhsuk-label" for="name-year">
+         Year
+      </label>
+      <select  class="nhsuk-select" id="name-year" name="name-year">
+         <option disabled selected value="--">Select</option>
+         <option selected id="year1" value="2024">2024</option>
+         <option id="year2" value="2025">2025</option>
+      </select>
+   </div>
+<div>
+   {{ button({
+      text: "Save and continue"
+   }) }}
+</form>
+</div>
+</div>
+</div>
+
+
+</div>
+{% endblock %}

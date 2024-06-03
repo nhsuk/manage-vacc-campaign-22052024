@@ -1,0 +1,84 @@
+
+
+{% macro newIterationTasklist(title="",date="",hint="",count=" ") %} <span style="font-color:#425563;" class="nhsuk-caption-s">Iteration {{count}}</span> <h2 style=";" class="nhsuk-heading-l nhsuk-u-padding-top-2 nhsuk-u-margin-bottom-0">{{title}}</h2> <h3 style="font-weight:900;;;" class="nhsuk-heading-xs"> {{date}} </h3> <div style=";color:#425563;font-weight:100;font-size:16px;padding-bottom:10px;border-bottom:1px solid lightgrey" id="company-details-3-hint" class="govuk-task-list__hint"> {{hint}} </div> {% endmacro %}
+
+{% set filters = { "1": { "filterId": "uuid", "name": "Over 75 years", "estSize": 3612542, "refreshDate": "11 April 2024", "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl." }, "2": { "filterId": "uuid", "name": "Over 85 years", "estSize": 1442553, "refreshDate": "4 March 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "3": { "filterId": "uuid", "name": "Over 5 years", "estSize": 34444986, "refreshDate": "14 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "4": { "filterId": "uuid", "name": "All Integrated Care Boards excluding London", "estSize": 21542825, "refreshDate": "14 May 2024", "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum." }, "5": { "filterId": "uuid", "name": "No record of vaccine given", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." } } %}
+
+
+   {% set loader = [] %}
+
+   {% if data['commonFilters'].length > 0 %}
+   {% set loader = (loader.push(data['commonFilters']), loader) %}
+   {% elif (data['allFilters'].length > 0) %}
+   {% set loader = (loader.push(data['allFilters']), loader) %}
+   {% endif %}
+
+
+
+   {% set testRay = [] %}
+   {% for key, value in filters %}
+   {% for thing in loader %}
+   {% if thing == value.name  %}
+
+   {% else %}
+   {% endif %}
+   {% endfor %}
+   {% endfor %}
+
+
+
+
+
+   {% set sumCountFilters = [] %}
+   {% if data['commonFilters'].length > 0 %}
+   {% elif data['allFilters'].length > 0 %}
+   <table style="" class="nhsuk-table">
+      <thead role="rowgroup" class="nhsuk-table__head">
+         <tr style="" role="row">
+            <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+               Filters applied
+            </th>
+            <th style="line-height:-121px;text-align:right" role="columnheader" class="" scope="col">
+               Est. size
+            </th>
+         </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+         {% for key, value in filters %}
+         {% for item in loader %}
+         {% if item == value.name  %}
+         <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+            <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+            <td style="text-align:right" class="nhsuk-table__cell "> - {{value.estSize| thouCommaNum}}</td>
+
+            {% set sumCountFilters = (sumCountFilters.push(value.estSize|int), sumCountFilters) %}
+            {% set numb = sumCountCohort - sumCountFilters %}
+
+         </tr>
+         {% endif %}
+         {% endfor %}
+         {% endfor %}
+
+
+      </tbody>
+   </table>
+   {% endif %}
+
+
+
+   {% set detailsBodyContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget scelerisque augue. Nunc sagittis mattis dolor, et aliquam nulla aliquet eu. Curabitur vulputate quis nisl sed pulvinar. Pellentesque eu rhoncus elit, vel dignissim massa. Vestibulum imperdiet enim varius vehicula pretium. Integer facilisis mi quis lorem varius mollis a vel dolor. Morbi sollicitudin, justo quis rhoncus venenatis, eros turpis finibus eros, ut fermentum arcu dui in diam. Aenean pretium posuere lorem, et sagittis turpis. Integer non ullamcorper quam. Cras nisi nibh, tincidunt ut velit ac, convallis sagittis ex." %}
+
+   {% macro listInDetails(summary="",dets="",sum="") %}
+   <details class="nhsuk-details nhsuk-u-width-full">
+      <summary class="nhsuk-details__summary">
+         <span class="nhsuk-details__summary-text">
+            {{ summary }} {{sum}}
+         </span>
+      </summary>
+      <div class="nhsuk-details__text">
+         {{dets}}
+      </div>
+   </details>
+   {% endmacro %}
+
+   {{ listInDetails(summary="Suppressions applied [3]",dets=detailsBodyContent,sum="1,132,443") }}
