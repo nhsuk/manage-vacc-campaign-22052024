@@ -3,7 +3,7 @@
 
 
 {% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "age") and (data['genericOperatorsList'] == "between") %}
-<h3 class="nhsuk-heading-m">Custom {{personAttributeSelector}}-filter applied</h3>
+<h3 class="nhsuk-heading-m">Custom {{[data'personAttributeSelector']}}-filter applied</h3>
 {{"Exclude people from the cohorts if aged"}}
 {{data['genericOperatorsList']}}
 {{data['value-1-suffix']}}
@@ -109,3 +109,78 @@
 
 
                         </dl>
+
+
+                        <dl class="nhsuk-summary-list">
+
+
+                           <h3 class="nhsuk-heading-m">Filters applied</h3>
+                           <div class="nhsuk-summary-list__row">
+                              <dt class="nhsuk-summary-list__key">Custom filter</dt>
+                              <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+                                 <dd class="nhsuk-summary-list__actions"><a href="add-filter-library?repickFilters=true">Update<span class="nhsuk-u-visually-hidden"> filter</span></a></dd>
+                           </div>
+
+                                 <div class="nhsuk-summary-list__row">
+
+                                    <dt class="nhsuk-summary-list__key">
+                                       Age filters
+                                    </dt>
+
+                                    <dd style="" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+                                       <dd class="nhsuk-summary-list__actions">
+                                          <a href="add-filter-library?repickFilters=true">
+                                             Update<span class="nhsuk-u-visually-hidden"> filter</span>
+                                          </a>
+                                       </dd>
+
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}{% endfor %}{% endif %}
+
+                                    {% if (data['locationFilters'].length > 0) %}
+                                       {% for key, value in filters %}
+                                       {% for item in data['locationFilters'] %}
+                                       {% if item == value.name  %}
+                                       <div class="nhsuk-summary-list__row">
+
+                                          <dt class="nhsuk-summary-list__key">
+                                             Location filters
+                                          </dt>
+
+                                          <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+                                             <dd class="nhsuk-summary-list__actions">
+                                                <a href="add-filter-library?repickFilters=true">
+                                                   Update<span class="nhsuk-u-visually-hidden"> filter</span>
+                                                </a>
+                                             </dd>
+
+                                          </div>
+                                          {% endif %}
+                                          {% endfor %}{% endfor %}{% endif %}
+
+                                          {% if (data['allFilters'].length > 0) %}
+
+                                             {% for key, value in filters %}
+                                             {% for item in data['allFilters'] %}
+                                             {% if item == value.name  %}
+                                             <div class="nhsuk-summary-list__row">
+
+                                                <dt class="nhsuk-summary-list__key">
+                                                   All filters
+                                                </dt>
+
+                                                <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+                                                   <dd class="nhsuk-summary-list__actions">
+                                                      <a href="add-filter-library?repickFilters=true">
+                                                         Update<span class="nhsuk-u-visually-hidden"> filter</span>
+                                                      </a>
+                                                   </dd>
+
+                                                </div>
+                                                {% endif %}
+                                                {% endfor %}{% endfor %}{% endif %}
+
+
+
+                                             </dl>
