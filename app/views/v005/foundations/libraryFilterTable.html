@@ -40,13 +40,13 @@
 
    {% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location") and (data['locationSelectListOptions'] == "icb") %}
    {{"Exclude people from the cohorts if located in"}}
-   {{data['genericOperatorsList']|upper}}
+   {{data['locationSelectListOptions']}}
    {{data['locationICB']}}
    {% endif %}
 
    {% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location") and (data['locationSelectListOptions'] == "region") %}
    {{"Exclude people from the cohorts if located in"}}
-   {{data['genericOperatorsList']|upper}}
+   {{data['locationSelectListOptions']}}
    {{data['locationRegion']}}
    {% endif %}
 
