@@ -2,45 +2,32 @@
 
 
 
-{% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "age" ) %}
-{{data['personAttributeSelector']}}
+{% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "age") and (data['genericOperatorsList'] == "between") %}
+{{"Exclude people from the cohorts if aged"}}
 {{data['genericOperatorsList']}}
 {{data['value-1-suffix']}}
+{{ and }}
 {{data['value-2-suffix']}}
+{% endif %}
 
-
-
-
-{{"Age-based custom filter added"}}
-{{"Exclude people if"}}
-
-{% if genericOperatorsList == "between" %}
-{{data['personAttributeSelector']}}
-{{data['genericOperatorsList']}}
-{{data['value-1-suffix']}}
-{{data['value-2-suffix']}}
-{% else %}
-{{data['personAttributeSelector']}}
+{% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "age") and (data['genericOperatorsList'] !== "between") %}
+{{"Exclude people from the cohorts if aged"}}
 {{data['genericOperatorsList']}}
 {{data['value-1-suffix']}}
 {% endif %}
-{% elif (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location" ) %}
-{{"Location-based custom filter added"}}
-{{"Exclude people in"}}
 
-locationICB
-{% if locationSelectListOptions == "icb" %}
-{{data['personAttributeSelector']}}
-{{data['locationSelectListOptions']}}
+{% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location") and (data['locationSelectListOptions'] == "icb") %}
+{{"Exclude people from the cohorts if located in"}}
+{{data['genericOperatorsList']|upper}}
 {{data['locationICB']}}
-{% else %}
-{{data['personAttributeSelector']}}
-{{data['locationSelectListOptions']}}
+{% endif %}
+
+{% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location") and (data['locationSelectListOptions'] == "region") %}
+{{"Exclude people from the cohorts if located in"}}
+{{data['genericOperatorsList']|upper}}
 {{data['locationRegion']}}
 {% endif %}
 
-{% else %}
-{% endif %}
    <dl class="nhsuk-summary-list">
 
       {% if (data['commonFilters'].length > 0) %}
