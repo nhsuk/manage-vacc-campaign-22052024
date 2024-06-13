@@ -1,0 +1,99 @@
+{% set filters = { "1": { "filterId": "uuid", "name": "Over 75 years", "estSize": 3612542, "refreshDate": "11 April 2024", "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl." }, "2": { "filterId": "uuid", "name": "Over 85 years", "estSize": 1442553, "refreshDate": "4 March 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "3": { "filterId": "uuid", "name": "Over 5 years", "estSize": 34444986, "refreshDate": "14 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "4": { "filterId": "uuid", "name": "All Integrated Care Boards excluding London", "estSize": 21542825, "refreshDate": "14 May 2024", "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum." }, "5": { "filterId": "uuid", "name": "London Integrated Care Boards only", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "6": { "filterId": "uuid", "name": "Received vaccine in the last 90 days", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "7": { "filterId": "uuid", "name": "No record of vaccine given", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "8": { "filterId": "uuid", "name": "Over 114 years", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "9": { "filterId": "uuid", "name": "London Region only", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "10": { "filterId": "uuid", "name": "Under 5 years", "estSize": 5364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "11": { "filterId": "uuid", "name": "Over 16 years", "estSize": 35364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "12": { "filterId": "uuid", "name": "Under 75 years", "estSize": 1364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "13": { "filterId": "uuid", "name": "Under 85 years", "estSize": 364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." } } %}
+
+
+
+   {% set loader = [] %}
+
+   {% if data['ageFilters'].length > 0 %}
+   {% set loader = (loader.push(data['ageFilters']), loader) %}
+   {% elif data['allFilters'].length > 0 %}
+   {% set loader = (loader.push(data['allFilters']), loader) %}
+   {% endif %}
+
+
+
+   {% set testRay = [] %}
+   {% for key, value in filters %}
+   {% for thing in loader %}
+   {% if thing == value.name  %}
+
+   {% else %}
+   {% endif %}
+   {% endfor %}
+   {% endfor %}
+
+
+
+
+
+   {% set sumCountFilters = [] %}
+
+   {% if (data['ageFilters'].length > 0) %}
+   <table style="" class="nhsuk-table">
+      <thead role="rowgroup" class="nhsuk-table__head">
+         <tr style="" role="row">
+            <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+               Age-based filters applied
+            </th>
+            <th style="line-height:-121px;text-align:right" role="columnheader" class="" scope="col">
+              Est. size
+            </th>
+         </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+         {% for key, value in filters %}
+         {% for item in data['ageFilters'] %}
+         {% if item == value.name  %}
+            <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+              <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+              <td style="text-align:right" class="nhsuk-table__cell "> - {{value.estSize| thouCommaNum}}</td>
+
+            {% set sumCountFilters = (sumCountFilters.push(value.estSize|int), sumCountFilters) %}
+            {% set numb = sumCountCohort - sumCountFilters %}
+
+         </tr>
+         {% endif %}
+         {% endfor %}
+         {% endfor %}
+         {% endif %}
+
+      </tbody>
+   </table>
+
+   {% set sumCountFilters = [] %}
+
+   {% if (data['locationFilters'].length > 0) %}
+   <table style="" class="nhsuk-table">
+      <thead role="rowgroup" class="nhsuk-table__head">
+         <tr style="" role="row">
+            <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+               Location-based filters applied
+            </th>
+            <th style="line-height:-121px;text-align:right" role="columnheader" class="" scope="col">
+              Est. size
+            </th>
+         </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+         {% for key, value in filters %}
+         {% for item in data['locationFilters'] %}
+         {% if item == value.name  %}
+            <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+              <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+              <td style="text-align:right" class="nhsuk-table__cell "> - {{value.estSize| thouCommaNum}}</td>
+
+            {% set sumCountFilters = (sumCountFilters.push(value.estSize|int), sumCountFilters) %}
+            {% set numb = sumCountCohort - sumCountFilters %}
+
+         </tr>
+         {% endif %}
+         {% endfor %}
+         {% endfor %}
+         {% endif %}
+
+
+      </tbody>
+   </table>
+
+
+{% set sumCountFilters = [] %}

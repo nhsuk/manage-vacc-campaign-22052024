@@ -1,0 +1,90 @@
+{% set filters = { "1": { "filterId": "uuid", "name": "Over 75 years", "estSize": 3612542, "refreshDate": "11 April 2024", "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl." }, "2": { "filterId": "uuid", "name": "Over 85 years", "estSize": 1442553, "refreshDate": "4 March 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "3": { "filterId": "uuid", "name": "Over 5 years", "estSize": 34444986, "refreshDate": "14 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "4": { "filterId": "uuid", "name": "All Integrated Care Boards excluding London", "estSize": 21542825, "refreshDate": "14 May 2024", "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum." }, "5": { "filterId": "uuid", "name": "London Integrated Care Boards only", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "6": { "filterId": "uuid", "name": "Received vaccine in the last 90 days", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "7": { "filterId": "uuid", "name": "No record of vaccine given", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "8": { "filterId": "uuid", "name": "Over 114 years", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "9": { "filterId": "uuid", "name": "London Region only", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "10": { "filterId": "uuid", "name": "Under 5 years", "estSize": 5364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "11": { "filterId": "uuid", "name": "Over 16 years", "estSize": 35364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "12": { "filterId": "uuid", "name": "Under 75 years", "estSize": 1364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "13": { "filterId": "uuid", "name": "Under 85 years", "estSize": 364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." } } %}
+
+
+
+{% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "age" ) %}
+Aged custom filter added
+{% elif (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location" ) %}
+Location custom filter added
+{% else %}
+{% endif %}
+   <dl class="nhsuk-summary-list">
+
+      {% if (data['commonFilters'].length > 0) %}
+      <h3 class="nhsuk-heading-m">Filters applied</h3>
+      {% for key, value in filters %} {% for item in data['commonFilters'] %}
+      {% if item == value.name  %}
+      <div class="nhsuk-summary-list__row">
+         <dt class="nhsuk-summary-list__key">Common filters</dt>
+         <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+            <dd class="nhsuk-summary-list__actions"><a href="add-filter-library?repickFilters=true">Update<span class="nhsuk-u-visually-hidden"> filter</span></a></dd>
+      </div>
+      {% endif %}{% endfor %}{% endfor %}{% endif %}
+
+         {% if (data['ageFilters'].length > 0) %}
+            {% for key, value in filters %}
+            {% for item in data['ageFilters'] %}
+            {% if item == value.name  %}
+            <div class="nhsuk-summary-list__row">
+
+               <dt class="nhsuk-summary-list__key">
+                  Age filters
+               </dt>
+
+               <dd style="" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+                  <dd class="nhsuk-summary-list__actions">
+                     <a href="add-filter-library?repickFilters=true">
+                        Update<span class="nhsuk-u-visually-hidden"> filter</span>
+                     </a>
+                  </dd>
+
+               </div>
+               {% endif %}
+               {% endfor %}{% endfor %}{% endif %}
+
+               {% if (data['locationFilters'].length > 0) %}
+                  {% for key, value in filters %}
+                  {% for item in data['locationFilters'] %}
+                  {% if item == value.name  %}
+                  <div class="nhsuk-summary-list__row">
+
+                     <dt class="nhsuk-summary-list__key">
+                        Location filters
+                     </dt>
+
+                     <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+                        <dd class="nhsuk-summary-list__actions">
+                           <a href="add-filter-library?repickFilters=true">
+                              Update<span class="nhsuk-u-visually-hidden"> filter</span>
+                           </a>
+                        </dd>
+
+                     </div>
+                     {% endif %}
+                     {% endfor %}{% endfor %}{% endif %}
+
+                     {% if (data['allFilters'].length > 0) %}
+
+                        {% for key, value in filters %}
+                        {% for item in data['allFilters'] %}
+                        {% if item == value.name  %}
+                        <div class="nhsuk-summary-list__row">
+
+                           <dt class="nhsuk-summary-list__key">
+                              All filters
+                           </dt>
+
+                           <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+                              <dd class="nhsuk-summary-list__actions">
+                                 <a href="add-filter-library?repickFilters=true">
+                                    Update<span class="nhsuk-u-visually-hidden"> filter</span>
+                                 </a>
+                              </dd>
+
+                           </div>
+                           {% endif %}
+                           {% endfor %}{% endfor %}{% endif %}
+
+
+
+                        </dl>

@@ -1,0 +1,26 @@
+<ul class="nhsuk-list-bullet">
+   <li>{{data['sel']}}</li>
+   <li>{{data['selectedAttrib']}}</li>
+   <li>{{data['personAttributeSelector']}}</li>
+   <li>{{data['genericOperatorsList']}}</li>
+   <li>{{data['value-1']}}</li>
+   <li>{{data['value-2']}}</li>
+   <li>{{data['includeExcludeRadios']}}</li>
+   <li>{{data['suf1']}}</li>
+   <li>{{data['suf2']}}</li>
+</ul>
+
+<p>{{data['includeExcludeRadios']}} {{data['selectedAttrib']}} {{data['genericOperatorsList']}} {{data['value-1']}} {{data['value-2']}} years</p>
+
+<dl class="nhsuk-summary-list">
+
+   <h3 class="nhsuk-heading-m">Custom filter applied</h3>
+   <div class="nhsuk-summary-list__row">
+      <dt class="nhsuk-summary-list__key">Custom filters</dt>
+      <dd style="width:70%" class="nhsuk-summary-list__value">
+         {{data['includeExcludeRadios']}} WHERE {{data['personAttributeSelector']}} {{data['genericOperatorsList']}} {{data['value-1-suffix']}} AND {{data['value-1-suffix']}} years
+
+         <dd class="nhsuk-summary-list__actions"><a href="add-filter?sel=age">Update<span class="nhsuk-u-visually-hidden"> filter</span></a></dd>
+      </div>
+
+</dl>
