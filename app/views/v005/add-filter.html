@@ -124,30 +124,7 @@
     <caption class="nhsuk-table__caption"><h1 class="nhsuk-heading-xl">Add a Filter by {{ att|lower|replace('-',' ')}}</h1></caption>
 
  {% include "./foundations/cohortTable.html" %}
- {% include "./foundations/cohortsl.html" %}
 
-    <table class="nhsuk-table">
-      <thead role="rowgroup" class="nhsuk-table__head">
-        <tr role="row">
-          <th role="columnheader" class="" scope="col">
-            Cohort
-          </th>
-          <th role="columnheader" class="" scope="col">
-            Size (est)
-          </th>
-        </tr>
-      </thead>
-      <tbody class="nhsuk-table__body">
-        {% if cohortsArray.length > 0 %}
-        {% for selected in cohortsArray %}
-        <tr role="row" class="nhsuk-table__row">
-          <td class="nhsuk-table__cell">{{selected}}</td>
-          <td class="nhsuk-table__cell ">nnn,nnn</td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-      </tbody>
-    </table>
   </div>
 
   <input type="hidden" id="defaultSelect" value="{{ data['selectedAttrib'] |default('location') }}">
