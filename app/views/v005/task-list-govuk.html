@@ -144,6 +144,12 @@
                {% endif %} {% endfor %} {% endfor %}
                {% endif %}
 
+               {% if (data['selectedAttrib'] !=="" ) %}
+               {% include './foundations/customF.html' %}
+               {% else %}
+               {% endif %}
+
+
                {% if (loader.length > 0) or (data['selectedAttrib'] !=="" ) %}
                {% set sumCountSuppress = [] %}
                {% set sumCohortMinusSuppress = [] %}
