@@ -144,7 +144,7 @@
                {% endif %} {% endfor %} {% endfor %}
                {% endif %}
 
-               {% if loader.length > 0 %}
+               {% if (loader.length > 0) or (data['selectedAttrib'] !=="" ) %}
                {% set sumCountSuppress = [] %}
                {% set sumCohortMinusSuppress = [] %}
                {{ taskListItem(title="Update filters and suppressions for the cohorts",hint="hint text?",link="add-filter-alt") }}
@@ -153,7 +153,7 @@
                {% include './foundations/libraryFilterTable.html' %}
 
 
-               
+
 
 
                <table id="mytable" style="" class="nhsuk-table">
