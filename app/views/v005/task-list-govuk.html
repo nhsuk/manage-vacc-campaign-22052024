@@ -144,8 +144,12 @@
                {% endif %} {% endfor %} {% endfor %}
                {% endif %}
 
-               {% if (data['selectedAttrib'] !=="" ) %}
-                              {{ taskListItem(title="Update filters and suppressions for the cohorts",hint="hint text?",link="add-filter-alt") }}
+
+         {% if (data['selectedAttrib'] !=="" ) or (loader.length > 0) %}
+         {{ taskListItem(title="Update filters and suppressions for the cohorts",hint="hint text?",link="add-filter-alt") }}
+
+         {% endif %}
+               {% if (data['selectedAttrib'] !=="" ) or (loader.length > 0) %}
                {% include './foundations/customF.html' %}
                {% else %}
                {% endif %}
@@ -154,8 +158,6 @@
                {% if (loader.length > 0)  %}
                {% set sumCountSuppress = [] %}
                {% set sumCohortMinusSuppress = [] %}
-               {{ taskListItem(title="Update filters and suppressions for the cohorts",hint="hint text?",link="add-filter-alt") }}
-
 
                {% include './foundations/libraryFilterTable.html' %}
 
