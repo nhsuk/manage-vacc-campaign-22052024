@@ -145,12 +145,13 @@
                {% endif %}
 
                {% if (data['selectedAttrib'] !=="" ) %}
+                              {{ taskListItem(title="Update filters and suppressions for the cohorts",hint="hint text?",link="add-filter-alt") }}
                {% include './foundations/customF.html' %}
                {% else %}
                {% endif %}
 
 
-               {% if (loader.length > 0) or (data['selectedAttrib'] !=="" ) %}
+               {% if (loader.length > 0)  %}
                {% set sumCountSuppress = [] %}
                {% set sumCohortMinusSuppress = [] %}
                {{ taskListItem(title="Update filters and suppressions for the cohorts",hint="hint text?",link="add-filter-alt") }}
