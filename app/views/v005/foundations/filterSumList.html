@@ -3,21 +3,24 @@
 
 
 {% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "age" ) %}
-Age-based custom filter added
+{{"Age-based custom filter added"}}
+{{"Exclude people"}}
 
 {% if genericOperatorsList == "between" %}
 {{data['personAttributeSelector']}}
 {{data['genericOperatorsList']}}
 {{data['value-1-suffix']}}
+{{" and "}}
 {{data['value-2-suffix']}}
-
 {% else %}
 {{data['personAttributeSelector']}}
 {{data['genericOperatorsList']}}
 {{data['value-1']}}
 {% endif %}
 {% elif (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location" ) %}
-Location-based custom filter added
+{{"Location-based custom filter added"}}
+{{"Exclude people in"}}
+
 
 {% if locationSelectListOptions == "icb" %}
 {{data['personAttributeSelector']}}
