@@ -67,7 +67,6 @@
     -moz-appearance: none;
     appearance: none;
     outline: 0;
-    background: white;
     height: 20px;
     width: 20px;
     border: 2px solid black;
@@ -95,6 +94,8 @@
     margin-top:3px;
     margin-bottom:2px;
   }
+
+
 </style>
 {% set cohortsArray = [] %}
 
@@ -121,43 +122,46 @@
 
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-two-thirds">
-    <caption class="nhsuk-table__caption"><h1 class="nhsuk-heading-xl">Add a Filter by {{ att|lower|replace('-',' ')}}</h1></caption>
+     <span style="padding:5px;font-size:17px;;" class="nhsuk-label">{{ data['iteration-name1']|default("G2 75+ and IS")}} — <span style="font-size:17px;">{{ data['iterationDate1']|default("2024-06-21")|formatDate}}</span></span>
+    <caption class="nhsuk-table__caption"><h1 class="nhsuk-heading-xl">Filter by {{ data['sel']|lower|replace('-',' ')}}</h1></caption>
 
-    <table class="nhsuk-table">
-      <thead role="rowgroup" class="nhsuk-table__head">
-        <tr role="row">
-          <th role="columnheader" class="" scope="col">
-            Cohort
-          </th>
-          <th role="columnheader" class="" scope="col">
-            Size (est)
-          </th>
-        </tr>
-      </thead>
-      <tbody class="nhsuk-table__body">
-        {% if cohortsArray.length > 0 %}
-        {% for selected in cohortsArray %}
-        <tr role="row" class="nhsuk-table__row">
-          <td class="nhsuk-table__cell">{{selected}}</td>
-          <td class="nhsuk-table__cell ">nnn,nnn</td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
+
+
+
+    <p class="nhsuk-body-m nhsuk-u-margin-bottom-2"><span style="padding:5px;background:white;;font-weight:999" class="nhsuk-label-l">Exclude lorem ipsum</span></p>
+
+             <div class="nhsuk-u-width-full" style=";;padding:5px;;;font-weight:400">
+
+             {% include "./foundations/cohortTable.html" %}
+             </div>
+
+
+
+
+             <p class="nhsuk-body-m nhsuk-u-padding-top-2 nhsuk-u-margin-bottom-2"><span style="padding:5px;background:white;;font-weight:999" class="nhsuk-label-l">If lorem ipsum dolor</span></p>
+
+
+
+</div>
+</div>
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full">
 
   <input type="hidden" id="defaultSelect" value="{{ data['selectedAttrib'] |default('location') }}">
 
-  <form action="/summary-filters?suf1=outputSuff1&suf2=outputSuff2" method="post">
+  <form action="summary-filters" method="post">
     <ul class="nhsuk-list filterLine">
 
       <!-- const personAttributeSelector = document.getElementById("personAttributeSelector"); -->
 
+
+<div style="padding:5px;;">
+
+
       <input type="hidden" id="preselected" value="{{ att }}">
 
 
-      <li style="padding-left:10px">
+      <li style=";;margin-top:-5px;font-weight:900">
         <div class="nhsuk-form-group">
           <label class="filterLabel nhsuk-label" for="personAttributeSelector">
             Person attribute
@@ -166,7 +170,7 @@
             <option disabled selected value="--">Select</option>
 
             <option id="attr1" value="age">Age</option>
-            <option id="attr2" value="given-vaccine">Given vaccine</option>
+            <option id="attr2" value="given-vaccine">Vaccine recently given</option>
             <option id="attr3" value="location">Location</option>
 
 
@@ -174,6 +178,9 @@
           </select>
         </div>
       </li>
+
+
+
 
       <!-- const genericOperators = document.getElementById("genericOperators"); -->
 
@@ -197,11 +204,11 @@
       </li>
 
       <li style="">
-        <div style="display:{{HoS}}" id ="givenVaccineOperators" class="nhsuk-form-group">
+        <div style="display:{{HoS}};" id ="givenVaccineOperators" class="nhsuk-form-group">
           <label  class="filterLabel nhsuk-label" for="givenVaccineOperators">
             Operator
           </label>
-          <select  class="nhsuk-select" id="givenVaccineOperators" name="givenVaccineOperators">
+          <select style="" class="nhsuk-select" id="givenVaccineOperators" name="givenVaccineOperators">
             <option disabled selected value="Select">Select</option>
             <option value="3months">More than 3 months ago</option>
             <option value="6months">More than 6 months ago</option>
@@ -215,6 +222,8 @@
           </select>
         </div>
       </li>
+
+
 
 
       <!-- const locationSelectList = document.getElementById("locationSelectList"); -->
@@ -234,7 +243,7 @@
       </li>
 
       <!-- const locationICB = document.getElementById("locationICB"); -->
-      <li style="margin-left:10px">
+      <li style="">
         <div style="display:{{HoS}}" id ="locationICB" class="nhsuk-form-group">
           <label  class="filterLabel nhsuk-label" for="locationICB">
             Integrated Care Board list (42)
@@ -271,7 +280,7 @@
           <label class="nhsuk-label" for="value-1">
             Value 1
           </label>
-          <input class="nhsuk-input nhsuk-input--width-3" id="value-1" name="value-1" type="text">
+          <input class="nhsuk-input nhsuk-input--width-2" id="value-1" name="value-1" type="text">
         </div>
       </li>
       <li>
@@ -279,17 +288,17 @@
           <label class="nhsuk-label" for="value-2">
             Value 2
           </label>
-          <input class="nhsuk-input nhsuk-input--width-3" id="value-2" name="value-2" type="text">
+          <input class="nhsuk-input nhsuk-input--width-2" id="value-2" name="value-2" type="text">
         </div>
       </li>
 
       <li>
-        <div style="margin-left:-9px;display:{{HoS}}" id ="value-1-suffix" class="nhsuk-form-group">
+        <div style=";display:{{HoS}};" id ="value-1-suffix" class="nhsuk-form-group">
           <label class="nhsuk-label" for="value-1-suffix">
             Value 1
           </label>
           <div class="nhsuk-input__wrapper">
-            <input class="nhsuk-input nhsuk-input--width-3" id="value-1-suffix" name="value-1-suffix" type="text">
+            <input style="" class="nhsuk-input nhsuk-input--width-2" id="value-1-suffix" name="value-1-suffix" type="text">
             <div id ="suffix1" class="nhsuk-input__suffix" aria-hidden="true"></div>
           </div>
         </div>
@@ -301,43 +310,150 @@
             Value 2
           </label>
           <div class="nhsuk-input__wrapper">
-            <input class="nhsuk-input nhsuk-input--width-3" id="value-2-suffix" name="value-2-suffix" type="text">
+            <input class="nhsuk-input nhsuk-input--width-2" id="value-2-suffix" name="value-2-suffix" type="text">
             <div id ="suffix2" class="nhsuk-input__suffix" aria-hidden="true"></div>
           </div>
         </div>
       </li>
 
+<div id="showJson" style="display:none">
+      {% set exampleJson =
+      '{
+            "Type": "F",
+            "Name": "placeholder",
+            "Description": "placeholder",
+            "AttributeLevel": "PERSON",
+            "AttributeName": "DATE_OF_BIRTH",
+            "Operator": "<",
+            "Comparator": "19090821"
+      }' %}
 
 
+
+      <strong style="font-size:19px" class="nhsuk-tag">
+        JSON
+      </strong>
+
+
+               <div class="nhsuk-form-group">
+                 <label class="nhsuk-label" for="exampleJson">
+                   JSON formatting  generated {{ 27052924 | lastUpdated }}
+                 </label>
+                 <div class="nhsuk-hint" id="exampleJson-hint">
+                 </div>
+                 <textarea style="background:#212b32;color:#ffeb3b;font-weight:200;font-size:19px;font-family:Verdana, sans-serif;" class="nhsuk-textarea nhsuk-u-width-full" value="{{ data['exampleJson'] }}" id="exampleJson" name="exampleJson" rows="10" aria-describedby="exampleJson-hint">{{ exampleJson }}</textarea>
+               </div>
+
+               <p class="nhsuk-body-m"><a style="color:#1d70b8" onclick=""><strong>Copy JSON to clipboard</strong></a></p>
+             </div>
+
+
+
+            </div>
 
       <!-- const includeExcludeRadios = document.getElementById("includeExcludeRadios"); -->
-      <li class="newCR" style=";margin-left:5px">
+      <!-- <li class="newCR" style=";margin-left:5px">
         <div  style="display:{{HoS}}" id ="includeExcludeRadios" class="nhsuk-form-group">
           <div  class="nhsuk-radios">
             <div class="nhsuk-radios__item">
-              <input class="nhsuk-radios__input" id="includeExcludeRadios-1" name="includeExcludeRadios" type="radio" value="Include">
+              <input class="nhsuk-radios__input" id="includeExcludeRadios-1" name="includeExcludeRadios" type="radio" value="Exclude ALL matches in the cohort apart from my selection">
               <label class="nhsuk-label nhsuk-radios__label" for="includeExcludeRadios-1">
-                Include only the matches
+                Exclude ALL matches in the cohort apart from my selection
               </label>
             </div>
             <div class="nhsuk-radios__item">
-              <input class="nhsuk-radios__input" id="includeExcludeRadios-2" name="includeExcludeRadios" type="radio" value="Exclude">
+              <input class="nhsuk-radios__input" id="includeExcludeRadios-2" name="includeExcludeRadios" type="radio" value="Exclude ONLY my selection from the cohort">
               <label class="nhsuk-label nhsuk-radios__label" for="includeExcludeRadios-2">
-                Exclude all the matches
+                Exclude ONLY my selection from the cohort
               </label>
             </div>
           </div>
         </div>
-      </li>
+      </li> -->
+
+
+
+      <p id="synopsis" style="display:{{HoS}}" class="nhsuk-body-s nhsuk-u-width-three-quarters nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-2"><span style="font-size:19px;padding:15px;background:white;;font-weight:900" class="nhsuk-label">{{ 'On 21st June, 2024, do not send vaccine invitations to members of the selected cohorts who are aged between 16 and 74'}}
+</span></p>
+
+
+      <details id="codeBlock" style="display:{{HoS}};background:#f0f4f5;" class="nhsuk-details nhsuk-u-width-three-quarters">
+         <summary class="nhsuk-details__summary">
+            <span style="font-size:17px;;;" class="nhsuk-details__summary-text">
+               View in JSON format
+            </span>
+         </summary>
+<div style=";background:#f8f8f8;border-left:0;border:1px solid lightgrey;" class="nhsuk-details__text">
+
+
+
+<div style="text-align:right;">
+<a class="nhsuk-link nhsuk-link--no-visited-state nhsuk-u-font-size-14" href="#" style="text-align:right;min-width:58px;box-shadow: 0 2px 0 #007f3b;color:#007f3b;border:1px solid #007f3b;z-index:1;;;background:white;font-weight:400;padding:5px" onmouseout="myVar = setTimeout(myFunction, 8000); this.innerHTML='Copy code'" onclick="this.innerHTML='Copied'"><strong>Copy code</strong></a>
+
+
+
+
+
+
+
+
+                     <div class="nhsuk-form-group" style="text-align:left;min-height:10%;background:#f0f4f5">
+                       <h3 class="nhsuk-heading-m" for="exampleJson" style=""><span>
+
+                       </h3>
+
+                       <div class="nhsuk-hint" id="exampleJson-hint">
+                       </div>
+                       <div class="" style="padding-left:20px;padding-right:20px;color:#000000;font-weight:200;font-size:16px;font-family:Verdana, sans-serif;">
+<pre style="background:#f0f4f5;;padding:10px;width:75%;text-align:left">
+{
+ "AttributeLevel": "PERSON",
+ "AttributeName": "DATE_OF_BIRTH",
+ "Operator": "<",
+ "Comparator": "19090821"
+}
+</pre>
+
+                       </div>
+                       <!-- <textarea style="background:#f0f4f5;color:#ffeb3b;font-weight:200;font-size:19px;font-family:Verdana, sans-serif;" class="nhsuk-textarea nhsuk-u-width-full" value="{{ data['exampleJson'] }}" id="exampleJson" name="exampleJson" rows="6" aria-describedby="exampleJson-hint">{{ exampleJson }}</textarea> -->
+                     </div>
+                   </div>
+
+
+</div>
+      </details>
+
+
+
+
 
       <!-- const saveButton = document.getElementById("saveButton"); -->
-      <button style="display:{{HoS}}" id="saveButton" class="nhsuk-button" data-module="nhsuk-button" type="submit">
-        Save filter
-      </button>
+
+      <div style="display:{{HoS}}" id="buttonGroup" class="nhsuk-button-group nhsuk-u-margin-top-6">
+        <button  type="submit" class="nhsuk-button" data-module="nhsuk-button">
+          Save and continue
+        </button>
+        <button  type="submit" class="nhsuk-button nhsuk-button--secondary" data-module="nhsuk-button">
+          Save and add another
+        </button>
+      </div>
+
+
     </ul>
   </form>
 </div>
 <script>
+
+
+
+         function myFunction(){
+         for (var ab=0;ab<950000;ab++){
+            console.log(ab)
+         }
+         }
+
+
+
 
   const preselected = document.getElementById("preselected");
   const personAttributeSelector = document.getElementById("personAttributeSelector");
@@ -357,13 +473,16 @@
   const includeExcludeRadios = document.getElementById("includeExcludeRadios");
   const includeExcludeRadios1 = document.getElementById("includeExcludeRadios-1");
   const includeExcludeRadios2 = document.getElementById("includeExcludeRadios-2");
-  const saveButton = document.getElementById("saveButton");
+  const buttonGroup = document.getElementById("buttonGroup");
   const defSel = document.getElementById("defaultSelect").value;
   const newDefault = document.getElementById("attr2");
   const betweenxy = document.getElementById("betweenxy");
   const attr1 = document.getElementById("attr1");
   const attr2 = document.getElementById("attr2");
   const attr3 = document.getElementById("attr3");
+  const codeBlock = document.getElementById("codeBlock");
+  const synopsis = document.getElementById("synopsis");
+
 
   switch (defSel) {
     case "age":
@@ -374,11 +493,11 @@
     document.getElementById('preselected').style.display = 'block';
     document.getElementById('attr1').selected = 'true';
     // document.getElementById('suffix1').innerHTML = '{{attr1}}';
-    document.getElementById('includeExcludeRadios').style.display = 'block';
+    // document.getElementById('includeExcludeRadios').style.display = 'block';
 
     showElement('genericOperators');
-    document.getElementById('value-1-suffix').style.display = 'block';
-    document.getElementById('suffix1').innerHTML = 'years';
+    // document.getElementById('value-1-suffix').style.display = 'block';
+    // document.getElementById('suffix1').innerHTML = 'years';
 
     // showElement('value-2')
     hideElement('locationSelectList')
@@ -387,6 +506,24 @@
     break;
     break;
     case "given-vaccine":
+    // attr1 = attr1.selected;
+    // attr2.innerHTML = newDefault.value;
+    // attr1.selected = "true";
+    document.getElementById('preselected').style.display = 'block';
+    document.getElementById('attr2').selected = 'true';
+    // document.getElementById('suffix1').innerHTML = '{{attr1}}';
+    // document.getElementById('includeExcludeRadios').style.display = 'block';
+
+    showElement('genericOperators');
+    // document.getElementById('value-1-suffix').style.display = 'block';
+    // document.getElementById('suffix1').innerHTML = 'years';
+
+    // showElement('value-2')
+    hideElement('locationSelectList')
+    hideElement('locationICB')
+    hideElement('locationRegion')
+    break;
+
     // console.log(attr1.value)
     // attr2.innerHTML = newDefault.value;
     document.getElementById('attr2').selected = 'true';
@@ -410,7 +547,6 @@
         case "age":
         document.getElementById('preselected').style.display = 'block';
         document.getElementById('suffix1').innerHTML = '{{att}}';
-        document.getElementById('includeExcludeRadios').style.display = 'block';
 
         showElement('genericOperators');
         document.getElementById('value-1-suffix').style.display = 'block';
@@ -435,12 +571,13 @@
 
 
         case "given-vaccine":
-        document.getElementById('includeExcludeRadios').style.display = 'block';
+        document.getElementById('preselected').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = '{{att}}';
+
         showElement('genericOperators');
         document.getElementById('value-1-suffix').style.display = 'block';
-        document.getElementById('suffix1').innerHTML = 'days';
-        document.getElementById('value-2-suffix').style.display = 'none';
-
+        document.getElementById('suffix1').innerHTML = 'years';
+        outputSuff1 = document.getElementById('suffix1').innerHTML;
 
         // showElement('value-2')
         hideElement('locationSelectList')
@@ -453,33 +590,77 @@
 
   genericOperators.addEventListener("click", function(event) {
     genericOperatorsList.addEventListener("change", function(event) {
-      document.getElementById('includeExcludeRadios').style.display = 'block';
 
       document.getElementById('value-1-suffix').style.display = 'block';
       document.getElementById('value-2-suffix').style.display = 'block';
-      document.getElementById('includeExcludeRadios').style.display = 'block';
 
       if (genericOperatorsList.value == "between" && personAttributeSelector.value == "age") {
         console.log(genericOperatorsList.value)
         document.getElementById('value-1').style.display = 'none';
+        document.getElementById('value-2').style.display = 'none';
         document.getElementById('value-1-suffix').style.display = 'block';
         document.getElementById('value-2-suffix').style.display = 'block';
         document.getElementById('suffix1').innerHTML = 'years';
         document.getElementById('suffix2').innerHTML = 'years';
-        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+
+
+
         hideElement('locationICB')
         hideElement('locationRegion')
-      } else {
-        document.getElementById('includeExcludeRadios').style.display = 'block';
-
+     } else if (genericOperatorsList.value == "Exact match" || "Starts with" || "Ends with" || "Greater than" || "Greater than/equal to" || "Less than" || "Less than/equal to"){
+        document.getElementById('suffix1').innerHTML = 'years';
         document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('value-1').style.display = 'none';
         document.getElementById('value-2-suffix').style.display = 'none';
-        document.getElementById('includeExcludeRadios').style.display = 'block';
-
+        document.getElementById('value-2').style.display = 'none';
+     }
+      else {
+        document.getElementById('value-1').style.display = 'block';
       }
     });
   });
 
+  value1Suffix.addEventListener("click", function(event) {
+    value1Suffix.addEventListener("change", function(event) {
+      showElement("synopsis");
+      showElement("codeBlock");
+      showElement("buttonGroup");
+    });
+  });
+
+  value2Suffix.addEventListener("click", function(event) {
+    value2Suffix.addEventListener("change", function(event) {
+      showElement("synopsis");
+      showElement("codeBlock");
+      showElement("buttonGroup");
+    });
+  });
+
+
+  value1.addEventListener("click", function(event) {
+    value1.addEventListener("change", function(event) {
+      showElement("synopsis");
+      showElement("codeBlock");
+      showElement("buttonGroup");
+    });
+  });
+
+  value2.addEventListener("click", function(event) {
+    value2.addEventListener("change", function(event) {
+      showElement("synopsis");
+      showElement("codeBlock");
+      showElement("buttonGroup");
+    });
+  });
+
+    locationRegion.addEventListener("change", function(event) {
+      showElement("buttonGroup");
+    });
+
+    locationICB.addEventListener("change", function(event) {
+      showElement("buttonGroup");
+    });
 
   locationSelectList.addEventListener("click", function(event) {
     locationSelectListOptions.addEventListener("change", function(event) {
@@ -489,14 +670,12 @@
         hideElement('genericOperators')
         showElement('locationICB')
         document.getElementById('value-1-suffix').style.display = 'none';
+        // showElement("buttonGroup");
 
-
-        document.getElementById('includeExcludeRadios').style.display = 'block';
 
         break;
 
         case "city":
-        document.getElementById('includeExcludeRadios').style.display = 'block';
 
         showElement('genericOperators')
         // document.getElementById('value-1').style.display = 'block';
@@ -506,8 +685,11 @@
         hideElement('locationRegion');
         break;
         case "region":
-        document.getElementById('includeExcludeRadios').style.display = 'block';
         showElement('locationRegion');
+        // showElement("buttonGroup");
+        // showElement("codeBlock");
+
+        var narrativeType = locationSelectListOptions.value;
         hideElement('locationICB')
         hideElement('genericOperators')
         break;
@@ -517,21 +699,20 @@
   });
 
 
-  includeExcludeRadios1.addEventListener("click", function(event) {
-    includeExcludeRadios1.addEventListener("change", function(event) {
-
-      showElement("saveButton")
-
-    });
-  });
-
-  includeExcludeRadios2.addEventListener("click", function(event) {
-    includeExcludeRadios2.addEventListener("change", function(event) {
-
-      showElement("saveButton")
-
-    });
-  });
+  // includeExcludeRadios1.addEventListener("click", function(event) {
+  //   includeExcludeRadios1.addEventListener("change", function(event) {
+  //
+  //     showElement("buttonGroup");
+  //     showElement("codeBlock");
+  //   });
+  // });
+  //
+  // includeExcludeRadios2.addEventListener("click", function(event) {
+  //   includeExcludeRadios2.addEventListener("change", function(event) {
+  //     showElement("buttonGroup");
+  //     showElement("codeBlock");
+  //   });
+  // });
 
 
   function showElement(div1) {
@@ -551,3 +732,24 @@
 </script>
 
 {% endblock %}
+selectedAttrib	location
+sel	location
+
+	location
+data['personAttributeSelector']
+data['locationSelectListOptions']
+data['icb']
+data['locationICB']
+data['includeExcludeRadios']
+
+
+
+
+locationICB	NHS Cambridgeshire and Peterborough Integrated Care Board
+value-1
+value-2
+value-1-suffix
+value-2-suffix
+includeExcludeRadios	Exclude ALL matches in the cohort apart from my selection
+suf1	outputSuff1
+suf2	outputSuff2
