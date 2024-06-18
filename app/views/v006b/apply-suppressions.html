@@ -1,0 +1,291 @@
+{% set pagetitle ="Apply suppressions" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+  .js-signout {
+    text-align: right;
+    font-size: 16px;
+    font-family: 'proxima_nova', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    z-index: 60;
+    clear: none;
+    background: transparent;
+    border-bottom: 1px solid #bfc1c3;
+    vertical-align: top;
+    padding-bottom: 20px;
+    font-size: 17px;
+
+  }
+
+
+
+  .filterLine {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    text-align: left;
+    margin: 0;
+    font-size: 17px;
+
+  }
+
+  .filterLabel {
+    font-size: 17px;
+  }
+
+  .filterLine, li, p {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 17px;
+  }
+
+  input:checked  {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: white;
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    color: black;
+  }
+
+  input:after {
+    content:"";
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 20%;
+    border: 5px solid #000000;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input:checked:after {
+    display: block;
+  }
+
+</style>
+
+{% set commonSuppList = [["COVID-19 opt out","15 April 2024"],["Future COVID-19 booking","15 April 2024"]] %}
+{% set suppressedGroups = [["Care Home residents","15 April 2024"],["Detained Estate","15 April 2024"],["DPHC / DMS Military staff","15 April 2024"]] %}
+{% set ageFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"]] %}
+{% set locationFilterList = [["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"]] %}
+{% set givenVaccineFilterList = [["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
+{% set allFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"],["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"],["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
+
+
+
+<!-- <form action="summary-filters" method="post"> -->
+
+<form action="/pickFilter" method="post">
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-xl">Apply suppressions to your cohorts</h1>
+
+
+
+      {% from 'radios/macro.njk' import radios %}
+
+      {{ radios({
+        "idPrefix": "selectedAttrib",
+        "name": "selectedAttrib",
+        "fieldset": {
+          "legend": {
+            "text": "What attribute would you like to filter with?",
+            "classes": "nhsuk-fieldset__legend--m",
+            "isPageHeading": false
+          }
+        },
+        "items": [
+          {
+            "value": "age",
+            "text": "Age",
+            "checked": checked("selectedAttrib","Age"),
+            "hint": {
+              "text": "Age hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "value": "location",
+            "text": "Location",
+            "checked": checked("selectedAttrib","Location"),
+            "hint": {
+              "text": "Location hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "value": "given-vaccine",
+            "text": "Recently given vaccine",
+            "checked": checked("selectedAttrib","Recently given vaccine"),
+            "hint": {
+              "text": "Given vaccine hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "divider": "or"
+          },
+          {
+            "value": "Pick a standard filter from a library",
+            "text": "Pick a standard filter from a library",
+            "checked": checked("selectedAttrib","Pick a standard filter from a library"),
+            "hint": {
+              "text": "Teaser for standard filters list hint text lorem ipsum dolor sit amet."
+            }
+          }
+        ]
+      }) }}
+
+
+
+
+
+
+
+
+</div>
+</div>
+<button class="nhsuk-button" data-module="nhsuk-button" type="submit">
+  Continue
+</button>
+
+<!-- <ul class="nhsuk-grid-column-one-quarter nhsuk-grid-row nhsuk-card-group ">
+<li class="nhsuk-card-group__item">
+
+<div class="nhsuk-card nhsuk-card--clickable">
+<div class="nhsuk-card__content">
+<p class="nhsuk-heading-xl nhsuk-u-font-size-64 nhsuk-u-margin-bottom-1">91 <span class="nhsuk-u-visually-hidden">Applicants</span></p><a href="#" class="nhsuk-card__link nhsuk-u-font-weight-normal nhsuk-u-font-size-19 nhsuk-link--no-visited-state">Applicants</a>
+
+</div>
+</div>
+
+</li>
+
+<li class="nhsuk-card-group__item">
+
+<div class="nhsuk-card nhsuk-card--clickable">
+<div class="nhsuk-card__content">
+<p class="nhsuk-heading-xl nhsuk-u-font-size-64 nhsuk-u-margin-bottom-1">91 <span class="nhsuk-u-visually-hidden">Applicants</span></p><a href="#" class="nhsuk-card__link nhsuk-u-font-weight-normal nhsuk-u-font-size-19 nhsuk-link--no-visited-state">Applicants</a>
+
+</div>
+</div>
+
+</li>
+</ul> -->
+
+</form>
+<!-- <script>
+  const personAttributeSelector = document.getElementById("personAttributeSelector");
+
+
+  const operatorSelector = document.getElementById("filterAttrib");
+
+  const operatorOption = document.getElementById("operatorOption");
+  const operatorValue1 = document.getElementById("operatorValue1");
+  const operatorValue2 = document.getElementById("operatorValue2");
+
+
+  personAttributeSelector.addEventListener("click", () => {
+    console.log("Person attribute filter used")
+
+    personAttributeSelector.addEventListener("change", () => {
+      if (personAttributeSelector.value == "between") {
+        showValue2('operatorValue2')
+        console.log("operator between")
+      } else {
+        hideValue2('operatorValue2')
+        console.log("operator not between")
+      }
+    }, { once: true })
+  });
+
+
+
+  operatorOption.addEventListener("click", () => {
+    console.log("Operator selector used")
+
+    operatorOption.addEventListener("change", () => {
+      if (operatorOption.value == "between") {
+        showValue2('operatorValue2')
+        console.log("operator between")
+      } else {
+        hideValue2('operatorValue2')
+        console.log("operator not between")
+      }
+    }, { once: true })
+  });
+
+
+
+
+  function showValue2(div1) {
+    document.getElementById(div1).style.display = 'block';
+  }
+
+  function hideValue2(div1) {
+    document.getElementById(div1).style.display = 'none';
+  }
+
+
+
+  function checkRadios() {
+    var sCheck = [];
+    var checks = document.getElementsByTagName('input');
+    for (i = 0; i < checks.length; i++) {
+      if (checks[i].type == 'radio' ) {
+        console.log(checks[i].id)
+        sCheck.push(checks[i].value, checks[i].name);
+      }
+    }
+    console.log(sCheck)
+  }
+
+</script> -->
+
+{% endblock %}
+
+
+selector.addEventListener("click", () => {
+// if default value is changed
+  selector.addEventListener("change", () => {
+  // if value switched by client
+    switch (selector.value) {
+      case "add":
+      //do somthing with  , "add" value
+        result.innerHTML = selector.value;
+        break;  // then take break
+      case "remove":
+      //do somthing with  , "remove" value
+        result.innerHTML = selector.value;
+        break; // then take break
+    }
+  });
+});

@@ -1,0 +1,28 @@
+{% if (data['ageFilters'].length > 0)  %}
+
+
+
+<table style="" class="nhsuk-table">
+   <thead role="rowgroup" class="nhsuk-table__head">
+      <tr style="" role="row">
+         <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+            Filters applied
+         </th>
+         <th style="line-height:-121px;text-align:right" role="columnheader" class="" scope="col">
+           Est. size
+         </th>
+      </tr>
+   </thead>
+   <tbody class="nhsuk-table__body">
+
+      {% for item in unifiedFiltersArray %}
+
+
+         <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+           <td style="text-align:left" class="nhsuk-table__cell"></td>
+           <td style="text-align:right" class="nhsuk-table__cell "> - {{ item}}</td>
+      </tr>
+      {% endfor %}
+   </tbody>
+</table>
+{% endif %}

@@ -1,0 +1,77 @@
+{% set suppressions =
+   {
+      "1":
+      {
+         "suppressId": "uuid",
+         "name": "User has opted out of receiving COVID-19 messages",
+         "estSuppd": 12542,
+         "refreshDate": "11 April 2024",
+         "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+      },
+      "2":
+      {
+         "suppressId": "uuid",
+         "name": "Care Home Residents",
+         "estSuppd": 442553,
+         "refreshDate": "4 March 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "3":
+      {
+         "suppressId": "uuid",
+         "name": "Detained Estate",
+         "estSuppd": 94986,
+         "refreshDate": "14 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "4":
+      {
+         "suppressId": "uuid",
+         "name": "DPHC/DMS Military staff",
+         "estSuppd": 142825,
+         "refreshDate": "14 May 2024",
+         "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+      },
+      "5":
+      {
+         "suppressId": "uuid",
+         "name": "Future COVID-19 vaccine booking",
+         "estSuppd": 4262,
+         "Est. date": "14 May 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      }
+   }
+   %}
+
+
+   {% set loader = [] %}
+   {% set testRay = [] %}
+
+
+   {% if (data['suppCollect'].length > 0) %}
+   <h3 class="nhsuk-heading-m">Suppressions</h3>
+   <dl class="nhsuk-summary-list">
+
+      {% for key, value in suppressions %}
+      {% for item in data['suppCollect'] %}
+      {% if item == value.name  %}
+      <div class="nhsuk-summary-list__row">
+
+         <dt class="nhsuk-summary-list__key">
+            Suppression
+         </dt>
+
+         <dd style="" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSuppd}} (est.)</dd>
+            <dd class="nhsuk-summary-list__actions">
+               <a href="select-cohorts?repickCohorts=true">
+                  Update<span class="nhsuk-u-visually-hidden"> suppress</span>
+               </a>
+            </dd>
+
+         </div>
+         {% endif %}
+         {% endfor %}
+         {% endfor %}
+
+      </dl>
+      {% endif %}

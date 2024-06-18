@@ -1,0 +1,54 @@
+{% set pagetitle ="Summary of selected filters" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+   "href": "javascript:window.history.back()",
+   "text": "Back",
+   "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+
+
+   <form action="task-list-govuk?filtSupp=true" method="post">
+
+      <div class="nhsuk-grid-row">
+         <div class="nhsuk-grid-column-three-quarters">
+            <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+            <h1>
+               Summary of your filters and suppressions
+            </h1>
+            {% include './foundations/customF.html' %}
+            {% include './foundations/filterSumList.html' %}
+            {% include './foundations/suppressSumList.html' %}
+
+            <!-- {% include './foundations/custom-filter-age.html' %} -->
+
+            {{ button({
+               text: "Save and continue"
+            }) }}
+
+            </div>
+            </div>
+
+         </form>
+
+   {% endblock %}

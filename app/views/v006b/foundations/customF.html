@@ -1,0 +1,28 @@
+
+
+   {% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "age") and (data['genericOperatorsList'] == "between") %}
+   <h3 class="nhsuk-heading-xs">Custom {{data['personAttributeSelector']}}-filter applied</h3>
+   {{"Exclude people from the cohorts if aged"}}
+   {{data['genericOperatorsList']}}
+   {{data['value-1-suffix']}}
+   {{ "and" }}
+   {{data['value-2-suffix']}}
+   {% endif %}
+
+   {% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "age") and (data['genericOperatorsList'] !== "between") %}
+   {{"Exclude people from the cohorts if aged"}}
+   {{data['genericOperatorsList']}}
+   {{data['value-1-suffix']}}
+   {% endif %}
+
+   {% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location") and (data['locationSelectListOptions'] == "icb") %}
+   {{"Exclude people from the cohorts if located in"}}
+   {{data['locationSelectListOptions']}}
+   {{data['locationICB']}}
+   {% endif %}
+
+   {% if (data['selectedAttrib'].length > 0) and (data['personAttributeSelector'] == "location") and (data['locationSelectListOptions'] == "region") %}
+   {{"Exclude people from the cohorts if located in"}}
+   {{data['locationSelectListOptions']}}
+   {{data['locationRegion']}}
+   {% endif %}

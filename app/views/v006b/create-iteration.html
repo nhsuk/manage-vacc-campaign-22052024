@@ -1,0 +1,81 @@
+{% set pagetitle ="Iteration name" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length > 0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+
+
+
+     {% if data['iter'] == "first" %}
+         {% set itVala = "1" %}
+     {% elif data['iter'] == "second" %}
+         {% set itVala = "2" %}
+     {% elif data['iter'] == "third" %}
+         {% set itVala = "3" %}
+     {% else %}
+         {% set itVala = "" %}
+     {% endif %}
+
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-three-quarters">
+
+
+      <form action="create-iteration-2?nextIt={{+nextIt|int}} method="post">
+  <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+
+        <span class="nhsuk-caption-l">Create iteration {{data['nextIt']}}</span>
+        <h1>
+          What is the iteration name?
+        </h1>
+      <p class="nhsuk-body">Lorem ipsum any guidance on choosing a format for name? Lorem ipsum...</p>
+
+      {% set counter = data['nextIt']  %}
+
+      {% from 'input/macro.njk' import input %}
+
+      {{ input({
+        "label": {
+          "text": "Iteration name"+counter
+        },
+        "id": "iteration-name"+counter,
+        "name": "iteration-name"+counter,
+        "value": data['iteration-name'+counter]
+
+      }) }}
+
+         <button class="nhsuk-button" data-module="nhsuk-button" type="submit">
+          Save and continue
+        </button>
+
+      </form>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

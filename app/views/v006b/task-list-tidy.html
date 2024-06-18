@@ -1,0 +1,133 @@
+{% set pagetitle ="Task list" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+{% block outerContent %}
+{{ backLink({
+   "href": "javascript:window.history.back()",
+   "text": "Back",
+   "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-three-quarters">
+
+      {% if data['campaign-type'].length > 0 %}
+      <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">{{ data['campaign-target']}} {{ data['campaign-type']|lower}}</span>
+      {% else %}
+      <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">COVID-19 vaccination campaign</span>
+      {% endif %}
+      <h1 class="nhsuk-heading-xl">{{ data['name'] | default("Spring 2024 Covid-19 Booster") }}
+
+         {% if data['fromDate']|length > 0 %}
+         <span class="nhsuk-body-m nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
+         {% else %}
+         <span class="nhsuk-body-m nhsuk-u-padding-top-3">29 April - 12 May 2024</span>
+         {% endif %}
+      </h1>
+
+{% set iterationList =
+      {
+         "1": {
+            "num": "1",
+            "name": "",
+            "date": ""
+         },
+         "2": {
+            "num": "2",
+            "name": "",
+            "date": ""
+         },
+         "3": {
+            "num": "3",
+            "name": "",
+            "date": ""
+         },
+         "4": {
+            "num": "4",
+            "name": "",
+            "date": ""
+         },
+         "5": {
+            "num": "5",
+            "name": "",
+            "date": ""
+         }
+      }
+      %}
+
+
+
+
+
+      {% set cohorts = { "1": { "cohortId": "uuid", "name": "Under 16 Chronic neurological Disease", "estSize": 5782|int, "refreshDate": "11 April 2024", "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl." }, "2": { "cohortId": "uuid", "name": "Age 75+", "estSize": 2820102|int, "refreshDate": "4 March 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "3": { "cohortId": "uuid", "name": "Age 75-84", "estSize": "3,442,325", "refreshDate": "14 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "4": { "cohortId": "uuid", "name": "Immunosuppressed (5-74s)", "estSize": "1,149,754", "refreshDate": "14 May 2024", "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum." }, "5": { "cohortId": "uuid", "name": "16+ Chronic neurological Disease", "estSize": "5,782", "refreshDate": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "6": { "cohortId": "uuid", "name": "Age 75+ (London)", "estSize": "720,102", "refreshDate": "14 May 2024", "description": "Donec efficitur et ligula ut blandit. Curabitur fringilla molestie dignissim." }, "7": { "cohortId": "uuid", "name": "Under 5s", "estSize": "125,782", "refreshDate": "14 May 2024", "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat." }, "8": { "cohortId": "uuid", "name": "Age 85+", "estSize": "427,932", "refreshDate": "17 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "9": { "cohortId": "uuid", "name": "Age 5-74 immunosuppressed", "estSize": "1,149,754", "refreshDate": "14 May 2024", "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat." }, "10": { "cohortId": "uuid", "name": "16+ Serious Genetic Abnormalities", "estSize": "19,264", "refreshDate": "21 April 2024", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas ante rutrum, iaculis odio eget, fringilla mauris." } } %}
+
+      {% set loader = [] %} {% set testRay = [] %} {% if data['cohorts'].length > 0 %} {% for item in data['cohorts']|slice(1) %} {% set loader = (loader.push(item), loader) %} {% for key, value in cohorts %} {% if item == value.name  %} {% set testRay = (testRay.push(value.estSize),testRay) %} {% endif %} {% endfor %} {% endfor %} {% endif %}
+      {% if data['cohorts-drop'].length > 0 %} {% set loader = (loader.push(data['cohorts-drop']), loader) %} {% endif %}
+
+      <style>
+         .govuk-tag { display: inline-block; margin-top: -2px; margin-bottom: -3px; padding-top: 2px; padding-right: 8px; padding-bottom: 3px; padding-left: 8px; text-decoration: none; overflow-wrap: break-word; font-weight: bold; font-size:17px; font-weight:normal; }
+         .govuk-tag--gris { background:dimgrey; } .govuk-tag--grey { background:#f0f4f5; }
+         .govuk-task-list { padding-top: 10px; padding-bottom: 1px; padding: 0; list-style-type: none; }
+         .govuk-task-list__item { display: table; position: relative; width: 100%; margin-bottom: 0; padding-top: 15px; padding-bottom: 1px; border-top: 0.25px solid lightgrey; font-size:19px; font-weight:900; }
+         .govuk-task-list__item:first-child { border-top: 0.25px solid lightgrey; }
+         .govuk-task-list__item--with-link:hover { background-color:#d8dde0; border-bottom: 0.25px solid lightgrey; }
+         .govuk-task-list__name-and-hint { display: table-cell; vertical-align: top; }
+         .govuk-task-list__status { display: table-cell; float:right; text-align: right; padding-right:5px; vertical-align: top; }
+         .govuk-task-list__link::after { content: ""; display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+         .govuk-task-list__hint { margin-top: 5px; }
+         .nhsuk-body { font-size:17px; margin-top:3px; margin-bottom:2px;
+      </style>
+
+      {% macro newIterationTasklist(title="",date="",hint="",count=" ") %} <span style="font-color:#425563;" class="nhsuk-caption-s">Iteration {{count}}</span> <h2 style=";" class="nhsuk-heading-l nhsuk-u-padding-top-2 nhsuk-u-margin-bottom-0">{{title}}</h2> <h3 style="font-weight:900;;;" class="nhsuk-heading-xs"> {{date}} </h3> <div style=";color:#425563;font-weight:100;font-size:16px;padding-bottom:10px;border-bottom:1px solid lightgrey" id="company-details-3-hint" class="govuk-task-list__hint"> {{hint}} </div> {% endmacro %}
+      {% macro taskListItem(title="'title'", passData="", hint='', link='#', colour='', status='') %} <li style=";" class="govuk-task-list__item  govuk-task-list__item--with-link govuk-task-list__item:first-child"> <div class="govuk-task-list__name-and-hint"> <a onclick="{{passData}}" class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="{{link}}" aria-describedby="company-details-2-status"> {{title}} </a> <div style="padding-bottom:1px;color:#425563;font-weight:100;font-size:16px" id="company-details-3-hint" class="govuk-task-list__hint"> {{hint}} </div> </div> <div style="margin-top:2px;" class="govuk-task-list__status" id="company-details-2-status"> <strong class="govuk-tag nhsuk-tag--{{colour}}"> {{status}} </strong> </div> </li> {% endmacro %}
+      {% macro taskListContent(title="'title'") %} <li style=";border:0;padding-bottom:-8px;;" class="govuk-task-list__item"> <div class="govuk-task-list__name-and-hint"> {{title}} </div> </li> {% endmacro %}
+
+      {% if data['iteration-name'].length == 0 %}
+
+      {{ newIterationTasklist(title=data['iteration-name'],date=data['iterationDate']|formatDate,count=count+1)}}
+
+      {% endif %}
+      {{ taskListItem(title="Create a new iteration",link="create-iteration") }}
+
+      <details  class="nhsuk-details nhsuk-expander nhsuk-u-margin-top-6">
+         <summary style="background:#f0f4f5" class="nhsuk-details__summary">
+            <span class="nhsuk-details__summary-text">
+               Manage the campaign
+            </span>
+         </summary>
+         <div style="" class="nhsuk-details__text">
+            <ul style="" class="govuk-task-list">
+               <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                  <div class="govuk-task-list__name-and-hint">
+                     <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="#" aria-describedby="company-details-1-status">
+                        Update campaign name, start and end dates
+                     </a>
+                  </div>
+               </li>
+               <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                  <div class="govuk-task-list__name-and-hint">
+                     <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="#" aria-describedby="company-details-2-status">
+                        Update campaign type and target
+                     </a>
+                  </div>
+               </li>
+            </ul>
+
+         </div>
+      </details>
+
+
+   </div>
+
+
+</div>
+{% endblock %}

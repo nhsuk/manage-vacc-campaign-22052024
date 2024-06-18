@@ -1,0 +1,163 @@
+{% if (data['selectedAttrib'] == "Select standard filters and suppressions from a library" ) or (data['commonFilters'].length > 0) %}
+
+<table style="" class="nhsuk-table">
+   <thead role="rowgroup" class="nhsuk-table__head">
+      <tr style="" role="row">
+         <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+            Filters applied
+         </th>
+         <th style="line-height:-121px;text-align:right" role="columnheader" class="" scope="col">
+           Est. size
+         </th>
+      </tr>
+   </thead>
+   <tbody class="nhsuk-table__body">
+
+   {{unifiedFiltersArray}}
+      {% for key, value in filters %}
+      {% for item in unifiedFiltersArray %}
+      {% if item == value.name  %}
+         <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+           <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+           <td style="text-align:right" class="nhsuk-table__cell "> - {{value.estSize| thouCommaNum}}</td>
+
+         {% set sumCountFilters = (sumCountFilters.push(value.estSize|int), sumCountFilters) %}
+         {% set numb = sumCountCohort - sumCountFilters %}
+
+      </tr>
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+
+
+   </tbody>
+</table>
+
+{% endif %}
+
+
+
+{% set filters =
+   {
+      "1":
+      {
+         "filterId": "uuid",
+         "name": "Over 75 years",
+         "estSize": 3612542,
+         "refreshDate": "11 April 2024",
+         "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+      },
+      "2":
+      {
+         "filterId": "uuid",
+         "name": "Over 85 years",
+         "estSize": 1442553,
+         "refreshDate": "4 March 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "3":
+      {
+         "filterId": "uuid",
+         "name": "Over 5 years",
+         "estSize": 34444986,
+         "refreshDate": "14 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "4":
+      {
+         "filterId": "uuid",
+         "name": "All Integrated Care Boards excluding London",
+         "estSize": 21542825,
+         "refreshDate": "14 May 2024",
+         "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+      },
+      "5":
+      {
+         "filterId": "uuid",
+         "name": "No record of vaccine given",
+         "estSize": 5364262,
+         "Est. date": "14 May 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      }
+   }
+   %}
+
+
+
+
+   {% set customAgeFilterArray = [] %} {% set customLocationFilterArray = [] %} {% set unifiedFiltersArray = [] %}
+   {% set allFilterArray = [] %} {% set ageFilterArray = [] %} {% set locationFilterArray = [] %} {% set commonFilterArray = [] %}
+
+   {% if (data['includeExcludeRadios'].length > 0) %} {% set customAgeFilterArray = (customAgeFilterArray.push(data['includeExcludeRadios']),customAgeFilterArray) %} {% endif %}
+   {% if (data['genericOperatorsList'].length > 0) %} {% set customAgeFilterArray = (customAgeFilterArray.push(data['genericOperatorsList']),customAgeFilterArray) %} {% endif %}
+   {% if (data['value-1-suffix'].length > 0) %} {% set customAgeFilterArray = (customAgeFilterArray.push(data['value-1-suffix']),customAgeFilterArray) %} {% endif %}
+   {% if (data['value-2-suffix'].length > 0) %} {% set customAgeFilterArray = (customAgeFilterArray.push(data['value-2-suffix']),customAgeFilterArray) %} {% endif %}
+   {% if (data['suf1'].length > 0) %} {% set customAgeFilterArray = (customAgeFilterArray.push(data['suf1']),customAgeFilterArray) %} {% endif %}
+   {% if (data['suf2'].length > 0) %} {% set customAgeFilterArray = (customAgeFilterArray.push(data['suf2']),customAgeFilterArray) %} {% endif %}
+   {% set unifiedFiltersArray = unifiedFiltersArray.concat(customAgeFilterArray) %}
+
+   {% if (data['includeExcludeRadios'].length > 0) %} {% set customLocationFilterArray = (customLocationFilterArray.push(data['includeExcludeRadios']),customLocationFilterArray) %} {% endif %}
+   {% if (data['locationSelectListOptions'].length > 0) %} {% set customLocationFilterArray = (customLocationFilterArray.push(data['locationSelectListOptions']),customLocationFilterArray) %} {% endif %}
+   {% if (data['locationRegion'].length > 0) %} {% set customLocationFilterArray = (customLocationFilterArray.push(data['locationRegion']),customLocationFilterArray) %} {% endif %}
+   {% if (data['locationICB'].length > 0) %} {% set customLocationFilterArray = (customLocationFilterArray.push(data['locationICB']),customLocationFilterArray) %} {% endif %}
+   {% if (data['value-1'].length > 0) %} {% set customLocationFilterArray = (customLocationFilterArray.push(data['value-1']),customLocationFilterArray) %} {% endif %}
+   {% if (data['value-2'].length > 0) %} {% set customLocationFilterArray = (customLocationFilterArray.push(data['value-2']),customLocationFilterArray) %} {% endif %}
+   {% set unifiedFiltersArray = unifiedFiltersArray.concat(customLocationFilterArray) %}
+
+ {% if (data['allFilters'].length > 0) %} {% set allFilterArray = (allFilterArray.push(data['allFilters']),allFilterArray) %} {% set unifiedFiltersArray = unifiedFiltersArray.concat(allFilterArray) %} {% endif %}
+   {% if (data['ageFilters'].length > 0) %} {% set ageFilterArray = (ageFilterArray.push(data['ageFilters']),ageFilterArray) %} {% set unifiedFiltersArray = unifiedFiltersArray.concat(ageFilterArray) %} {% endif %}
+   {% if (data['locationFilters'].length > 0) %} {% set locationFilterArray = (locationFilterArray.push(data['locationFilters']),locationFilterArray) %} {% set unifiedFiltersArray = unifiedFiltersArray.concat(locationFilterArray) %} {% endif %}
+   {% if (data['commonFilters'].length > 0) %} {% set commonFilterArray = (commonFilterArray.push(data['commonFilters']),commonFilterArray) %} {% set unifiedFiltersArray = unifiedFiltersArray.concat(commonFilterArray) %} {% endif %}
+
+   {% set loader = [] %}
+   {% set testRay = [] %}
+
+   {% if (data['selectedAttrib'] == "Select standard filters and suppressions from a library" ) or (data['personAttributeSelector'].length > 0) %}
+   {% for item in unifiedFiltersArray|slice(1) %}
+   {% set loader = (loader.push(item), loader) %}
+   {% for key, value in filters %}
+   {% if item == value.name  %}
+   {% set testRay = (testRay.push(value.estSize),testRay) %}
+   {% endif %}
+   {% endfor %}
+   {% endfor %}
+   {% endif %}
+
+
+
+   {% if (data['commonFilters'].length > 0) %} {% set commonFilterArray = (commonFilterArray.push(data['commonFilters']),commonFilterArray) %} {% set unifiedFiltersArray = unifiedFiltersArray.concat(commonFilterArray) %} {% endif %}
+{{unifiedFiltersArray}}
+   {% if (data['includeExcludeRadios'].length > 0) %}
+   {% set sumCountFilters = [] %}
+
+   <table style="" class="nhsuk-table">
+      <thead role="rowgroup" class="nhsuk-table__head">
+         <tr style="" role="row">
+            <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+               Filters applied
+            </th>
+            <th style="line-height:-121px;text-align:right" role="columnheader" class="" scope="col">
+              Est. size
+            </th>
+         </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+         {% for key, value in filters %}
+         {% for item in unifiedFiltersArray %}
+         {% if item == value.name  %}
+            <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+              <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+              <td style="text-align:right" class="nhsuk-table__cell "> - {{value.estSize| thouCommaNum}}</td>
+
+            {% set sumCountFilters = (sumCountFilters.push(value.estSize|int), sumCountFilters) %}
+            {% set numb = sumCountCohort - sumCountFilters %}
+
+         </tr>
+         {% endif %}
+         {% endfor %}
+         {% endfor %}
+
+
+      </tbody>
+   </table>
+   {% endif %}

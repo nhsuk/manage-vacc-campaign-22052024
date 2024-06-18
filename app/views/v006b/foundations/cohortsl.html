@@ -1,0 +1,147 @@
+{% set val =
+   {
+      "1":
+      {
+         "cohortId": "uuid",
+         "name": "Under 16 Chronic neurological Disease",
+         "estSize": "5,782",
+         "refreshDate": "11 April 2024",
+         "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+      },
+      "2":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75+",
+         "estSize": "2,820,102",
+         "refreshDate": "4 March 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "3":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75-84",
+         "estSize": "3,442,325",
+         "refreshDate": "14 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "4":
+      {
+         "cohortId": "uuid",
+         "name": "Immunosuppressed (5-74s)",
+         "estSize": "1,149,754",
+         "refreshDate": "14 May 2024",
+         "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+      },
+      "5":
+      {
+         "cohortId": "uuid",
+         "name": "16+ Chronic neurological Disease",
+         "estSize": "5,782",
+         "refreshDate": "14 May 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "6":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75+ (London)",
+         "estSize": "720,102",
+         "refreshDate": "14 May 2024",
+         "description": "Donec efficitur et ligula ut blandit. Curabitur fringilla molestie dignissim."
+      },
+      "7":
+      {
+         "cohortId": "uuid",
+         "name": "Under 5s",
+         "estSize": "125,782",
+         "refreshDate": "14 May 2024",
+         "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+      },
+      "8":
+      {
+         "cohortId": "uuid",
+         "name": "Age 85+",
+         "estSize": "427,932",
+         "refreshDate": "17 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "9":
+      {
+         "cohortId": "uuid",
+         "name": "Age 5-74 immunosuppressed",
+         "estSize": "1,149,754",
+         "refreshDate": "14 May 2024",
+         "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+      },
+      "10":
+      {
+         "cohortId": "uuid",
+         "name": "16+ Serious Genetic Abnormalities",
+         "estSize": "19,264",
+         "refreshDate": "21 April 2024",
+         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas ante rutrum, iaculis odio eget, fringilla mauris."
+      }
+   }
+   %}
+
+
+   {% for item in data['cohorts'] %}
+   {% endfor %}
+
+{% set loader = [] %}
+
+{% if data['cohorts'].length > 0 %}
+{% set loader = (loader.push(data['cohorts']), loader) %}
+
+{% endif %}
+
+{% if data['cohorts-drop'].length > 0 %}
+{% set loader = (loader.push(data['cohorts-drop']), loader) %}
+
+{% endif %}
+
+{% set testRay = [] %}
+{% for key, value in val %}
+{% for thing in loader %}
+{% if thing == value.name  %}
+
+{% else %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+<form action="/goToTL" method="post">
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-quarters">
+    <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+    <h1>
+      Selected cohorts
+    </h1>
+
+<p class="nhsuk-body">These are the selected cohorts for the campaign.</p>
+
+
+<dl class="nhsuk-summary-list">
+
+   {% for key, value in val %}
+ {% for item in data['cohorts'] %}
+ {% if item == value.name  %}
+ <div class="nhsuk-summary-list__row">
+
+   <dt class="nhsuk-summary-list__key">
+      Cohort
+   </dt>
+
+   <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}} (est.)</dd>
+   <dd class="nhsuk-summary-list__actions">
+      <a href="select-cohorts?repickCohorts=true">
+        Update<span class="nhsuk-u-visually-hidden"> cohort</span>
+      </a>
+   </dd>
+
+ </div>
+ {% endif %}
+ {% endfor %}
+ {% endfor %}
+
+</dl>

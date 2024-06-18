@@ -1,0 +1,148 @@
+{% set pagetitle ="Vaccine" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length > 0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      {% if data['change'] == 'name' %}
+      {% set head = 'Choose a type of campaign' %}
+      {% set action = 'summary' %}
+      {% else %}
+      {% set action = 'dates' %}
+      {% set head = 'Choose a type of campaign' %}
+      {% endif %}
+
+
+{% if data['editName'] == 'true' %}
+  {% set head = 'Choose a type of campaign' %}
+    {% set action = 'task-list' %}
+{% endif %}
+
+        <h1>
+          {{ head }}
+        </h1>
+
+
+              {% from 'radios/macro.njk' import radios %}
+              {% from 'fieldset/macro.njk' import fieldset %}
+              {% from 'hint/macro.njk' import hint %}
+
+
+
+        {{ radios({
+          "idPrefix": "example-inline",
+          "name": "example-inline",
+          "classes": "nhsuk-radios--inline",
+          "fieldset": {
+            "legend": {
+              "text": "",
+              "classes": "nhsuk-fieldset__legend--l",
+              "isPageHeading": false
+            }
+          },
+          "items": [
+            {
+              "value": "Vaccination",
+              "text": "Vaccination"
+            },
+            {
+              "value": "Screening",
+              "text": "Screening"
+            }
+          ]
+        }) }}
+
+
+      {% call fieldset({
+        legend: {
+          "text": "",
+          "classes": "nhsuk-fieldset__legend--m",
+          "isPageHeading": false
+        }
+        }) %}
+
+
+        {{ radios({
+          "idPrefix": "example-hints",
+          "name": "example-hints",
+          "items": [
+        {
+          "value": "COVID-19",
+          "text": "COVID-19"
+        },
+        {
+          "value": "Seasonal Flu",
+          "text": "Seasonal Flu"
+        },
+        {
+          "value": "Co-admin",
+          "text": "Co-admin of COVID-19 and Seasonal Flu"
+        }
+      ]
+      }) }}
+      {% endcall %}
+
+
+
+
+        {{ button({
+          text: "Save and continue"
+        }) }}
+      </form>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}
+
+
+{% from 'radios/macro.njk' import radios %}
+
+{{ radios({
+  "idPrefix": "example-inline",
+  "name": "example-inline",
+  "classes": "nhsuk-radios--inline",
+  "fieldset": {
+    "legend": {
+      "text": "Are you 18 or over?",
+      "classes": "nhsuk-fieldset__legend--l",
+      "isPageHeading": true
+    }
+  },
+  "items": [
+    {
+      "value": "yes",
+      "text": "Yes"
+    },
+    {
+      "value": "no",
+      "text": "No"
+    }
+  ]
+}) }}

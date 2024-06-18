@@ -1,0 +1,312 @@
+{{ data['selectedAttrib'] }}
+
+
+<ul class="nhsuk-list filterLine">
+  <input type="hidden" id="preselected" value="{{ att }}">
+  <li style="padding-left:10px">
+    <div class="nhsuk-form-group">
+      <label class="filterLabel nhsuk-label" for="personAttributeSelector">
+        Person attribute
+      </label>
+      <select  class="nhsuk-select" id="personAttributeSelector" name="personAttributeSelector">
+        <option disabled  value="--">Select</option>
+        <option id="attr1" selected value="age">Age</option>
+        <option id="attr2" value="given-vaccine">Given vaccine</option>
+        <option id="attr3" value="location">Location</option>
+      </select>
+    </div>
+  </li>
+  <li style="">
+    <div style="display:{{HoS}}" id ="genericOperators" class="nhsuk-form-group">
+      <label  class="filterLabel nhsuk-label" for="genericOperators">
+        Operator
+      </label>
+      <select  class="nhsuk-select" id="genericOperatorsList" name="genericOperatorsList">
+        <option disabled selected value="Select">Select</option>
+        <option value="exact-match">Exact match</option>
+        <option value="starts-with">Starts with</option>
+        <option value="ends-with">Ends with</option>
+        <option value="greater-than">Greater than</option>
+        <option value="greater-than-equal-to">Greater than/equal to</option>
+        <option value="less than">Less than</option>
+        <option value="less-than-equal-to">Less than/equal to</option>
+        <option id="betweenxy" value="between">between x and y</option>
+      </select>
+    </div>
+  </li>
+  <li>
+    <div style="display:{{HoS}}" id ="value-1" class="nhsuk-form-group">
+      <label class="nhsuk-label" for="value-1">
+        Value 1
+      </label>
+      <input class="nhsuk-input nhsuk-input--width-3" id="value-1" name="value-1" type="text">
+    </div>
+  </li>
+  <li>
+    <div style="display:{{HoS}}" id ="value-2" class="nhsuk-form-group">
+      <label class="nhsuk-label" for="value-2">
+        Value 2
+      </label>
+      <input class="nhsuk-input nhsuk-input--width-3" id="value-2" name="value-2" type="text">
+    </div>
+  </li>
+
+  <li>
+    <div style="margin-left:-9px;display:{{HoS}}" id ="value-1-suffix" class="nhsuk-form-group">
+      <label class="nhsuk-label" for="value-1-suffix">
+        Value 1
+      </label>
+      <div class="nhsuk-input__wrapper">
+        <input class="nhsuk-input nhsuk-input--width-3" id="value-1-suffix" name="value-1-suffix" type="text">
+        <div id ="suffix1" class="nhsuk-input__suffix" aria-hidden="true"></div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div style="display:{{HoS}}" id ="value-2-suffix" class="nhsuk-form-group">
+      <label class="nhsuk-label" for="value-2-suffix">
+        Value 2
+      </label>
+      <div class="nhsuk-input__wrapper">
+        <input class="nhsuk-input nhsuk-input--width-3" id="value-2-suffix" name="value-2-suffix" type="text">
+        <div id ="suffix2" class="nhsuk-input__suffix" aria-hidden="true"></div>
+      </div>
+    </div>
+  </li>
+  <li class="newCR" style=";margin-left:5px">
+    <div  style="display:{{HoS}}" id ="includeExcludeRadios" class="nhsuk-form-group">
+      <div  class="nhsuk-radios">
+        <div class="nhsuk-radios__item">
+          <input class="nhsuk-radios__input" id="includeExcludeRadios-1" name="includeExcludeRadios" type="radio" value="Include">
+          <label class="nhsuk-label nhsuk-radios__label" for="includeExcludeRadios-1">
+            Only exclude this
+          </label>
+        </div>
+        <div class="nhsuk-radios__item">
+          <input class="nhsuk-radios__input" id="includeExcludeRadios-2" name="includeExcludeRadios" type="radio" value="Exclude">
+          <label class="nhsuk-label nhsuk-radios__label" for="includeExcludeRadios-2">
+            Exclude all other
+          </label>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <!-- const saveButton = document.getElementById("saveButton"); -->
+  <button style="display:{{HoS}}" id="saveButton" class="nhsuk-button" data-module="nhsuk-button" type="submit">
+    Save filter
+  </button>
+</ul>
+
+<script>
+
+  const preselected = document.getElementById("preselected");
+  const personAttributeSelector = document.getElementById("personAttributeSelector");
+  const locationSelectList = document.getElementById("locationSelectList");
+  const locationSelectListOptions = document.getElementById("locationSelectListOptions");
+  const locationICB = document.getElementById("locationICB");
+  const locationRegion = document.getElementById("locationRegion");
+  const locationOperators = document.getElementById("locationOperators");
+  const genericOperators = document.getElementById("genericOperators");
+  const genericOperatorsList = document.getElementById("genericOperatorsList");
+  const value1 = document.getElementById("value-1");
+  const value2 = document.getElementById("value-2");
+  const value1Suffix = document.getElementById("value-1-suffix");
+  const value2Suffix = document.getElementById("value-2-suffix");
+  const suffix1 = document.getElementById("suffix1");
+  const suffix2 = document.getElementById("suffix2");
+  const includeExcludeRadios = document.getElementById("includeExcludeRadios");
+  const includeExcludeRadios1 = document.getElementById("includeExcludeRadios-1");
+  const includeExcludeRadios2 = document.getElementById("includeExcludeRadios-2");
+  const saveButton = document.getElementById("saveButton");
+  const defSel = document.getElementById("defaultSelect").value;
+  const newDefault = document.getElementById("attr2");
+  const betweenxy = document.getElementById("betweenxy");
+  const attr1 = document.getElementById("attr1");
+  const attr2 = document.getElementById("attr2");
+  const attr3 = document.getElementById("attr3");
+
+  switch (defSel) {
+    case "age":
+    console.log(defSel,attr1)
+    // attr1 = attr1.selected;
+    // attr2.innerHTML = newDefault.value;
+    // attr1.selected = "true";
+    document.getElementById('preselected').style.display = 'block';
+    document.getElementById('attr1').selected = 'true';
+    // document.getElementById('suffix1').innerHTML = '{{attr1}}';
+    document.getElementById('includeExcludeRadios').style.display = 'block';
+
+    showElement('genericOperators');
+    document.getElementById('value-1-suffix').style.display = 'block';
+    document.getElementById('suffix1').innerHTML = 'years';
+
+    // showElement('value-2')
+    hideElement('locationSelectList')
+    hideElement('locationICB')
+    hideElement('locationRegion')
+    break;
+    break;
+    case "given-vaccine":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    document.getElementById('attr2').selected = 'true';
+
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+    case "location":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    document.getElementById('attr3').selected = 'true';
+    showElement('locationSelectList')
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+  }
+
+
+
+  personAttributeSelector.addEventListener("click", function(event) {
+    personAttributeSelector.addEventListener("change", function(event) {
+      switch (personAttributeSelector.value && preselected) {
+        case "age":
+        document.getElementById('preselected').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = '{{att}}';
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+        showElement('genericOperators');
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'years';
+        const outputSuff1 = document.getElementById('suffix1').innerHTML;
+        const outputSuff2 = document.getElementById('suffix2').innerHTML;
+
+        // showElement('value-2')
+        hideElement('locationSelectList')
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        break;
+        case "location":
+        showElement('locationSelectList')
+        hideElement('genericOperators');
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        document.getElementById('value-1-suffix').style.display = 'none';
+        document.getElementById('value-2-suffix').style.display = 'none';
+
+        break;
+
+
+        case "given-vaccine":
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+        showElement('genericOperators');
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'days';
+        document.getElementById('value-2-suffix').style.display = 'none';
+
+
+        // showElement('value-2')
+        hideElement('locationSelectList')
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        break;
+      }
+    });
+  });
+
+  genericOperators.addEventListener("click", function(event) {
+    genericOperatorsList.addEventListener("change", function(event) {
+      document.getElementById('includeExcludeRadios').style.display = 'block';
+
+      document.getElementById('value-1-suffix').style.display = 'block';
+      document.getElementById('value-2-suffix').style.display = 'block';
+      document.getElementById('includeExcludeRadios').style.display = 'block';
+
+      if (genericOperatorsList.value == "between" && personAttributeSelector.value == "age") {
+        console.log(genericOperatorsList.value)
+        document.getElementById('value-1').style.display = 'none';
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('value-2-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'years';
+        document.getElementById('suffix2').innerHTML = 'years';
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+        hideElement('locationICB')
+        hideElement('locationRegion')
+      } else {
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('value-2-suffix').style.display = 'none';
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+      }
+    });
+  });
+
+
+  locationSelectList.addEventListener("click", function(event) {
+    locationSelectListOptions.addEventListener("change", function(event) {
+      switch (locationSelectListOptions.value) {
+        case "icb":
+        showElement('locationSelectList')
+        hideElement('genericOperators')
+        showElement('locationICB')
+        document.getElementById('value-1-suffix').style.display = 'none';
+
+
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+        break;
+
+        case "city":
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+
+        showElement('genericOperators')
+        // document.getElementById('value-1').style.display = 'block';
+        document.getElementById('value-2-suffix').style.display = 'none';
+        document.getElementById('value-1-suffix').style.display = 'none';
+        hideElement('locationICB')
+        hideElement('locationRegion');
+        break;
+        case "region":
+        document.getElementById('includeExcludeRadios').style.display = 'block';
+        showElement('locationRegion');
+        hideElement('locationICB')
+        hideElement('genericOperators')
+        break;
+
+      }
+    });
+  });
+
+
+  includeExcludeRadios1.addEventListener("click", function(event) {
+    includeExcludeRadios1.addEventListener("change", function(event) {
+
+      showElement("saveButton")
+
+    });
+  });
+
+  includeExcludeRadios2.addEventListener("click", function(event) {
+    includeExcludeRadios2.addEventListener("change", function(event) {
+
+      showElement("saveButton")
+
+    });
+  });
+
+
+  function showElement(div1) {
+    document.getElementById(div1).style.display = 'block';
+
+  }
+
+
+  function showElementXtra(div1, sfx) {
+    document.getElementById(div1).style.display = 'block';
+    suffix1.innerHTML = sfx;
+  }
+
+  function hideElement(div1) {
+    document.getElementById(div1).style.display = 'none';
+  }
+</script>

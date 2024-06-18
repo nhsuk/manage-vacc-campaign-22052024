@@ -1,0 +1,149 @@
+{% set pagetitle ="Summary of active suppressions" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{% set suppressions =
+   {
+      "1":
+      {
+         "suppressId": "uuid",
+         "name": "User has opted out of receiving COVID-19 messages",
+         "estSuppd": 12542,
+         "refreshDate": "11 April 2024",
+         "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+      },
+      "2":
+      {
+         "suppressId": "uuid",
+         "name": "Care Home Residents",
+         "estSuppd": 4425553,
+         "refreshDate": "4 March 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "3":
+      {
+         "suppressId": "uuid",
+         "name": "Detained Estate",
+         "estSuppd": 94986,
+         "refreshDate": "14 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "4":
+      {
+         "suppressId": "uuid",
+         "name": "DPHC/DMS Military staff",
+         "estSuppd": 142825,
+         "refreshDate": "14 May 2024",
+         "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+      },
+      "5":
+      {
+         "suppressId": "uuid",
+         "name": "Future COVID-19 vaccine booking",
+         "estSuppd": "4,262",
+         "Est. date": "14 May 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      }
+   }
+   %}
+
+
+   {% for item in data['cohorts'] %}
+   {% endfor %}
+
+{% set loader = [] %}
+
+{% if data['suppCollect'].length > 0 %}
+{% set loader = (loader.push(data['suppCollect']), loader) %}
+
+{% endif %}
+
+
+{% set testRay = [] %}
+{% for key, value in suppressions %}
+{% for thing in loader %}
+{% if thing == value.name  %}
+
+{% else %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+<form action="/goToTL?kind=suppress" method="post">
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds">
+    <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+    <h1>
+      Selected suppressing rules activated
+    </h1>
+
+<p class="nhsuk-body">These suppression rules lorem ipsum dolor sit amet blah boing.</p>
+
+
+<dl class="nhsuk-summary-list">
+
+   {% for key, value in suppressions %}
+ {% for item in data['suppCollect'] %}
+ {% if item == value.name  %}
+ <div class="nhsuk-summary-list__row">
+
+   <dt class="nhsuk-summary-list__key">
+      Suppressing rule?<br>
+      Est. impact on cohort
+   </dt>
+
+   <dd class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSuppd}}
+   <dd class="nhsuk-summary-list__actions">
+      <a href="select-cohorts?repickCohorts=true">
+        Update<span class="nhsuk-u-visually-hidden"> suppression</span>
+      </a>
+   </dd>
+
+ </div>
+ {% endif %}
+ {% endfor %}
+ {% endfor %}
+
+</dl>
+
+
+
+    {{ button({
+      text: "Save and continue"
+    }) }}
+    </form>
+  </div>
+</div>
+
+{% endblock %}

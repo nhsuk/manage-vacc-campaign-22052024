@@ -1,0 +1,53 @@
+   {% set iterationList =
+      {
+         "1":
+         {
+            "num": "1",
+            "name": "",
+            "date": ""
+         },
+         "2":
+         {
+            "num": "2",
+            "name": "",
+            "date": ""
+         },
+         "3":
+         {
+            "num": "3",
+            "name": "",
+            "date": ""
+         },
+         "4":
+         {
+            "num": "4",
+            "name": "",
+            "date": ""
+         },
+         "5":
+         {
+            "num": "5",
+            "name": "",
+            "date": ""
+         }
+      }
+      %}
+
+
+      {{data['iteration-name']}}
+      {{data['iterationDate']}}
+      {% if num == "count" %}
+      {% set num == num+1 %}
+      {% endif %}
+
+      {% for key, value in iterationList %}
+      {% if num == value.num %}
+      {% set value.name == data['iteration-name']  %}
+      {% set value.date == data['iterationDate']  %}
+      {% endif %}
+      {% endfor %}
+
+      <ul>
+         <li>{{ value.name }}</li>
+         <li>{{ value.date }}</li>
+      </ul>

@@ -1,0 +1,197 @@
+
+{% set cohorts =
+   {
+      "1":
+      {
+         "cohortId": "uuid",
+         "name": "Under 16 Chronic neurological Disease",
+         "estSize": 5782|int,
+         "refreshDate": "11 April 2024",
+         "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+      },
+      "2":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75+",
+         "estSize": 2820102|int,
+         "refreshDate": "4 March 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "3":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75-84",
+         "estSize": 3442325|int,
+         "refreshDate": "14 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "4":
+      {
+         "cohortId": "uuid",
+         "name": "Immunosuppressed (5-74s)",
+         "estSize": "1,149,754",
+         "refreshDate": "14 May 2024",
+         "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+      },
+      "5":
+      {
+         "cohortId": "uuid",
+         "name": "16+ Chronic neurological Disease",
+         "estSize": "5,782",
+         "refreshDate": "14 May 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "6":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75+ (London)",
+         "estSize": "720,102",
+         "refreshDate": "14 May 2024",
+         "description": "Donec efficitur et ligula ut blandit. Curabitur fringilla molestie dignissim."
+      },
+      "7":
+      {
+         "cohortId": "uuid",
+         "name": "Under 5s",
+         "estSize": "125,782",
+         "refreshDate": "14 May 2024",
+         "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+      },
+      "8":
+      {
+         "cohortId": "uuid",
+         "name": "Age 85+",
+         "estSize": "427,932",
+         "refreshDate": "17 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "9":
+      {
+         "cohortId": "uuid",
+         "name": "Age 5-74 immunosuppressed",
+         "estSize": "1,149,754",
+         "refreshDate": "14 May 2024",
+         "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+      },
+      "10":
+      {
+         "cohortId": "uuid",
+         "name": "16+ Serious Genetic Abnormalities",
+         "estSize": "19,264",
+         "refreshDate": "21 April 2024",
+         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas ante rutrum, iaculis odio eget, fringilla mauris."
+      }
+   }
+   %}
+
+
+
+   <div style="display:none">
+      <table>
+         {% set sumCountCohort = [] %}
+         <tbody style="width:70%" class="nhsuk-table__body">
+            {% for key, value in cohorts %}
+            {% for item in data['cohorts'] %}
+            {% if item == value.name %}
+
+            <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+               <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+               <td style="text-align:right" class="nhsuk-table__cell ">{{value.estSize| thouCommaNum}}</td>
+               {% set sumCountCohort = (sumCountCohort.push(value.estSize|int), sumCountCohort) %}
+               {% endif %} {% endfor %} {% endfor %}
+
+
+               {% for key, value in cohorts %}
+               {% for item in data['cohorts-drop'] %}
+               {% if item == value.name %}
+
+               <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+               <td style="text-align:right" class="nhsuk-table__cell ">{{value.estSize| thouCommaNum}}</td>
+               {% set sumCountCohort = (sumCountCohort.push(value.estSize|int), sumCountCohort) %}
+               {% endif %} {% endfor %} {% endfor %}
+            </tr>
+
+
+            <tr role="row" class="nhsuk-table__row">
+               <td style="text-align:right" class="nhsuk-table__cell">Est. total</td>
+               <td style="text-align:right" id="doTheMCohorts" class="nhsuk-table__cell ">{{sumCountCohort | sum | thouCommaNum }}</td>
+            </tr>
+
+
+         </tbody>
+
+      </table>
+   </div>
+
+{% set cNum1 = data['cohorts'].length %}
+{% set cNum2 = data['cohorts'].length + cNum1 %}
+
+   <details class="nhsuk-details nhsuk-u-width-two-thirds">
+      <summary class="nhsuk-details__summary">
+         <span style="font-size:19px;" class="nhsuk-details__summary-text">
+
+            {{cNum1}} selected cohorts total {{sumCountCohort | sum | thouCommaNum }} (est.)
+
+         </span>
+      </summary>
+      <div class="nhsuk-details__text">
+
+         <table>
+            {% set sumCountCohort = [] %}
+            <tbody style="width:70%" class="nhsuk-table__body">
+               {% for key, value in cohorts %}
+               {% for item in data['cohorts'] %}
+               {% if item == value.name %}
+
+               <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+                  <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+                  <td style="text-align:right" class="nhsuk-table__cell ">{{value.estSize| thouCommaNum}}</td>
+                  {% set sumCountCohort = (sumCountCohort.push(value.estSize|int), sumCountCohort) %}
+                  {% endif %} {% endfor %} {% endfor %}
+
+
+                  {% for key, value in cohorts %}
+                  {% for item in data['cohorts-drop'] %}
+                  {% if item == value.name %}
+
+                  <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+                  <td style="text-align:right" class="nhsuk-table__cell ">{{value.estSize| thouCommaNum}}</td>
+                  {% set sumCountCohort = (sumCountCohort.push(value.estSize|int), sumCountCohort) %}
+                  {% endif %} {% endfor %} {% endfor %}
+               </tr>
+
+
+               <tr role="row" class="nhsuk-table__row">
+                  <td style="text-align:right" class="nhsuk-table__cell">Est. total</td>
+                  <td style="text-align:right" id="doTheMCohorts" class="nhsuk-table__cell ">{{sumCountCohort | sum | thouCommaNum }}</td>
+               </tr>
+
+
+            </tbody>
+
+         </table>
+
+      </div>
+   </details>
+
+
+
+   <!-- <table style="margin-bottom:0px" class="nhsuk-table">
+   <caption class="nhsuk-table__caption"></caption>
+   <thead role="rowgroup" class="nhsuk-table__head">
+   <tr style="" role="row">
+   <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+   Cohort
+</th>
+<th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+Est. size
+</th>
+</tr>
+</thead>
+<tbody class="nhsuk-table__body">
+<tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+<td style="text-align:left" class="nhsuk-table__cell"></td>
+<td style="text-align:left" class="nhsuk-table__cell "></td>
+</tr>
+</tbody>
+</table> -->
