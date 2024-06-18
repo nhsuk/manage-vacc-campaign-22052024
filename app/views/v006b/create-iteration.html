@@ -2,11 +2,7 @@
 {% set versionNumber ="004" %}
 {% extends 'layout.html' %}
 {% block header %}
-{% if data['name']|length > 0 %}
 {% include 'foundations/header-signed-in-campaign.html' %}
-{% else %}
-{% include 'foundations/header-signed-in.html' %}
-{% endif %}
 {% endblock %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
