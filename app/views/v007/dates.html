@@ -61,14 +61,14 @@
 
 {% block content %}
   <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-two-thirds">
+    <div class="nhsuk-grid-column-three-quarters   ">
 
 
-      <h1>
-        Enter the campaign start and end dates
+      <h1 class="nhsuk-heading-l">
+        Enter the invitation campaign start and end dates
       </h1>
 
-      <p class="nhsuk-body">The dates you enter will not start or end the campaign. They will be used to make sure the data is available during this period.</p>
+      <p class="nhsuk-body">The invitations dates you enter are for the period when invitations will be sent. These dates can be changed if needed.</p>
 
       {% if data['update'] == 'dates' %}
       {% set action = 'summary' %}
@@ -85,10 +85,10 @@
 
       <form action="{{ action }}" method="post">
 
-      <div class="nhsuk-grid-row nhsuk-u-padding-bottom-9">
+      <div class="nhsuk-grid-row nhsuk-u-padding-bottom-7">
             <div class="nhsuk-grid-column-one-half">
 
-              <span class="nhsuk-caption-l nhsuk-caption--top" for="fromDate">Start date</span>
+              <span class="nhsuk-caption-m nhsuk-caption--top" for="fromDate">Invitations start date</span>
               <!-- <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}" type="date" placeholder="dd-mm-yyyy" id="fromDate" name="fromDate"> -->
               <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}"  type="date" placeholder="yyyy-mm-dd" id="fromDate" name="fromDate">
 
@@ -98,7 +98,7 @@
 
             <div class="nhsuk-grid-column-one-half">
 
-              <span class="nhsuk-caption-l nhsuk-caption--top" for="toDate">End date</span>
+              <span class="nhsuk-caption-m nhsuk-caption--top" for="toDate">Invitations end date</span>
               <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px" min="{{ data['fromDate']}}" value="{{ data['toDate'] }}" type="date" placeholder="dd-mm-yyyy" id="toDate" name="toDate">
 
 
@@ -106,6 +106,29 @@
             </div>
       </div>
 
+<p class="nhsuk-body-m">The reporting data dates you enter will be used to make sure reporting data is available for the campaign during this period. These dates can be changed if needed.</p>
+
+
+<div class="nhsuk-grid-row nhsuk-u-padding-bottom-6">
+      <div class="nhsuk-grid-column-one-half">
+
+        <span class="nhsuk-caption-m nhsuk-caption--top" for="fromReportingDate">Reporting data start date</span>
+        <!-- <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromReportingDate']}}" type="date" placeholder="dd-mm-yyyy" id="fromDate" name="fromDate"> -->
+        <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}"  type="date" placeholder="yyyy-mm-dd" id="fromReportingDate" name="fromReportingDate">
+
+
+
+      </div>
+
+      <div class="nhsuk-grid-column-one-half">
+
+        <span class="nhsuk-caption-m nhsuk-caption--top" for="toReportingDate">Reporting data end date</span>
+        <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px" min="{{ data['fromReportingDate']}}" value="{{ data['toReportingDate'] }}" type="date" placeholder="dd-mm-yyyy" id="toReportingDate" name="toReportingDate">
+
+
+
+      </div>
+</div>
 
 
       {{ button({

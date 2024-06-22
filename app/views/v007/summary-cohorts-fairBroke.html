@@ -1,0 +1,269 @@
+{% set pagetitle ="Summary of selected cohorts" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+
+{% block header %}
+
+
+
+
+<header class="nhsuk-header" role="banner">
+
+  <div class="nhsuk-header__container">
+    <div class="nhsuk-header__logo"><a class="nhsuk-header__link nhsuk-header__link--service " href="home" aria-label="Select People for Invitations homepage">
+
+        <svg class="nhsuk-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 16" height="40" width="100">
+          <path class="nhsuk-logo__background" fill="#005eb8" d="M0 0h40v16H0z"></path>
+          <path class="nhsuk-logo__text" fill="#fff" d="M3.9 1.5h4.4l2.6 9h.1l1.8-9h3.3l-2.8 13H9l-2.7-9h-.1l-1.8 9H1.1M17.3 1.5h3.6l-1 4.9h4L25 1.5h3.5l-2.7 13h-3.5l1.1-5.6h-4.1l-1.2 5.6h-3.4M37.7 4.4c-.7-.3-1.6-.6-2.9-.6-1.4 0-2.5.2-2.5 1.3 0 1.8 5.1 1.2 5.1 5.1 0 3.6-3.3 4.5-6.4 4.5-1.3 0-2.9-.3-4-.7l.8-2.7c.7.4 2.1.7 3.2.7s2.8-.2 2.8-1.5c0-2.1-5.1-1.3-5.1-5 0-3.4 2.9-4.4 5.8-4.4 1.6 0 3.1.2 4 .6"></path>
+        </svg>
+
+        <span class="nhsuk-header__service-name">
+          Select People for Invitations
+        </span>
+      </a>
+    </div>
+
+    <div style="padding-top:8px" class="nhsuk-header__content" id="content-header">
+       <svg style="" width="25px" height="25px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+           <title>Combined Shape</title>
+           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+               <path d="M50,0 C77.6142375,0 100,22.3857625 100,50 C100,77.6142375 77.6142375,100 50,100 C22.3857625,100 0,77.6142375 0,50 C0,22.3857625 22.3857625,0 50,0 Z M49.9740242,50 C36.461773,50 30.5623168,57.2206478 25.8955801,66.0142189 C21.0180345,74.8077899 21.876928,86.9120654 49.9740242,86.9120654 C78.0711204,86.9120654 78.9300139,74.8077899 74.0524683,66.0142189 C69.3857316,57.2206478 63.4862754,50 49.9740242,50 Z M49.9976555,14.6216769 C41.0752639,14.6216769 33.4852236,21.8547045 33.0448262,30.7770961 C32.6044287,39.6994878 40.1919983,46.9325153 49.9921371,46.9325153 C59.792276,46.9325153 67.3823162,39.6994878 66.9449665,30.7770961 C66.5076168,21.8547045 58.9200472,14.6216769 49.9976555,14.6216769 Z" id="Combined-Shape" fill="#D8DDE0"></path>
+           </g>
+       </svg>
+       </div>
+    </div>
+
+
+
+</header>
+
+
+
+
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+{% set val =
+   {
+      "1":
+      {
+         "cohortId": "uuid",
+         "name": "Under 16 Chronic neurological Disease",
+         "estSize": "5,782",
+         "refreshDate": "11 April 2024",
+         "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+      },
+      "2":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75+",
+         "estSize": "2,820,102",
+         "refreshDate": "4 March 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "3":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75-84",
+         "estSize": "3,442,325",
+         "refreshDate": "14 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "4":
+      {
+         "cohortId": "uuid",
+         "name": "Immunosuppressed (5-74s)",
+         "estSize": "1,149,754",
+         "refreshDate": "14 May 2024",
+         "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+      },
+      "5":
+      {
+         "cohortId": "uuid",
+         "name": "16+ Chronic neurological Disease",
+         "estSize": "5,782",
+         "refreshDate": "14 May 2024",
+         "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+      },
+      "6":
+      {
+         "cohortId": "uuid",
+         "name": "Age 75+ (London)",
+         "estSize": "720,102",
+         "refreshDate": "14 May 2024",
+         "description": "Donec efficitur et ligula ut blandit. Curabitur fringilla molestie dignissim."
+      },
+      "7":
+      {
+         "cohortId": "uuid",
+         "name": "Under 5s",
+         "estSize": "125,782",
+         "refreshDate": "14 May 2024",
+         "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+      },
+      "8":
+      {
+         "cohortId": "uuid",
+         "name": "Age 85+",
+         "estSize": "427,932",
+         "refreshDate": "17 May 2024",
+         "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+      },
+      "9":
+      {
+         "cohortId": "uuid",
+         "name": "Age 5-74 immunosuppressed",
+         "estSize": "1,149,754",
+         "refreshDate": "14 May 2024",
+         "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat."
+      },
+      "10":
+      {
+         "cohortId": "uuid",
+         "name": "16+ Serious Genetic Abnormalities",
+         "estSize": "19,264",
+         "refreshDate": "21 April 2024",
+         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas ante rutrum, iaculis odio eget, fringilla mauris."
+      }
+   }
+   %}
+
+
+
+
+
+   {% macro summaryList(data) %}
+  <ul>
+    {% for key, value in data %}
+      <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+
+   {% macro summaryList(data) %} <ul> {% for key, value in data %} <li>{{ key }}: {{ value }}</li> {% endfor %} </ul> {% endmacro %} {% macro dataTable(data) %} <table> <thead> <tr> {% for key in data|first|keys %} <th>{{ key }}</th> {% endfor %} </tr> </thead> <tbody> {% for row in data %} <tr> {% for key, value in row %} <td>{{ value }}</td> {% endfor %} </tr> {% endfor %} </tbody> </table> {% endmacro %}
+
+
+
+{% set loader = [] %}
+
+{% if data['cohorts'].length > 0 %}
+{% set loader = (loader.push(data['cohorts']), loader) %}
+
+{% endif %}
+
+{% if data['cohorts-drop'].length > 0 %}
+{% set loader = (loader.push(data['cohorts-drop']), loader) %}
+{% endif %}
+
+{% set testRay = [] %}
+{% for key, value in val %}
+{% for thing in loader %}
+{% if thing == value.name  %}
+
+{% else %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+
+
+
+
+
+
+
+<form action="task-list-govuk?cohortsSel=true" method="post">
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-quarters">
+    <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+    <h1>
+      Selected cohorts
+    </h1>
+
+<p class="nhsuk-body">These are the selected cohorts for the campaign.</p>
+
+
+<dl class="nhsuk-summary-list">
+   {% set sumCountCohort = [] %}
+
+    {% for key, value in val %}
+    {% for item in data['cohorts'] %}
+    {% if item == value.name  %}
+
+    <div class="nhsuk-summary-list__row">
+
+      <dt class="nhsuk-summary-list__key">
+         Cohort<BR>(Estimate)
+      </dt>
+
+      <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}}</dd>
+      <dd class="nhsuk-summary-list__actions">
+         <a href="select-cohorts?repickCohorts=true">
+           Update<span class="nhsuk-u-visually-hidden"> cohort</span>
+         </a>
+      </dd>
+
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+
+    {% for key, value in val %}
+    {% for things in data['cohorts-drop'] %}
+    {% if things == value.name  %}
+    <div class="nhsuk-summary-list__row">
+
+   <dt class="nhsuk-summary-list__key">
+      Cohort<BR>(Estimate)
+   </dt>
+
+   <dd style="width:70%" class="nhsuk-summary-list__value">{{value.name}}<BR>{{value.estSize}}</dd>
+
+      {% if (things.length > 1) %}
+
+      {% set sum = sumCountCohort | sum | thouCommaNum %}
+      {{sum}}
+      {% endif %}
+      <tr role="row" class="nhsuk-table__row"> <td style="text-align:right" class="nhsuk-table__cell">Est. size</td> <td style="text-align:right" id="" class="nhsuk-table__cell ">{{sumCountCohort | sum | thouCommaNum }}</td> </tr> -->
+
+   <dd class="nhsuk-summary-list__actions">
+      <a href="select-cohorts?repickCohorts=true">
+        Update<span class="nhsuk-u-visually-hidden"> cohort</span>
+      </a>
+   </dd>
+
+ </div>
+ {% endif %}
+ {% endfor %}
+ {% endfor %}
+
+</dl>
+
+
+
+    {{ button({
+      text: "Save and continue"
+    }) }}
+    </form>
+  </div>
+</div>
+
+{% endblock %}

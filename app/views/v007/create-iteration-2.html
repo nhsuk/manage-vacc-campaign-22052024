@@ -71,10 +71,8 @@
 
       <form action="task-list-govuk?nextIt={{data['nextIt']|int+1}}" method="post">
 
-         <span class="nhsuk-caption-l">{{ data['iteration-name1']|default("Create iteration") }}</span>
-         <h1 clss="nhsuk-heading-l">When will it run?</h1>
-
-         <p class="nhsuk-body">Lorem ipsum guidance about iteration dates.</p>
+          <span class="nhsuk-caption-l">Create iteration {{data['nextIt']|default("1")}}</span>
+         <h1 class="nhsuk-heading-l">When will the campaign start?</h1>
 
          <!-- <span class="nhsuk-caption-m nhsuk-caption--top" for="{{iterationDate+itVal}}">Iteration date {{iniVal}} (optional)</span>
          <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{data['iterationDate'+itVal]}}"  type="date" placeholder="yyyy-mm-dd" id="iterationDate+itVal" name="iterationDate+itVal"> -->
@@ -83,7 +81,7 @@
          {{ input({
            "label": {
               "classes": "nhsuk-caption-l nhsuk-u-font-size-19",
-              "text": "Iteration date"+counter+" (optional)"
+              "text": "Iteration date"+counter|default(" 1")+" (optional)"
            },
            "id": "iterationDate"+counter,
            "name": "iterationDate"+counter,

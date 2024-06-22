@@ -62,11 +62,11 @@
     <div class="nhsuk-grid-column-two-thirds">
 
       {% if data['update'] == 'name' %}
-      {% set head = 'Create a campaign name' %}
+      {% set head = 'Create an invitation campaign name' %}
       {% set action = 'summary' %}
       {% else %}
       {% set action = 'dates' %}
-      {% set head = 'Create a campaign name' %}
+      {% set head = 'Create an invitation campaign name' %}
       {% endif %}
 
 
@@ -80,7 +80,7 @@
 
       <form action="{{ action }}" method="post">
   <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
-        <h1>
+        <h1 class="nhsuk-heading-l">
           {{ head }}
         </h1>
       <p class="nhsuk-body">Choose a name that describes the campaign and is easy to understand.</p>
@@ -88,7 +88,7 @@
 
         {{ input({
           "label": {
-            "text": "Campaign name"
+            "text": "Invitation campaign name"
           },
     "hint": {
     "text": "eg COVID-19 seasonal spring vaccination 2024"

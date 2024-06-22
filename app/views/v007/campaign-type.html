@@ -86,7 +86,7 @@
 
       <form action="{{ action }}" method="post">
   <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
-        <H1 class="nhsuk-heading-xl">
+        <H1 class="nhsuk-heading-l">
           {{ head }}</h1>
 
 
@@ -202,17 +202,17 @@
           },
           "items": [
             {
-              "value": "Vaccination campaign",
-              checked: checked('campaign-type','Vaccination campaign'),
-              "text": "Vaccination campaign",
+              "value": "Vaccination",
+              checked: checked('campaign-type','Vaccination'),
+              "text": "Vaccination",
               "conditional": {
                 html: vaccinationHTML
               }
             },
             {
-              "value": "Screening campaign",
-              checked: checked('campaign-type','Screening campaign'),
-              "text": "Screening campaign",
+              "value": "Screening",
+              checked: checked('campaign-type','Screening'),
+              "text": "Screening",
               conditional: {
                 html: screeningHTML
               }
