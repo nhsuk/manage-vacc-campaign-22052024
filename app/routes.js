@@ -11,7 +11,7 @@ var fs = require('fs');
 var path = require('path');
 var process = require('process');
 
-const filesArray = fs.readdirSync("./app/views/v005/")
+const filesArray = fs.readdirSync("./app/views/v007/")
 const workingD = process.cwd();
 
 // Add your routes here - above the module.exports line
@@ -31,9 +31,9 @@ router.post('/filterSelection', function (req, res) {
     var att = req.session.data['selectedAttrib'];
     console.log(att)
   if (att == "Select standard filters and suppressions from a library"){
-    res.redirect('v005/add-filter-library')
+    res.redirect('v007/add-filter-library')
 } else if (att == "age" || att == "location"){
-    res.redirect('v005/add-filter?sel='+att)
+    res.redirect('v007/add-filter?sel='+att)
     console.log(att)
 } else {
    // do nothing
@@ -42,7 +42,7 @@ router.post('/filterSelection', function (req, res) {
 
 
 router.post('/dupeHandler', function (req, res) {
-   res.redirect('v005/name?dupe=true')
+   res.redirect('v007/name?dupe=true')
 })
 
 
@@ -51,32 +51,32 @@ router.post('/dupeHandler', function (req, res) {
 router.get("/grabCohorts", function (req, res) {
    let val = {}
    val = req.session.data;
-   res.render('v005/select-cohorts', {val: val});
+   res.render('v007/select-cohorts', {val: val});
    console.log(val)
 });
 
 
 router.post("/summary-cohorts", function (req, res) {
-   res.redirect('v005/summary-cohorts');
+   res.redirect('v007/summary-cohorts');
 });
 
 
 // router.get("/goToTL", function (req, res) {
 //    vals1 = req.session.data['cohorts'];
 //    vals2 = req.session.data['cohorts-drop'];
-//    res.redirect('v005/task-list-govuk', {vals1: vals1, vals2: vals2});
+//    res.redirect('v007/task-list-govuk', {vals1: vals1, vals2: vals2});
 // });
 
 router.get("/home", function (req, res) {
-   res.redirect('v005/home');
+   res.redirect('v007/home');
 });
 
 router.get("/create-iteration", function (req, res) {
-   res.redirect('v005/create-iteration');
+   res.redirect('v007/create-iteration');
 });
 
 router.get("/sign-in", function (req, res) {
-   res.redirect('v005/sign-in');
+   res.redirect('v007/sign-in');
 });
 
 module.exports = router;
@@ -87,16 +87,16 @@ module.exports = router;
 //
 //     switch (att) {
 //       case "age":
-//          res.redirect('v005/add-filter-age');
+//          res.redirect('v007/add-filter-age');
 //       break;
 //       case "location":
-//          res.redirect('v005/add-filter-location');
+//          res.redirect('v007/add-filter-location');
 //       break;
 //       case "vaccine recently given":
-//          res.redirect('v005/add-filter-vaccine-given');
+//          res.redirect('v007/add-filter-vaccine-given');
 //       break;
 //       case "Select standard filters and suppressions from a library":
-//          res.redirect('v005/add-filter-library');
+//          res.redirect('v007/add-filter-library');
 //       break;
 //     }
 // })

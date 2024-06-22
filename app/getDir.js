@@ -23,7 +23,7 @@ var walk = function(dir) {
         if (stat && stat.isDirectory()) {
           let res = walk(file);
           results = results.concat(res);
-	
+
 
           return next();
         } else {
@@ -35,5 +35,5 @@ var walk = function(dir) {
 
 };
 
-const listArray = walk("views/v003");
+const listArray = walk("views/v007");
 console.log(listArray)
