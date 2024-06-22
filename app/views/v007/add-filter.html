@@ -1,0 +1,793 @@
+{% set pagetitle ="Add a filter" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+
+{% block header %}
+
+
+
+
+<header class="nhsuk-header" role="banner">
+
+  <div class="nhsuk-header__container">
+    <div class="nhsuk-header__logo"><a class="nhsuk-header__link nhsuk-header__link--service " href="home" aria-label="Select People for Invitations homepage">
+
+        <svg class="nhsuk-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 16" height="40" width="100">
+          <path class="nhsuk-logo__background" fill="#005eb8" d="M0 0h40v16H0z"></path>
+          <path class="nhsuk-logo__text" fill="#fff" d="M3.9 1.5h4.4l2.6 9h.1l1.8-9h3.3l-2.8 13H9l-2.7-9h-.1l-1.8 9H1.1M17.3 1.5h3.6l-1 4.9h4L25 1.5h3.5l-2.7 13h-3.5l1.1-5.6h-4.1l-1.2 5.6h-3.4M37.7 4.4c-.7-.3-1.6-.6-2.9-.6-1.4 0-2.5.2-2.5 1.3 0 1.8 5.1 1.2 5.1 5.1 0 3.6-3.3 4.5-6.4 4.5-1.3 0-2.9-.3-4-.7l.8-2.7c.7.4 2.1.7 3.2.7s2.8-.2 2.8-1.5c0-2.1-5.1-1.3-5.1-5 0-3.4 2.9-4.4 5.8-4.4 1.6 0 3.1.2 4 .6"></path>
+        </svg>
+
+        <span class="nhsuk-header__service-name">
+          Select People for Invitations
+        </span>
+      </a>
+    </div>
+
+    <div style="padding-top:8px" class="nhsuk-header__content" id="content-header">
+       <svg style="" width="25px" height="25px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+           <title>Combined Shape</title>
+           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+               <path d="M50,0 C77.6142375,0 100,22.3857625 100,50 C100,77.6142375 77.6142375,100 50,100 C22.3857625,100 0,77.6142375 0,50 C0,22.3857625 22.3857625,0 50,0 Z M49.9740242,50 C36.461773,50 30.5623168,57.2206478 25.8955801,66.0142189 C21.0180345,74.8077899 21.876928,86.9120654 49.9740242,86.9120654 C78.0711204,86.9120654 78.9300139,74.8077899 74.0524683,66.0142189 C69.3857316,57.2206478 63.4862754,50 49.9740242,50 Z M49.9976555,14.6216769 C41.0752639,14.6216769 33.4852236,21.8547045 33.0448262,30.7770961 C32.6044287,39.6994878 40.1919983,46.9325153 49.9921371,46.9325153 C59.792276,46.9325153 67.3823162,39.6994878 66.9449665,30.7770961 C66.5076168,21.8547045 58.9200472,14.6216769 49.9976555,14.6216769 Z" id="Combined-Shape" fill="#D8DDE0"></path>
+           </g>
+       </svg>
+       </div>
+    </div>
+
+
+
+</header>
+
+
+
+
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+{% block content %}
+
+<style>
+
+  .js-signout {
+    text-align: right;
+    font-size: 16px;
+    font-family: 'proxima_nova', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    z-index: 60;
+    clear: none;
+    background: transparent;
+    border-bottom: 1px solid #bfc1c3;
+    vertical-align: top;
+    padding-bottom: 20px;
+    font-size: 17px;
+
+  }
+  .filterLine {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    text-align: left;
+    margin: 0;
+    float:left;
+    font-size: 17px;
+  }
+
+  .filterLabel {
+    font-size: 17px;
+  }
+
+  .filterLine, li {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 17px;
+  }
+  .newCR {
+    display: block;
+    vertical-align: top;
+    padding-left:5px;
+    font-size: 17px;
+
+  }
+  input:checked  {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    color: black;
+  }
+
+  input:after {
+    content:"";
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 20%;
+    border: 5px solid #000000;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input:checked:after {
+    display: block;
+  }
+  li {
+    font-size:17px;
+    margin-top:3px;
+    margin-bottom:2px;
+  }
+
+
+</style>
+{% set cohortsArray = [] %}
+
+{% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+{% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+{% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+{% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+{% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+{% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+{% set cohortsArray = cohortsArray.concat("COVID-19 vaccination for people aged 75 to 115 years old") %}
+
+{% if cohortsArray.length > 0 %}
+{% endif %}
+
+
+{% set region = ['East of England','London','Midlands','North East and Yorkshire','North West','South East','South West'] %}
+
+{% set ICBlist = ['NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board','NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board','NHS Birmingham and Solihull Integrated Care Board','NHS Black Country Integrated Care Board','NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board','NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board','NHS Cambridgeshire and Peterborough Integrated Care Board','NHS Cheshire and Merseyside Integrated Care,Board','NHS Cornwall and the Isles of Scilly Integrated Care Board','NHS Coventry and Warwickshire Integrated Care Board','NHS Derby and Derbyshire Integrated Care Board','NHS Devon Integrated Care Board','NHS Dorset Integrated Care Board','NHS Frimley Integrated Care Board','NHS Gloucestershire Integrated Care Board','NHS Greater Manchester Integrated Care Board','NHS Hampshire and Isle of Wight Integrated Care Board','NHS Herefordshire and Worcestershire Integrated Care Board','NHS Hertfordshire and West Essex Integrated Care Board','NHS Humber and North Yorkshire Integrated Care Board','NHS Kent and Medway Integrated Care Board','NHS Lancashire and South Cumbria Integrated Care Board','NHS Leicester, Leicestershire and Rutland Integrated Care Board','NHS Lincolnshire Integrated Care Board','NHS Mid and South Essex Integrated Care Board','NHS Norfolk and Waveney Integrated Care Board','NHS North Central London Integrated Care Board','NHS North East and North Cumbria Integrated Care Board','NHS North East London Integrated Care Board','NHS North West London Integrated Care Board','NHS Northamptonshire Integrated Care Board','NHS Nottingham and Nottinghamshire Integrated Care Board','NHS Shropshire, Telford and Wrekin Integrated Care Board','NHS Somerset Integrated Care Board','NHS South East London Integrated Care Board','NHS South West London Integrated Care Board','NHS South Yorkshire Integrated Care Board','NHS Staffordshire and Stoke-on-Trent Integrated Care Board','NHS Suffolk and North East Essex Integrated Care Board','NHS Surrey Heartlands Integrated Care Board','NHS Sussex Integrated Care Board','NHS West Yorkshire Integrated Care Board'] %}
+
+{% set HoS = 'none' %}
+
+
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds">
+     <span style="padding:5px;font-size:17px;;" class="nhsuk-label">{{ data['iteration-name1']|default("G2 75+ and IS")}} — <span style="font-size:17px;">{{ data['iterationDate1']|default("2024-06-21")|formatDate}}</span></span>
+    <caption class="nhsuk-table__caption"><h1 class="nhsuk-heading-xl">Filter by {{ data['sel']|lower|replace('-',' ')}}</h1></caption>
+
+
+
+
+    <p class="nhsuk-body-m nhsuk-u-margin-bottom-2"><span style="padding:5px;background:white;;font-weight:999" class="nhsuk-label-l">Exclude from</span></p>
+
+             <div class="nhsuk-u-width-full" style=";;padding:5px;;;font-weight:400">
+
+             {% include "./foundations/cohortTable.html" %}
+             </div>
+
+
+
+
+             <p class="nhsuk-body-m nhsuk-u-padding-top-2 nhsuk-u-margin-bottom-2"><span style="padding:5px;background:white;;font-weight:999" class="nhsuk-label-l">If cohort members</span></p>
+
+
+
+</div>
+</div>
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full">
+
+  <input type="hidden" id="defaultSelect" value="{{ data['selectedAttrib'] |default('location') }}">
+
+  <form action="summary-filters" method="post">
+    <ul class="nhsuk-list filterLine">
+
+      <!-- const personAttributeSelector = document.getElementById("personAttributeSelector"); -->
+
+
+<div style="padding:5px;;">
+
+
+      <input type="hidden" id="preselected" value="{{ att }}">
+
+
+      <li style=";;margin-top:-5px;font-weight:900">
+        <div class="nhsuk-form-group">
+          <label class="filterLabel nhsuk-label" for="personAttributeSelector">
+            Person attribute
+          </label>
+          <select  class="nhsuk-select" id="personAttributeSelector" name="personAttributeSelector">
+            <option disabled selected value="--">Select</option>
+
+            <option id="attr1" value="age">Age</option>
+            <option id="attr2" value="given-vaccine">Vaccine recently given</option>
+            <option id="attr3" value="location">Location</option>
+
+
+
+          </select>
+        </div>
+      </li>
+
+
+
+
+      <!-- const genericOperators = document.getElementById("genericOperators"); -->
+
+      <li style="">
+        <div style="display:{{HoS}}" id ="genericOperators" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="genericOperators">
+            Operator
+          </label>
+          <select  class="nhsuk-select" id="genericOperatorsList" name="genericOperatorsList">
+            <option disabled selected value="Select">Select</option>
+            <option value="exact-match">Exact match</option>
+            <option value="starts-with">Starts with</option>
+            <option value="ends-with">Ends with</option>
+            <option value="greater-than">Greater than</option>
+            <option value="greater-than-equal-to">Greater than/equal to</option>
+            <option value="less than">Less than</option>
+            <option value="less-than-equal-to">Less than/equal to</option>
+            <option id="betweenxy" value="between">between x and y</option>
+          </select>
+        </div>
+      </li>
+
+      <li style="">
+        <div style="display:{{HoS}};" id ="givenVaccineOperators" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="givenVaccineOperators">
+            Operator
+          </label>
+          <select style="" class="nhsuk-select" id="givenVaccineOperators" name="givenVaccineOperators">
+            <option disabled selected value="Select">Select</option>
+            <option value="3months">More than 3 months ago</option>
+            <option value="6months">More than 6 months ago</option>
+            <option value="12months">Over 12 months ago</option>
+            <option value="--">--</option>
+            <option value="exact-match">Exact match</option>
+            <option value="greater-than">Greater than</option>
+            <option value="greater-than-equal-to">Greater than/equal to</option>
+            <option value="less than">Less than</option>
+            <option value="less-than-equal-to">Less than/equal to</option>
+          </select>
+        </div>
+      </li>
+
+
+
+
+      <!-- const locationSelectList = document.getElementById("locationSelectList"); -->
+      <li style=";">
+        <div style="display:{{HoS}}" id ="locationSelectList" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="locationSelectListOptions">
+            Location options
+          </label>
+          <select  class="nhsuk-select" id="locationSelectListOptions" name="locationSelectListOptions">
+            <option disabled selected value="Select">Select a location variable</option>
+            <option id="icb" value="icb">Integrated Care Board</option>
+            <option id="region" value="region">NHS England Region</option>
+            <option id="gpPractice" value="gp">PCN / GP practice</option>
+            <option id="city" value="city">City</option>
+          </select>
+        </div>
+      </li>
+
+      <!-- const locationICB = document.getElementById("locationICB"); -->
+      <li style="">
+        <div style="display:{{HoS}}" id ="locationICB" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="locationICB">
+            Integrated Care Board list (42)
+          </label>
+          <select style="width:70%" class="nhsuk-select" id="locationICB" name="locationICB">
+            <option disabled selected value="Select">Select Integrated Care Board from the list</option>
+
+            {% for icb in ICBlist %}
+            <option id="{{icbitem}}" value="{{icb}}">{{icb}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </li>
+
+      <!-- const locationRegion = document.getElementById("locationRegion"); -->
+      <li style=";margin-left:10px">
+        <div style="display:{{HoS}}" id ="locationRegion" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="locationRegion">
+            NHS England Region
+          </label>
+          <select style="width:100%" class="nhsuk-select" id="locationRegion" name="locationRegion">
+            <option disabled selected value="Select">NHS England Region list</option>
+
+            {% for entry in region %}
+            <option id="{{entry}}" value="{{entry}}">{{entry}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </li>
+
+
+      <li>
+        <div style="display:{{HoS}}" id ="value-1" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="value-1">
+            Value 1
+          </label>
+          <input class="nhsuk-input nhsuk-input--width-2" id="value-1" name="value-1" type="text">
+        </div>
+      </li>
+      <li>
+        <div style="display:{{HoS}}" id ="value-2" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="value-2">
+            Value 2
+          </label>
+          <input class="nhsuk-input nhsuk-input--width-2" id="value-2" name="value-2" type="text">
+        </div>
+      </li>
+
+      <li>
+        <div style=";display:{{HoS}};" id ="value-1-suffix" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="value-1-suffix">
+            Value 1
+          </label>
+          <div class="nhsuk-input__wrapper">
+            <input style="" class="nhsuk-input nhsuk-input--width-2" id="value-1-suffix" name="value-1-suffix" type="text">
+            <div id ="suffix1" class="nhsuk-input__suffix" aria-hidden="true"></div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div style="display:{{HoS}}" id ="value-2-suffix" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="value-2-suffix">
+            Value 2
+          </label>
+          <div class="nhsuk-input__wrapper">
+            <input class="nhsuk-input nhsuk-input--width-2" id="value-2-suffix" name="value-2-suffix" type="text">
+            <div id ="suffix2" class="nhsuk-input__suffix" aria-hidden="true"></div>
+          </div>
+        </div>
+      </li>
+
+<div id="showJson" style="display:none">
+      {% set exampleJson =
+      '{
+            "Type": "F",
+            "Name": "placeholder",
+            "Description": "placeholder",
+            "AttributeLevel": "PERSON",
+            "AttributeName": "DATE_OF_BIRTH",
+            "Operator": "<",
+            "Comparator": "19090821"
+      }' %}
+
+
+
+      <strong style="font-size:19px" class="nhsuk-tag">
+        JSON
+      </strong>
+
+
+               <div class="nhsuk-form-group">
+                 <label class="nhsuk-label" for="exampleJson">
+                   JSON formatting  generated {{ 27052924 | lastUpdated }}
+                 </label>
+                 <div class="nhsuk-hint" id="exampleJson-hint">
+                 </div>
+                 <textarea style="background:#212b32;color:#ffeb3b;font-weight:200;font-size:19px;font-family:Verdana, sans-serif;" class="nhsuk-textarea nhsuk-u-width-full" value="{{ data['exampleJson'] }}" id="exampleJson" name="exampleJson" rows="10" aria-describedby="exampleJson-hint">{{ exampleJson }}</textarea>
+               </div>
+
+               <p class="nhsuk-body-m"><a style="color:#1d70b8" onclick=""><strong>Copy JSON to clipboard</strong></a></p>
+             </div>
+
+
+
+            </div>
+
+      <!-- const includeExcludeRadios = document.getElementById("includeExcludeRadios"); -->
+      <!-- <li class="newCR" style=";margin-left:5px">
+        <div  style="display:{{HoS}}" id ="includeExcludeRadios" class="nhsuk-form-group">
+          <div  class="nhsuk-radios">
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="includeExcludeRadios-1" name="includeExcludeRadios" type="radio" value="Exclude ALL matches in the cohort apart from my selection">
+              <label class="nhsuk-label nhsuk-radios__label" for="includeExcludeRadios-1">
+                Exclude ALL matches in the cohort apart from my selection
+              </label>
+            </div>
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="includeExcludeRadios-2" name="includeExcludeRadios" type="radio" value="Exclude ONLY my selection from the cohort">
+              <label class="nhsuk-label nhsuk-radios__label" for="includeExcludeRadios-2">
+                Exclude ONLY my selection from the cohort
+              </label>
+            </div>
+          </div>
+        </div>
+      </li> -->
+
+
+
+      <p id="synopsis" style="display:{{HoS}}" class="nhsuk-body-s nhsuk-u-width-three-quarters nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-2"><span style="font-size:19px;padding:15px;background:white;;font-weight:900" class="nhsuk-label">{{ 'On 21st June, 2024, do not send vaccine invitations to members of the selected cohorts who are aged between 16 and 74'}}
+</span></p>
+
+
+      <details id="codeBlock" style="display:{{HoS}};background:#f0f4f5;" class="nhsuk-details nhsuk-u-width-three-quarters">
+         <summary class="nhsuk-details__summary">
+            <span style="font-size:17px;;;" class="nhsuk-details__summary-text">
+               View in JSON format
+            </span>
+         </summary>
+<div style=";background:#f8f8f8;border-left:0;border:1px solid lightgrey;" class="nhsuk-details__text">
+
+
+
+<div style="text-align:right;">
+<a class="nhsuk-link nhsuk-link--no-visited-state nhsuk-u-font-size-14" href="#" style="text-align:right;min-width:58px;box-shadow: 0 2px 0 #007f3b;color:#007f3b;border:1px solid #007f3b;z-index:1;;;background:white;font-weight:400;padding:5px" onmouseout="myVar = setTimeout(myFunction, 8000); this.innerHTML='Copy code'" onclick="this.innerHTML='Copied'"><strong>Copy code</strong></a>
+
+
+
+
+
+
+
+
+                     <div class="nhsuk-form-group" style="text-align:left;min-height:10%;background:#f0f4f5">
+                       <h3 class="nhsuk-heading-m" for="exampleJson" style=""><span>
+
+                       </h3>
+
+                       <div class="nhsuk-hint" id="exampleJson-hint">
+                       </div>
+                       <div class="" style="padding-left:20px;padding-right:20px;color:#000000;font-weight:200;font-size:16px;font-family:Verdana, sans-serif;">
+<pre style="background:#f0f4f5;;padding:10px;width:75%;text-align:left">
+{
+ "AttributeLevel": "PERSON",
+ "AttributeName": "DATE_OF_BIRTH",
+ "Operator": "<",
+ "Comparator": "19090821"
+}
+</pre>
+
+                       </div>
+                       <!-- <textarea style="background:#f0f4f5;color:#ffeb3b;font-weight:200;font-size:19px;font-family:Verdana, sans-serif;" class="nhsuk-textarea nhsuk-u-width-full" value="{{ data['exampleJson'] }}" id="exampleJson" name="exampleJson" rows="6" aria-describedby="exampleJson-hint">{{ exampleJson }}</textarea> -->
+                     </div>
+                   </div>
+
+
+</div>
+      </details>
+
+
+
+
+
+      <!-- const saveButton = document.getElementById("saveButton"); -->
+
+      <div style="display:{{HoS}}" id="buttonGroup" class="nhsuk-button-group nhsuk-u-margin-top-6">
+        <button  type="submit" class="nhsuk-button" data-module="nhsuk-button">
+          Save and continue
+        </button>
+        <button  type="submit" class="nhsuk-button nhsuk-button--secondary" data-module="nhsuk-button">
+          Save and add another
+        </button>
+      </div>
+
+
+    </ul>
+  </form>
+</div>
+<script>
+
+
+
+         function myFunction(){
+         for (var ab=0;ab<950000;ab++){
+            console.log(ab)
+         }
+         }
+
+
+
+
+  const preselected = document.getElementById("preselected");
+  const personAttributeSelector = document.getElementById("personAttributeSelector");
+  const locationSelectList = document.getElementById("locationSelectList");
+  const locationSelectListOptions = document.getElementById("locationSelectListOptions");
+  const locationICB = document.getElementById("locationICB");
+  const locationRegion = document.getElementById("locationRegion");
+  const locationOperators = document.getElementById("locationOperators");
+  const genericOperators = document.getElementById("genericOperators");
+  const genericOperatorsList = document.getElementById("genericOperatorsList");
+  const value1 = document.getElementById("value-1");
+  const value2 = document.getElementById("value-2");
+  const value1Suffix = document.getElementById("value-1-suffix");
+  const value2Suffix = document.getElementById("value-2-suffix");
+  const suffix1 = document.getElementById("suffix1");
+  const suffix2 = document.getElementById("suffix2");
+  const includeExcludeRadios = document.getElementById("includeExcludeRadios");
+  const includeExcludeRadios1 = document.getElementById("includeExcludeRadios-1");
+  const includeExcludeRadios2 = document.getElementById("includeExcludeRadios-2");
+  const buttonGroup = document.getElementById("buttonGroup");
+  const defSel = document.getElementById("defaultSelect").value;
+  const newDefault = document.getElementById("attr2");
+  const betweenxy = document.getElementById("betweenxy");
+  const attr1 = document.getElementById("attr1");
+  const attr2 = document.getElementById("attr2");
+  const attr3 = document.getElementById("attr3");
+  const codeBlock = document.getElementById("codeBlock");
+  const synopsis = document.getElementById("synopsis");
+
+
+  switch (defSel) {
+    case "age":
+    console.log(defSel,attr1)
+    // attr1 = attr1.selected;
+    // attr2.innerHTML = newDefault.value;
+    // attr1.selected = "true";
+    document.getElementById('preselected').style.display = 'block';
+    document.getElementById('attr1').selected = 'true';
+    // document.getElementById('suffix1').innerHTML = '{{attr1}}';
+    // document.getElementById('includeExcludeRadios').style.display = 'block';
+
+    showElement('genericOperators');
+    // document.getElementById('value-1-suffix').style.display = 'block';
+    // document.getElementById('suffix1').innerHTML = 'years';
+
+    // showElement('value-2')
+    hideElement('locationSelectList')
+    hideElement('locationICB')
+    hideElement('locationRegion')
+    break;
+    break;
+    case "given-vaccine":
+    // attr1 = attr1.selected;
+    // attr2.innerHTML = newDefault.value;
+    // attr1.selected = "true";
+    document.getElementById('preselected').style.display = 'block';
+    document.getElementById('attr2').selected = 'true';
+    // document.getElementById('suffix1').innerHTML = '{{attr1}}';
+    // document.getElementById('includeExcludeRadios').style.display = 'block';
+
+    showElement('genericOperators');
+    // document.getElementById('value-1-suffix').style.display = 'block';
+    // document.getElementById('suffix1').innerHTML = 'years';
+
+    // showElement('value-2')
+    hideElement('locationSelectList')
+    hideElement('locationICB')
+    hideElement('locationRegion')
+    break;
+
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    document.getElementById('attr2').selected = 'true';
+
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+    case "location":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    document.getElementById('attr3').selected = 'true';
+    showElement('locationSelectList')
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+  }
+
+
+
+  personAttributeSelector.addEventListener("click", function(event) {
+    personAttributeSelector.addEventListener("change", function(event) {
+      switch (personAttributeSelector.value && preselected) {
+        case "age":
+        document.getElementById('preselected').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = '{{att}}';
+
+        showElement('genericOperators');
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'years';
+        const outputSuff1 = document.getElementById('suffix1').innerHTML;
+        const outputSuff2 = document.getElementById('suffix2').innerHTML;
+
+        // showElement('value-2')
+        hideElement('locationSelectList')
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        break;
+        case "location":
+        showElement('locationSelectList')
+        hideElement('genericOperators');
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        document.getElementById('value-1-suffix').style.display = 'none';
+        document.getElementById('value-2-suffix').style.display = 'none';
+
+        break;
+
+
+        case "given-vaccine":
+        document.getElementById('preselected').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = '{{att}}';
+
+        showElement('genericOperators');
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'years';
+        outputSuff1 = document.getElementById('suffix1').innerHTML;
+
+        // showElement('value-2')
+        hideElement('locationSelectList')
+        hideElement('locationICB')
+        hideElement('locationRegion')
+        break;
+      }
+    });
+  });
+
+  genericOperators.addEventListener("click", function(event) {
+    genericOperatorsList.addEventListener("change", function(event) {
+
+      document.getElementById('value-1-suffix').style.display = 'block';
+      document.getElementById('value-2-suffix').style.display = 'block';
+
+      if (genericOperatorsList.value == "between" && personAttributeSelector.value == "age") {
+        console.log(genericOperatorsList.value)
+        document.getElementById('value-1').style.display = 'none';
+        document.getElementById('value-2').style.display = 'none';
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('value-2-suffix').style.display = 'block';
+        document.getElementById('suffix1').innerHTML = 'years';
+        document.getElementById('suffix2').innerHTML = 'years';
+
+
+
+
+        hideElement('locationICB')
+        hideElement('locationRegion')
+     } else if (genericOperatorsList.value == "Exact match" || "Starts with" || "Ends with" || "Greater than" || "Greater than/equal to" || "Less than" || "Less than/equal to"){
+        document.getElementById('suffix1').innerHTML = 'years';
+        document.getElementById('value-1-suffix').style.display = 'block';
+        document.getElementById('value-1').style.display = 'none';
+        document.getElementById('value-2-suffix').style.display = 'none';
+        document.getElementById('value-2').style.display = 'none';
+     }
+      else {
+        document.getElementById('value-1').style.display = 'block';
+      }
+    });
+  });
+
+  value1Suffix.addEventListener("click", function(event) {
+    value1Suffix.addEventListener("change", function(event) {
+      showElement("synopsis");
+      showElement("codeBlock");
+      showElement("buttonGroup");
+    });
+  });
+
+  value2Suffix.addEventListener("click", function(event) {
+    value2Suffix.addEventListener("change", function(event) {
+      showElement("synopsis");
+      showElement("codeBlock");
+      showElement("buttonGroup");
+    });
+  });
+
+
+  value1.addEventListener("click", function(event) {
+    value1.addEventListener("change", function(event) {
+      showElement("synopsis");
+      showElement("codeBlock");
+      showElement("buttonGroup");
+    });
+  });
+
+  value2.addEventListener("click", function(event) {
+    value2.addEventListener("change", function(event) {
+      showElement("synopsis");
+      showElement("codeBlock");
+      showElement("buttonGroup");
+    });
+  });
+
+    locationRegion.addEventListener("change", function(event) {
+      showElement("buttonGroup");
+    });
+
+    locationICB.addEventListener("change", function(event) {
+      showElement("buttonGroup");
+    });
+
+  locationSelectList.addEventListener("click", function(event) {
+    locationSelectListOptions.addEventListener("change", function(event) {
+      switch (locationSelectListOptions.value) {
+        case "icb":
+        showElement('locationSelectList')
+        hideElement('genericOperators')
+        showElement('locationICB')
+        document.getElementById('value-1-suffix').style.display = 'none';
+        // showElement("buttonGroup");
+
+
+        break;
+
+        case "city":
+
+        showElement('genericOperators')
+        // document.getElementById('value-1').style.display = 'block';
+        document.getElementById('value-2-suffix').style.display = 'none';
+        document.getElementById('value-1-suffix').style.display = 'none';
+        hideElement('locationICB')
+        hideElement('locationRegion');
+        break;
+        case "region":
+        showElement('locationRegion');
+        // showElement("buttonGroup");
+        // showElement("codeBlock");
+
+        var narrativeType = locationSelectListOptions.value;
+        hideElement('locationICB')
+        hideElement('genericOperators')
+        break;
+
+      }
+    });
+  });
+
+
+  // includeExcludeRadios1.addEventListener("click", function(event) {
+  //   includeExcludeRadios1.addEventListener("change", function(event) {
+  //
+  //     showElement("buttonGroup");
+  //     showElement("codeBlock");
+  //   });
+  // });
+  //
+  // includeExcludeRadios2.addEventListener("click", function(event) {
+  //   includeExcludeRadios2.addEventListener("change", function(event) {
+  //     showElement("buttonGroup");
+  //     showElement("codeBlock");
+  //   });
+  // });
+
+
+  function showElement(div1) {
+    document.getElementById(div1).style.display = 'block';
+
+  }
+
+
+  function showElementXtra(div1, sfx) {
+    document.getElementById(div1).style.display = 'block';
+    suffix1.innerHTML = sfx;
+  }
+
+  function hideElement(div1) {
+    document.getElementById(div1).style.display = 'none';
+  }
+</script>
+
+{% endblock %}
+selectedAttrib	location
+sel	location
+
+	location
+data['personAttributeSelector']
+data['locationSelectListOptions']
+data['icb']
+data['locationICB']
+data['includeExcludeRadios']
+
+
+
+
+locationICB	NHS Cambridgeshire and Peterborough Integrated Care Board
+value-1
+value-2
+value-1-suffix
+value-2-suffix
+includeExcludeRadios	Exclude ALL matches in the cohort apart from my selection
+suf1	outputSuff1
+suf2	outputSuff2

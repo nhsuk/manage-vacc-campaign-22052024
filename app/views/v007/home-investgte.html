@@ -1,0 +1,224 @@
+{% from 'card/macro.njk' import card %}
+
+<ul class="nhsuk-grid-row nhsuk-card-group">
+  {% set pagetitle ="Home" %}
+  {% extends 'layout.html' %}
+  {% block header %}
+  {% if data['name']|length >0 %}
+  {% include 'foundations/header-signed-in-campaign.html' %}
+  {% else %}
+  {% include 'foundations/header-signed-in.html' %}
+  {% endif %}
+  {% endblock %}
+
+  {% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+  {% block pageTitle %} {{ pagetitle }} {% endblock %}
+
+  {% block content %}
+
+  <style>
+
+     input[type="radio"]
+     {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+     }
+
+     input[type='radio']:hover {
+        outline: 8px solid grey;
+
+     }
+
+     input[type='radio']:checked {
+        box-shadow: 0 0 5px 5px white inset;
+        background:black;
+
+     }
+
+     input[type='radio']:focus {
+        outline:5px solid #ffeb3b;
+        background-color: black;
+        box-shadow: 0 0 5px 5px white inset;
+        border:2px solid black;
+
+     }
+
+
+     input[type="radio"] {
+        /* remove standard background appearance... */
+
+        /* create custom radio button appearance */
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        padding: 10px;
+        background-clip: content-box;
+        border: 2px solid #060c3b;
+        border-radius: 50%;
+        margin-left: 26px;
+     }
+     table td,th {
+        padding: 25px 0 20px 0;
+        border-bottom:2px solid #DDE9F3;
+     }
+  </style>
+
+  <div class="nhsuk-grid-row">
+     <div class="nhsuk-grid-column-full">
+        <div style=";text-align:left;"><a id="start" class="nhsuk-link nhsuk-link--no-visited-state" style="font-weight:800;font-size:19px" href="campaign-type">Start a new invitation campaign</a></div>
+        <h1 style="font-size:52px;" class="nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-0 nhsuk-heading-xl">Welcome cheese back {{ data['email-address']|default("name@nhs.net") }}</h1>
+        <div class="nhsuk-width-container">
+           <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+              <h2 style="" class="nhsuk-heading-l nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-6">Campaign status</h2>
+              <div class="nhsuk-u-padding-bottom-3 nhsuk-u-padding-top-3" style=";;">
+                 <a id="duplicate" class="nhsuk-u-margin-bottom-6 nhsuk-link nhsuk-link--no-visited-state" style="font-weight:800;font-size:19px;width:100%;" href="#">Duplicate an invitation campaign</a>
+              </div>
+              <div style="display:block" id="nonRadioList">
+                 <p class="nhsuk-body-m" id="reveal-copy">Use a previous campaign to lorem ipsum dolor sit amet blah blah.</p>
+                 <table id="cListTable" role="table" class="nhsuk-table-responsive nhsuk-u-width-full">
+                    <caption style="display:none" class="nhsuk-table__caption">Campaign status</caption>
+                    <thead role="rowgroup" style="" class="nhsuk-table__head">
+
+
+                       <tr role="row" style="background:#DDE9F3">
+                          <th style="width:35%;" role="columnheader" class="" scope="col">
+                             Campaign
+                          </th>
+                          <th style="width:30%" role="columnheader" class="" scope="col">
+                             Date last updated
+                          </th>
+                          <th style="width:30%" role="columnheader" class="" scope="col">
+                             Status
+                          </th>
+                       </tr>
+                    </thead>
+                    <tbody class="nhsuk-table__body">
+                       <tr role="row" class="nhsuk-table__row">
+                          <td role="cell" class="nhsuk-table__cell">
+                             <span class="nhsuk-table-responsive__heading">Name </span>
+                             <input style="margin-top:-10px" id="duplicateOption-1" name="duplicateOption" type="radio" value="Copy of Covid-19 Spring 2024 Booster">
+                             <label for="duplicateOption-1">Covid-19 Spring 2024 Booster</label>
+                          </td>
+                          <td role="cell" class="nhsuk-table__cell">
+                             <span class="nhsuk-table-responsive__heading">Last updated on </span> {{ data['fromDate']|statusDateTime }}
+                          </td>
+                          <td role="cell" class="nhsuk-table__cell">
+                             <span class="nhsuk-table-responsive__heading">Status </span>
+                             <strong style="font-size:16px;border:0" class="nhsuk-tag">
+                                Active
+                             </strong>
+                          </td>
+                       </tr>
+                       <tr role="row" class="nhsuk-table__row">
+                          <td role="cell" class="nhsuk-table__cell">
+                             <span class="nhsuk-table-responsive__heading">Name </span>
+                             <input style="margin-top:-10px" id="duplicateOption-2" name="duplicateOption" type="radio" value="Copy of Covid-19 IS 2024">
+                             <label for="duplicateOption-2">Covid-19 IS 2024</label>
+                          </td>
+                          <td role="cell" class="nhsuk-table__cell">
+                             <span class="nhsuk-table-responsive__heading">Last updated on </span> {{ data['fromDate']|statusDateTime }}
+                          </td>
+                          <td role="cell" class="nhsuk-table__cell">
+                             <span class="nhsuk-table-responsive__heading">Status </span>
+                             <strong style="font-size:16px;border:0" class="nhsuk-tag nhsuk-tag--blue">
+                                Pending approval
+                             </strong>
+                          </tr>
+                          <tr role="row" class="nhsuk-table__row">
+                             <td role="cell" class="nhsuk-table__cell">
+                                <span class="nhsuk-table-responsive__heading">Name </span>
+                                <input style="margin-top:-10px" id="duplicateOption-2" name="duplicateOption" type="radio" value="Copy of Covid-19 IS 2024">
+                                <label for="duplicateOption-3">Covid-19 IS 2024</label>
+
+                                <a class="nhsuk-link nhsuk-task-list__link nhsuk-link--no-visited-state href" href="#">Covid-19 Winter 2023 CEV</a>
+                             </td>
+                             <td role="cell" class="nhsuk-table__cell">
+                                <span class="nhsuk-table-responsive__heading">Last updated on </span>09:04, Friday 03 Aug 2023
+                             </td>
+                             <td role="cell" class="nhsuk-table__cell">
+                                <span class="nhsuk-table-responsive__heading">Status </span>
+                                <strong style="font-size:16px;border:0" class="nhsuk-tag nhsuk-tag--white">
+                                   Ended
+                                </strong>
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+                 </div>
+
+
+
+
+
+                 </main>
+              </div>
+           </div>
+        </div>
+        <script>
+
+
+
+           const radio1 = document.getElementById("duplicateOption-1")
+           const radio2 = document.getElementById("duplicateOption-2")
+           const radio3 = document.getElementById("duplicateOption-3")
+
+           radio1.addEventListener("click", function(event) {
+           if (event.target && event.target.matches("input[type='radio']")) {
+           showDiv('buttonGroup');
+           } else {
+           hideDiv('buttonGroup')
+           }
+           });
+
+           radio2.addEventListener("click", function(event) {
+           if (event.target && event.target.matches("input[type='radio']")) {
+           showDiv('buttonGroup');
+           } else {
+           hideDiv('buttonGroup')
+           }
+           });
+
+           radio3.addEventListener("click", function(event) {
+           if (event.target && event.target.matches("input[type='radio']")) {
+           showDiv('buttonGroup');
+           } else {
+           hideDiv('buttonGroup')
+           }
+           });
+
+
+
+
+           duplicate.addEventListener("click", function() {
+              switch (duplicate.innerHTML) {
+                 case "Duplicate an invitation campaign":
+                 duplicate.innerHTML = "Cancel";
+                 hideDiv('nonRadioList');
+                 showDiv('radioList');
+
+
+                 break;
+                 case "Cancel":
+                 duplicate.innerHTML = "Duplicate an invitation campaign";
+                 hideDiv('radioList');
+                 showDiv('nonRadioList');
+                 break;
+              }
+           });
+
+
+
+
+
+           function showDiv(div1) {
+              document.getElementById(div1).style.display = 'block';
+           }
+
+           function hideDiv(div1) {
+              document.getElementById(div1).style.display = 'none';
+           }
+
+        </script>
+        {% endblock %}

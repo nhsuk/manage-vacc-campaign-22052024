@@ -1,0 +1,607 @@
+{% set pagetitle ="Add a filter" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+  .js-signout {
+    text-align: right;
+    font-size: 16px;
+    font-family: 'proxima_nova', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    z-index: 60;
+    clear: none;
+    background: transparent;
+    border-bottom: 1px solid #bfc1c3;
+    vertical-align: top;
+    padding-bottom: 20px;
+    font-size: 17px;
+
+  }
+
+
+
+  .filterLine {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    text-align: left;
+    margin: 0;
+    float:left;
+    font-size: 17px;
+
+  }
+
+  .filterLabel {
+    font-size: 17px;
+  }
+
+  .filterLine, li {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 17px;
+  }
+
+  .newCR {
+    display: block;
+    vertical-align: bottom;
+    font-size: 17px;
+
+  }
+
+  input:checked  {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: white;
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    color: black;
+  }
+
+  input:after {
+    content:"";
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 20%;
+    border: 5px solid #000000;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input:checked:after {
+    display: block;
+  }
+
+  li {
+    font-size:17px;
+    margin-top:3px;
+    margin-bottom:2px;
+
+  }
+
+
+</style>
+
+
+{% set cohortsArray = [] %}
+
+{% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+{% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+{% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+{% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+{% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+{% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+{% set cohortsArray = cohortsArray.concat("COVID-19 vaccination for people aged 75 to 115 years old") %}
+
+{% if cohortsArray.length > 0 %}
+{% endif %}
+
+
+{% set region = ['East of England','London','Midlands','North East and Yorkshire','North West','South East','South West'] %}
+
+{% set ICBlist = ['NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board','NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board','NHS Birmingham and Solihull Integrated Care Board','NHS Black Country Integrated Care Board','NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board','NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board','NHS Cambridgeshire and Peterborough Integrated Care Board','NHS Cheshire and Merseyside Integrated Care,Board','NHS Cornwall and the Isles of Scilly Integrated Care Board','NHS Coventry and Warwickshire Integrated Care Board','NHS Derby and Derbyshire Integrated Care Board','NHS Devon Integrated Care Board','NHS Dorset Integrated Care Board','NHS Frimley Integrated Care Board','NHS Gloucestershire Integrated Care Board','NHS Greater Manchester Integrated Care Board','NHS Hampshire and Isle of Wight Integrated Care Board','NHS Herefordshire and Worcestershire Integrated Care Board','NHS Hertfordshire and West Essex Integrated Care Board','NHS Humber and North Yorkshire Integrated Care Board','NHS Kent and Medway Integrated Care Board','NHS Lancashire and South Cumbria Integrated Care Board','NHS Leicester, Leicestershire and Rutland Integrated Care Board','NHS Lincolnshire Integrated Care Board','NHS Mid and South Essex Integrated Care Board','NHS Norfolk and Waveney Integrated Care Board','NHS North Central London Integrated Care Board','NHS North East and North Cumbria Integrated Care Board','NHS North East London Integrated Care Board','NHS North West London Integrated Care Board','NHS Northamptonshire Integrated Care Board','NHS Nottingham and Nottinghamshire Integrated Care Board','NHS Shropshire, Telford and Wrekin Integrated Care Board','NHS Somerset Integrated Care Board','NHS South East London Integrated Care Board','NHS South West London Integrated Care Board','NHS South Yorkshire Integrated Care Board','NHS Staffordshire and Stoke-on-Trent Integrated Care Board','NHS Suffolk and North East Essex Integrated Care Board','NHS Surrey Heartlands Integrated Care Board','NHS Sussex Integrated Care Board','NHS West Yorkshire Integrated Care Board'] %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-quarters">
+    <table class="nhsuk-table">
+      <caption class="nhsuk-table__caption"><h1 class="nhsuk-heading-xl">Add a filter by {{ data['selectedAttrib']|lower|replace('-',' ')}}</h1></caption>
+      <thead role="rowgroup" class="nhsuk-table__head">
+        <tr role="row">
+          <th role="columnheader" class="" scope="col">
+            Cohort
+          </th>
+          <th role="columnheader" class="" scope="col">
+            Size (est)
+          </th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        {% if cohortsArray.length > 0 %}
+        {% for selected in cohortsArray %}
+        <tr role="row" class="nhsuk-table__row">
+          <td class="nhsuk-table__cell">{{selected}}</td>
+          <td class="nhsuk-table__cell ">nnn,nnn</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+
+    <input type="hidden" id="defaultSelect" value="{{ data['selectedAttrib'] }}">
+
+    <form action="summary-filters" method="post">
+
+      <ul class="nhsuk-list filterLine">
+        <fieldset class="nhsuk-fieldset">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+          </legend>
+
+
+          <!-- <li style="margin-left:60px;margin-right:10px">
+          <div class="nhsuk-form-group">
+
+          <p class="nhsuk-body">These are the selected cohorts for the campaign.</p>
+
+
+        </div>
+      </li> -->
+
+
+
+
+
+
+      <li style="left:0;margin-left:0px;margin-right:10px">
+        <div class="nhsuk-form-group">
+          <label class="filterLabel nhsuk-label" for="personAttributeSelector">
+            Person attribute
+          </label>
+          <select  class="nhsuk-select" id="personAttributeSelector" name="personAttributeSelector">
+            <option disabled selected value="--">Select</option>
+            <option id="attr1" value="age">Age</option>
+            <option id="attr2" value="given-vaccine">Given vaccine</option>
+            <option id="attr3" value="location">Location</option>
+          </select>
+        </div>
+      </li>
+
+      <li style="margin-right:10px">
+        <div style="display:none" id ="locationSubSelect" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="locationSubSelect">
+            Location variable
+          </label>
+          <select  class="nhsuk-select" id="locationSubSelectOpt" name="locationSubSelectOpt">
+            <option disabled selected value="Select">Select</option>
+            <option id="icb" value="icb">Integrated Care Board</option>
+            <option id="region" value="region">NHS England Region</option>
+            <option id="gpPractice" value="gp">PCN / GP practice</option>
+            <option id="city" value="city">City</option>
+          </select>
+        </div>
+      </li>
+
+
+      <li style="margin-right:10px">
+        <div style="display:none" id ="ICBlist" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="ICBlist">
+            Integrated Care Board list (42)
+          </label>
+          <select  class="nhsuk-select" id="ICBlistOpt" name="ICBlistOpt">
+            <option disabled selected value="Select">Select</option>
+
+            {% for icb in ICBlist %}
+            <option id="{{icb}}" value="{{icb}}">{{icb}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </li>
+
+      <li style="margin-right:10px">
+        <div style="display:none" id ="regionList" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="regionList">
+            NHS England Regions
+          </label>
+          <select  class="nhsuk-select" id="regionListOpt" name="regionListOpt">
+            <option disabled selected value="Select">Select</option>
+
+            {% for entry in region %}
+            <option id="{{entry}}" value="{{entry}}">{{entry}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </li>
+
+
+
+      <li style="margin-right:10px">
+        <div style="display:none" id ="locationOperators" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="locationOperators">
+            Operator
+          </label>
+          <select  class="nhsuk-select" id="locationOperatorsOpt" name="locationOperatorsOpt">
+            <option disabled selected value="Select">Select</option>
+            <option value="=">=</option>
+            <option value=">=">></option>
+            <option value=">">>=</option>
+            <option value=">"><</option>
+            <option value=">=">=<</option>
+          </select>
+        </div>
+      </li>
+
+
+
+
+      <li style="margin-right:10px">
+        <div style="display:none" id ="operatorSelector" class="nhsuk-form-group">
+          <label  class="filterLabel nhsuk-label" for="operator">
+            Operator
+          </label>
+          <select  class="nhsuk-select" id="operatorOption" name="operatorOption">
+            <option disabled selected value="Select">Select</option>
+            <option value="=">=</option>
+            <option value=">=">></option>
+            <option value=">">>=</option>
+            <option value=">"><</option>
+            <option value=">=">=<</option>
+            <option value="between">between x and y</option>
+          </select>
+        </div>
+      </li>
+
+
+      <li>
+        {% set suffixValue = "" %}
+        <div style="display:none" id ="locationValue1" class="nhsuk-form-group">
+          <div class="nhsuk-form-group">
+            <label class="filterLabel nhsuk-label" for="locationValue1">
+              Value 1
+            </label>
+            <div class="nhsuk-input__wrapper">
+              <input class="nhsuk-input nhsuk-input--width-8" id="locationValue1" name="locationValue1" type="text">
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        {% set suffixValue = "" %}
+        <div style="display:none" id ="locationValue2" class="nhsuk-form-group">
+          <div class="nhsuk-form-group">
+            <label class="filterLabel nhsuk-label" for="locationValue2">
+              Value 1
+            </label>
+            <div class="nhsuk-input__wrapper">
+              <input class="nhsuk-input nhsuk-input--width-3" id="locationValue2" name="locationValue2" type="text">
+              <div class="nhsuk-input__suffix" aria-hidden="true">{{suffixValue}}</div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+
+
+      <!-- {% set suffixValue = "years" %}
+      {% set suffixValue = "days" %}
+      {% set suffixValue = "hours" %} -->
+
+
+      <li>
+        {% set suffixValue = "years" %}
+        <div style="display:none" id ="operatorValue1" class="nhsuk-form-group">
+          <div class="nhsuk-form-group">
+            <label class="filterLabel nhsuk-label" for="valueOne">
+              Value 1
+            </label>
+            <div class="nhsuk-input__wrapper">
+              <input class="nhsuk-input nhsuk-input--width-3" id="valueOne" name="valueOne" type="text">
+              <div class="nhsuk-input__suffix" aria-hidden="true">{{suffixValue}}</div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        {% set suffixValue = "years" %}
+        <div style="display:none" id ="operatorValue2" class="nhsuk-form-group">
+          <div class="nhsuk-form-group">
+            <label class="filterLabel nhsuk-label" for="valueTwo">
+              Value 2
+            </label>
+            <div class="nhsuk-input__wrapper">
+              <input class="nhsuk-input nhsuk-input--width-3" id="valueTwo" name="valueTwo" type="text">
+              <div class="nhsuk-input__suffix" aria-hidden="true">{{suffixValue}}</div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="newCR" style="margin-right:0px">
+        <div  style="display:none" id ="incExcl" class="nhsuk-form-group">
+          <div  class="nhsuk-radios">
+            <div class="nhsuk-radios__item">
+
+
+              <input class="nhsuk-radios__input" id="includeExclude-1" name="includeExclude" type="radio" value="Include">
+              <label class="nhsuk-label nhsuk-radios__label" for="example-1">
+                Include only the matches
+              </label>
+            </div>
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="includeExclude-2" name="includeExclude" type="radio" value="Exclude">
+              <label class="nhsuk-label nhsuk-radios__label" for="example-2">
+                Exclude all the matches
+              </label>
+            </div>
+          </div>
+        </div>
+      </li>
+      <button style="display:none" id="saveBut" class="nhsuk-button" data-module="nhsuk-button" type="submit">
+        Save filter
+      </button>
+
+    </fieldset>
+  </ul>
+
+
+
+</form>
+
+
+</div>
+
+
+
+</div>
+
+
+<script>
+
+  // var att = req.session.data['selectedAttrib'];
+  //   const newFilter = req.session.data['personAttributeSelector'];
+  // console.log(newFilter)
+  //   if (newFilter.length < 1){
+  //   } else {
+  //     const personAttributeSelector = document.getElementById("personAttributeSelector");
+  //     personAttributeSelector.option.value.selected = newFilter;
+  //   }
+  // }
+
+  function selectElement(id, valueToSelect) {
+    let element = document.getElementById(id);
+    element.value = valueToSelect;
+    // element.dispatchEvent(new Event('change'))
+  }
+
+  // const attr1 = document.getElementById("attr1");
+  // const attr2 = document.getElementById("attr2");
+  // const attr3 = document.getElementById("attr3");
+
+
+
+  const personAttributeSelector = document.getElementById("personAttributeSelector");
+  const operatorSelector = document.getElementById("filterAttrib");
+  const operatorOption = document.getElementById("operatorOption");
+  const operatorValue1 = document.getElementById("operatorValue1");
+  const incExcl = document.getElementById("incExcl");
+  const operatorValue2 = document.getElementById("operatorValue2");
+  const defSel = document.getElementById("defaultSelect").value;
+  const newDefault = document.getElementById("attr2");
+  const saveB = document.getElementById("saveBut");
+  const locatsubSelect = document.getElementById('locationSubSelect')
+
+  const radioClick1 = document.getElementById("includeExclude-1")
+  const radioClick2 = document.getElementById("includeExclude-2")
+
+  radioClick1.addEventListener("change", function(event) {
+    console.log(radioClick1.value,event)
+    document.getElementById('saveBut').style.display = 'block';
+  });
+
+  radioClick2.addEventListener("click", () => {
+    // console.log("Operator selector used")
+    document.getElementById('saveBut').style.display = 'block';
+  });
+
+  // console.log(newDefault.value)
+  console.log(defSel)
+  // addToReasonSelector(newDefault.value)
+
+  // selectElement('personAttributeSelector', newDefault);
+  // console.log({{sel}})
+  switch (defSel) {
+    case "age":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    attr1.selected = "true";
+    showValue2('operatorSelector')
+    showValue2('operatorValue1')
+
+
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+    case "given-vaccine":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    attr2.selected = "true";
+    showValue2('operatorSelector')
+    showValue2('operatorValue1')
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+    case "location":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    attr3.selected = "true";
+    showValue2('operatorSelector')
+    showValue2('operatorValue1')
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+  }
+
+
+  function addToReasonSelector(fred) {
+    // console.log(fred)
+    var newOption = document.getElementById("attr2")
+    // console.log(newOption.innerHTML)
+
+    newOption.innerHTML = "sdfsdf";
+    newDefault.appendChild(newOption).selected = "true";
+    newDefault.focus();
+
+  }
+
+
+
+
+
+  personAttributeSelector.addEventListener("click", () => {
+    personAttributeSelector.addEventListener("change", () => {
+      if (personAttributeSelector.value == "age") {
+        showValue2('operatorSelector')
+        showValue2('operatorValue1')
+      } else if (personAttributeSelector.value == "location"){
+        showValue2('locationSubSelect');
+      }
+    })
+  })
+
+
+  locationSubSelectOpt.addEventListener("click", () => {
+    locationSubSelectOpt.addEventListener("change", () => {
+      if (locationSubSelectOpt.value == "icb") {
+        showValue2('ICBlist');
+        showValue2('incExcl')
+
+      }
+    });
+  });
+
+  operatorOption.addEventListener("click", function(event) {
+    if (operatorOption.value == "between") {
+      showValue2('operatorValue2')
+    }
+  });
+
+  locationSubSelectOpt.addEventListener("click", () => {
+    locationSubSelectOpt.addEventListener("change", () => {
+      if (locationSubSelectOpt.value == "region") {
+        showValue2('regionList');
+        showValue2('incExcl')
+
+      }
+    });
+  });
+
+  // operatorOption.addEventListener("click", () => {
+  //   // console.log("Operator selector used")
+  //
+  //   operatorOption.addEventListener("change", () => {
+  //     if (operatorOption.value == "between") {
+  //       showValue2('operatorValue2')
+  //       // console.log("operator between")
+  //     }
+  //   });
+
+    operatorValue1.addEventListener("click", () => {
+      // console.log("Operator selector used")
+
+      operatorValue1.addEventListener("change", () => {
+        if (operatorOption.value == "between") {
+          showValue2('operatorValue2')
+          // console.log("operator between")
+        } else {
+          hideValue2('operatorValue2')
+          showValue2('incExcl')
+          // showValue2('saveBut')
+          // console.log("operator not between")
+        }
+      }, { once: true })
+    });
+
+    operatorValue2.addEventListener("click", () => {
+      // console.log("Operator selector used")
+      showValue2('incExcl')
+      // showValue2('saveBut')
+
+
+      operatorValue2.addEventListener("change", () => {
+        showValue2('incExcl')
+      }, { once: true })
+    });
+
+
+
+
+
+    function showValue2(div1) {
+      document.getElementById(div1).style.display = 'block';
+    }
+
+    function hideValue2(div1) {
+      document.getElementById(div1).style.display = 'none';
+    }
+
+
+
+    function checkRadios() {
+      var sCheck = [];
+      var checks = document.getElementsByTagName('input');
+      for (i = 0; i < checks.length; i++) {
+        if (checks[i].type == 'radio' ) {
+          // console.log(checks[i].id)
+          sCheck.push(checks[i].value, checks[i].name);
+        }
+      }
+    }
+
+  </script>
+
+  {% endblock %}
+
+
+  selector.addEventListener("click", () => {
+    // if default value is changed
+    selector.addEventListener("change", () => {
+      // if value switched by client
+      switch (selector.value) {
+        case "add":
+        //do somthing with  , "add" value
+        result.innerHTML = selector.value;
+        break;  // then take break
+        case "remove":
+        //do somthing with  , "remove" value
+        result.innerHTML = selector.value;
+        break; // then take break
+      }
+    });
+  });

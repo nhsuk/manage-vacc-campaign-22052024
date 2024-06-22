@@ -1,0 +1,346 @@
+{% set pagetitle ="Add a filter" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+
+{% block header %}
+
+
+
+
+<header class="nhsuk-header" role="banner">
+
+  <div class="nhsuk-header__container">
+    <div class="nhsuk-header__logo"><a class="nhsuk-header__link nhsuk-header__link--service " href="home" aria-label="Select People for Invitations homepage">
+
+        <svg class="nhsuk-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 16" height="40" width="100">
+          <path class="nhsuk-logo__background" fill="#005eb8" d="M0 0h40v16H0z"></path>
+          <path class="nhsuk-logo__text" fill="#fff" d="M3.9 1.5h4.4l2.6 9h.1l1.8-9h3.3l-2.8 13H9l-2.7-9h-.1l-1.8 9H1.1M17.3 1.5h3.6l-1 4.9h4L25 1.5h3.5l-2.7 13h-3.5l1.1-5.6h-4.1l-1.2 5.6h-3.4M37.7 4.4c-.7-.3-1.6-.6-2.9-.6-1.4 0-2.5.2-2.5 1.3 0 1.8 5.1 1.2 5.1 5.1 0 3.6-3.3 4.5-6.4 4.5-1.3 0-2.9-.3-4-.7l.8-2.7c.7.4 2.1.7 3.2.7s2.8-.2 2.8-1.5c0-2.1-5.1-1.3-5.1-5 0-3.4 2.9-4.4 5.8-4.4 1.6 0 3.1.2 4 .6"></path>
+        </svg>
+
+        <span class="nhsuk-header__service-name">
+          Select People for Invitations
+        </span>
+      </a>
+    </div>
+
+    <div style="padding-top:8px" class="nhsuk-header__content" id="content-header">
+       <svg style="" width="25px" height="25px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+           <title>Combined Shape</title>
+           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+               <path d="M50,0 C77.6142375,0 100,22.3857625 100,50 C100,77.6142375 77.6142375,100 50,100 C22.3857625,100 0,77.6142375 0,50 C0,22.3857625 22.3857625,0 50,0 Z M49.9740242,50 C36.461773,50 30.5623168,57.2206478 25.8955801,66.0142189 C21.0180345,74.8077899 21.876928,86.9120654 49.9740242,86.9120654 C78.0711204,86.9120654 78.9300139,74.8077899 74.0524683,66.0142189 C69.3857316,57.2206478 63.4862754,50 49.9740242,50 Z M49.9976555,14.6216769 C41.0752639,14.6216769 33.4852236,21.8547045 33.0448262,30.7770961 C32.6044287,39.6994878 40.1919983,46.9325153 49.9921371,46.9325153 C59.792276,46.9325153 67.3823162,39.6994878 66.9449665,30.7770961 C66.5076168,21.8547045 58.9200472,14.6216769 49.9976555,14.6216769 Z" id="Combined-Shape" fill="#D8DDE0"></path>
+           </g>
+       </svg>
+       </div>
+    </div>
+
+
+
+</header>
+
+
+
+
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+  .js-signout {
+    text-align: right;
+    font-size: 16px;
+    font-family: 'proxima_nova', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    z-index: 60;
+    clear: none;
+    background: transparent;
+    border-bottom: 1px solid #bfc1c3;
+    vertical-align: top;
+    padding-bottom: 20px;
+    font-size: 17px;
+
+  }
+
+
+
+  .filterLine {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    text-align: left;
+    margin: 0;
+    font-size: 17px;
+
+  }
+
+  .filterLabel {
+    font-size: 17px;
+  }
+
+  .filterLine, li, p {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 17px;
+  }
+
+  input:checked  {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: white;
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    color: black;
+  }
+
+  input:after {
+    content:"";
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 20%;
+    border: 5px solid #000000;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input:checked:after {
+    display: block;
+  }
+
+</style>
+
+
+{% set cohortsArray = [] %}
+
+{% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+{% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+{% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+{% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+{% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+{% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+{% set cohortsArray = cohortsArray.concat("COVID-19 vaccination for people aged 75 to 115 years old") %}
+
+{% if cohortsArray.length > 0 %}
+{% endif %}
+
+
+{% if data['selectedAttrib'] !== "Select standard filters and suppressions from a library" %}
+{% set action = "add-filter-library" %}
+{% elif data['selectedAttrib'] == "Select standard filters and suppressions from a library" %}
+{% set action = "add-filter" %}
+{% endif %}
+
+
+
+
+<!-- <form action="summary-filters" method="post"> -->
+
+<form action="/filterSelection" method="post">
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-xl">Apply filters and suppressions to your cohorts</h1>
+
+
+      {% from 'radios/macro.njk' import radios %}
+
+      {{ radios({
+        "idPrefix": "selectedAttrib",
+        "name": "selectedAttrib",
+        "hint": {
+          "text": "The category you choose will be excluded from the iteration."
+        },
+        "fieldset": {
+          "legend": {
+            "text": "Select a category for the campaign",
+            "classes": "nhsuk-fieldset__legend--m",
+            "isPageHeading": false
+          }
+        },
+        "items": [
+          {
+            "value": "age",
+            "text": "Age",
+            "checked": checked("selectedAttrib","Age"),
+            "hint": {
+              "text": "Age hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "value": "location",
+            "text": "Location",
+            "checked": checked("selectedAttrib","Location"),
+            "hint": {
+              "text": "Location hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "value": "Vaccine recently given",
+            "text": "Vaccine recently given",
+            "checked": checked("selectedAttrib","Vaccine recently given"),
+            "hint": {
+              "text": "Given vaccine hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "divider": "or"
+          },
+          {
+            "value": "Select standard filters and suppressions from a library",
+            "text": "Select standard filters and suppressions from a library",
+            "checked": checked("selectedAttrib","Select standard filters and suppressions from a library"),
+            "hint": {
+              "text": "Teaser for standard filters list hint text lorem ipsum dolor sit amet."
+            }
+          }
+        ]
+      }) }}
+
+
+
+
+
+
+
+
+</div>
+</div>
+<button class="nhsuk-button" data-module="nhsuk-button" type="submit">
+  Continue
+</button>
+
+<!-- <ul class="nhsuk-grid-column-one-quarter nhsuk-grid-row nhsuk-card-group ">
+<li class="nhsuk-card-group__item">
+
+<div class="nhsuk-card nhsuk-card--clickable">
+<div class="nhsuk-card__content">
+<p class="nhsuk-heading-xl nhsuk-u-font-size-64 nhsuk-u-margin-bottom-1">91 <span class="nhsuk-u-visually-hidden">Applicants</span></p><a href="#" class="nhsuk-card__link nhsuk-u-font-weight-normal nhsuk-u-font-size-19 nhsuk-link--no-visited-state">Applicants</a>
+
+</div>
+</div>
+
+</li>
+
+<li class="nhsuk-card-group__item">
+
+<div class="nhsuk-card nhsuk-card--clickable">
+<div class="nhsuk-card__content">
+<p class="nhsuk-heading-xl nhsuk-u-font-size-64 nhsuk-u-margin-bottom-1">91 <span class="nhsuk-u-visually-hidden">Applicants</span></p><a href="#" class="nhsuk-card__link nhsuk-u-font-weight-normal nhsuk-u-font-size-19 nhsuk-link--no-visited-state">Applicants</a>
+
+</div>
+</div>
+
+</li>
+</ul> -->
+
+</form>
+<!-- <script>
+  const personAttributeSelector = document.getElementById("personAttributeSelector");
+
+
+  const operatorSelector = document.getElementById("filterAttrib");
+
+  const operatorOption = document.getElementById("operatorOption");
+  const operatorValue1 = document.getElementById("operatorValue1");
+  const operatorValue2 = document.getElementById("operatorValue2");
+
+
+  personAttributeSelector.addEventListener("click", () => {
+    console.log("Person attribute filter used")
+
+    personAttributeSelector.addEventListener("change", () => {
+      if (personAttributeSelector.value == "between") {
+        showValue2('operatorValue2')
+        console.log("operator between")
+      } else {
+        hideValue2('operatorValue2')
+        console.log("operator not between")
+      }
+    }, { once: true })
+  });
+
+
+
+  operatorOption.addEventListener("click", () => {
+    console.log("Operator selector used")
+
+    operatorOption.addEventListener("change", () => {
+      if (operatorOption.value == "between") {
+        showValue2('operatorValue2')
+        console.log("operator between")
+      } else {
+        hideValue2('operatorValue2')
+        console.log("operator not between")
+      }
+    }, { once: true })
+  });
+
+
+
+
+  function showValue2(div1) {
+    document.getElementById(div1).style.display = 'block';
+  }
+
+  function hideValue2(div1) {
+    document.getElementById(div1).style.display = 'none';
+  }
+
+
+
+  function checkRadios() {
+    var sCheck = [];
+    var checks = document.getElementsByTagName('input');
+    for (i = 0; i < checks.length; i++) {
+      if (checks[i].type == 'radio' ) {
+        console.log(checks[i].id)
+        sCheck.push(checks[i].value, checks[i].name);
+      }
+    }
+    console.log(sCheck)
+  }
+
+</script> -->
+
+{% endblock %}
+
+
+selector.addEventListener("click", () => {
+// if default value is changed
+  selector.addEventListener("change", () => {
+  // if value switched by client
+    switch (selector.value) {
+      case "add":
+      //do somthing with  , "add" value
+        result.innerHTML = selector.value;
+        break;  // then take break
+      case "remove":
+      //do somthing with  , "remove" value
+        result.innerHTML = selector.value;
+        break; // then take break
+    }
+  });
+});

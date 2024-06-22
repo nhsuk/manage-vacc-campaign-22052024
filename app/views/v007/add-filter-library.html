@@ -1,0 +1,600 @@
+{% set pagetitle ="Filter and suppressions library" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+
+{% block header %}
+
+
+
+
+<header class="nhsuk-header" role="banner">
+
+  <div class="nhsuk-header__container">
+    <div class="nhsuk-header__logo"><a class="nhsuk-header__link nhsuk-header__link--service " href="home" aria-label="Select People for Invitations homepage">
+
+        <svg class="nhsuk-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 16" height="40" width="100">
+          <path class="nhsuk-logo__background" fill="#005eb8" d="M0 0h40v16H0z"></path>
+          <path class="nhsuk-logo__text" fill="#fff" d="M3.9 1.5h4.4l2.6 9h.1l1.8-9h3.3l-2.8 13H9l-2.7-9h-.1l-1.8 9H1.1M17.3 1.5h3.6l-1 4.9h4L25 1.5h3.5l-2.7 13h-3.5l1.1-5.6h-4.1l-1.2 5.6h-3.4M37.7 4.4c-.7-.3-1.6-.6-2.9-.6-1.4 0-2.5.2-2.5 1.3 0 1.8 5.1 1.2 5.1 5.1 0 3.6-3.3 4.5-6.4 4.5-1.3 0-2.9-.3-4-.7l.8-2.7c.7.4 2.1.7 3.2.7s2.8-.2 2.8-1.5c0-2.1-5.1-1.3-5.1-5 0-3.4 2.9-4.4 5.8-4.4 1.6 0 3.1.2 4 .6"></path>
+        </svg>
+
+        <span class="nhsuk-header__service-name">
+          Select People for Invitations
+        </span>
+      </a>
+    </div>
+
+    <div style="padding-top:8px" class="nhsuk-header__content" id="content-header">
+       <svg style="" width="25px" height="25px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+           <title>Combined Shape</title>
+           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+               <path d="M50,0 C77.6142375,0 100,22.3857625 100,50 C100,77.6142375 77.6142375,100 50,100 C22.3857625,100 0,77.6142375 0,50 C0,22.3857625 22.3857625,0 50,0 Z M49.9740242,50 C36.461773,50 30.5623168,57.2206478 25.8955801,66.0142189 C21.0180345,74.8077899 21.876928,86.9120654 49.9740242,86.9120654 C78.0711204,86.9120654 78.9300139,74.8077899 74.0524683,66.0142189 C69.3857316,57.2206478 63.4862754,50 49.9740242,50 Z M49.9976555,14.6216769 C41.0752639,14.6216769 33.4852236,21.8547045 33.0448262,30.7770961 C32.6044287,39.6994878 40.1919983,46.9325153 49.9921371,46.9325153 C59.792276,46.9325153 67.3823162,39.6994878 66.9449665,30.7770961 C66.5076168,21.8547045 58.9200472,14.6216769 49.9976555,14.6216769 Z" id="Combined-Shape" fill="#D8DDE0"></path>
+           </g>
+       </svg>
+       </div>
+    </div>
+
+
+
+</header>
+
+
+
+
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+  .js-signout {
+    text-align: right;
+    font-size: 16px;
+    font-family: 'proxima_nova', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    z-index: 60;
+    clear: none;
+    background: transparent;
+    border-bottom: 1px solid #bfc1c3;
+    vertical-align: top;
+    padding-bottom: 20px;
+    font-size: 17px;
+
+  }
+
+
+
+  .filterLine {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    text-align: left;
+    margin: 0;
+    font-size: 17px;
+
+  }
+
+  .filterLabel {
+    font-size: 17px;
+  }
+
+  .filterLine, li, p {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 17px;
+  }
+
+
+
+  input[type="checkbox"]:checked  {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: white;
+    height: 40px;
+    width: 40px;
+    border: 2px solid black;
+    color: black;
+  }
+
+  input[type="checkbox"]:after {
+    content:"";
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 40%;
+    border: 5px solid #000000;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input[type="checkbox"]:checked:after {
+    display: block;
+  }
+
+
+</style>
+
+{% set commonFilterList = [["Over 75 years","15 April 2024"],["Over 85 years","15 April 2024"],["Received vaccine in the last 90 days","15 April 2024"]] %}
+{% set ageFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"]] %}
+{% set locationFilterList = [["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"]] %}
+{% set givenVaccineFilterList = [["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
+{% set allFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"],["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"],["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
+
+
+{% set covidSuppressionCollection = [["User has opted out of receiving COVID-19 messages","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"],["Care Home Residents","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"],["Detained Estate","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"],["DPHC/DMS Military staff","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"],["Future COVID-19 vaccine booking","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"]] %}
+
+
+
+<form action="summary-filters?repickFilters=false" method="post">
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-xl">Filter and suppressions library</h1>
+
+      <p class="nhsuk-body">Filter library lorem ipsum dolor amet sit blah.</p>
+
+      <h2 class="nhsuk-heading-l">Commonly used filters [{{ commonFilterList.length }}]</h2>
+
+      {% for items,date in commonFilterList %}
+
+      {{ checkboxes({
+        "idPrefix": "commonFilters",
+        "name": "commonFilters",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": date
+          },
+          checked: checked('commonFilters',items)
+        }
+        ]
+      }) }}
+      {% endfor %}
+
+
+      {% set suppCollectHTML %}
+
+      <div class="nhsuk-checkboxes">
+
+              <div style="float:right" class="nhsuk-checkboxes__item">
+                <input onlick="toggle(this)" class="nhsuk-checkboxes__input" id="checkall" name="checkall" type="checkbox" value="check-all" aria-describedby="nationality-1-item-hint">
+                <label class="nhsuk-label nhsuk-checkboxes__label" for="checkall">
+                  Check all boxes?
+                </label>
+              </div>
+</div>
+
+
+
+
+{% for items,desc,date in covidSuppressionCollection %}
+
+{{ checkboxes({
+  "idPrefix": "suppCollect",
+  "name": "suppCollect",
+  "fieldset": {
+    "legend": {
+      "text": "",
+      "classes": "nhsuk-fieldset__legend--l",
+      isPageHeading: false
+    }
+  },
+  "items": [
+  {
+    "value": items,
+    "text": items,
+    "hint": {
+      "text": desc+" ("+date+")"
+    },
+    checked: checked('suppCollect',items)
+  }
+  ]
+}) }}
+{% endfor %}
+      {% endset %}
+
+
+
+      {% set ageHTML %}
+
+      {% for items,date in ageFilterList %}
+
+      {{ checkboxes({
+        "idPrefix": "ageFilters",
+        "name": "ageFilters",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": date
+          },
+          checked: checked('ageFilters',items)
+        }
+        ]
+      }) }}
+      {% endfor %}
+      {% endset %}
+
+      {% set locationHTML %}
+
+      {% for items,date in locationFilterList %}
+
+      {{ checkboxes({
+        "idPrefix": "locationFilters",
+        "name": "locationFilters",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": date
+          },
+          checked: checked('locationFilters',items)
+          }
+        ]
+      }) }}
+      {% endfor %}
+      {% endset %}
+
+      {% set allHTML %}
+
+      {% for items,date in allFilterList %}
+
+      {{ checkboxes({
+        "idPrefix": "allFilters",
+        "name": "allFilters",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": date
+          },
+          checked: checked('allFilters',items)
+        }
+        ]
+      }) }}
+      {% endfor %}
+      {% endset %}
+
+      {% from 'details/macro.njk' import details %}
+
+
+      {% if data['covidSuppressionCollection'].length > 0 %}
+      {% set suppOpen = 'true' %}
+      {% endif %}
+
+      {% if data['ageFilters'].length > 0 %}
+      {% set ageOpen = 'true' %}
+      {% endif %}
+
+      {% if data['locationFilters'].length > 0 %}
+      {% set locationOpen = 'true' %}
+      {% endif %}
+
+      {% if data['allFilters'].length > 0 %}
+      {% set allOpen = 'true' %}
+      {% endif %}
+
+
+      {{ details({
+        "classes": "nhsuk-expander",
+        "open": suppOpen,
+        "text": "COVID-19 Suppression Collection ["+covidSuppressionCollection.length+" suppressions]",
+        "HTML": suppCollectHTML
+      }) }}
+
+
+
+      {{ details({
+        "classes": "nhsuk-expander",
+        "open": ageOpen,
+        "text": "Age filters ["+ageFilterList.length+" filters]",
+        "HTML": ageHTML
+      }) }}
+
+      {{ details({
+        "classes": "nhsuk-expander",
+        "open": locationOpen,
+        "text": "Location-based filters ["+locationFilterList.length+" filters]",
+        "HTML": locationHTML
+      }) }}
+
+
+      {{ details({
+        "classes": "nhsuk-expander",
+        "open": allOpen,
+        "text": "All filters ["+allFilterList.length+" filters]",
+        "HTML": allHTML
+      }) }}
+
+
+
+
+      <button class="nhsuk-button" data-module="nhsuk-button" type="submit">
+        Save and continue
+      </button>
+
+    </div>
+  </div>
+
+
+</form>
+
+<script>
+
+  function toggle(source) {
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i] != source)
+              checkboxes[i].checked = source.checked;
+      }
+  }
+
+
+  const checkall = document.getElementById('checkall')
+
+  checkall.addEventListener("click", function(event) {
+    console.log("radioClick1.value,event")
+    checkCheckboxes('check');
+
+  });
+
+  function checkCheckboxes(value) {
+    var sCheck = [];
+    var checks = document.getElementsByTagName('input');
+    console.log(value)
+    if (value == "check"){
+
+
+    for (var i = 0; i < checks.length; i++) {
+      if (checks[i].name == 'suppCollect' ) {
+        checks[i].checked = true;
+
+
+        console.log(checks[i])
+      }  else {
+        checks[i].checked == false;
+    }
+
+  }
+  }
+}
+</script>
+
+{% endblock %}
+
+
+  <h2 class="nhsuk-heading-l">Commonly used filters [{{ commonFilterList.length }}]</h2>
+
+  {% for items,date in commonFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "commonFilters",
+    "name": "commonFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('commonFilters',items)
+    }
+    ]
+  }) }}
+  {% endfor %}
+
+  {% set ageHTML %}
+
+  {% for items,date in ageFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "ageFilters",
+    "name": "ageFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('ageFilters',items)
+    }
+    ]
+  }) }}
+  {% endfor %}
+  {% endset %}
+
+  {% set locationHTML %}
+
+  {% for items,date in locationFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "locationFilters",
+    "name": "locationFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('locationFilters',items)
+      }
+    ]
+  }) }}
+  {% endfor %}
+  {% endset %}
+
+  {% set allHTML %}
+
+  {% for items,date in allFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "allFilters",
+    "name": "allFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('allFilters',items)
+    }
+    ]
+  }) }}
+  {% endfor %}
+  {% endset %}
+
+  {% from 'details/macro.njk' import details %}
+
+
+  {% if data['ageFilterList'].length > 0 %}
+  {% set ageOpen = 'true' %}
+  {% endif %}
+
+  {% if data['locationFilterList'].length > 0 %}
+  {% set locationOpen = 'true' %}
+  {% endif %}
+
+  {% if data['allFilterList'].length > 0 %}
+  {% set allOpen = 'true' %}
+  {% endif %}
+
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": commonOpen,
+    "text": "Age filters ["+commonFilterList.length+" filters]",
+    "HTML": commonHTML
+  }) }}
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": ageOpen,
+    "text": "Age filters ["+ageFilterList.length+" filters]",
+    "HTML": ageHTML
+  }) }}
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": locationOpen,
+    "text": "Location-based filters ["+locationFilterList.length+" filters]",
+    "HTML": locationHTML
+  }) }}
+
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": allOpen,
+    "text": "All filters ["+allFilterList.length+" filters]",
+    "HTML": allHTML
+  }) }}
+
+
+
+  {% for items,date in allFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "allFilters",
+    "name": "allFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('allFilters',items)
+    }
+    ]
+  }) }}
+  {% endfor %}

@@ -1,0 +1,457 @@
+{% set pagetitle ="Filter library" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+  .js-signout {
+    text-align: right;
+    font-size: 16px;
+    font-family: 'proxima_nova', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    z-index: 60;
+    clear: none;
+    background: transparent;
+    border-bottom: 1px solid #bfc1c3;
+    vertical-align: top;
+    padding-bottom: 20px;
+    font-size: 17px;
+
+  }
+
+
+
+  .filterLine {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    text-align: left;
+    margin: 0;
+    font-size: 17px;
+
+  }
+
+  .filterLabel {
+    font-size: 17px;
+  }
+
+  .filterLine, li, p {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 17px;
+  }
+
+  input:checked  {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: white;
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    color: black;
+  }
+
+  input:after {
+    content:"";
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 20%;
+    border: 5px solid #000000;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input:checked:after {
+    display: block;
+  }
+
+</style>
+
+{% set commonFilterList = [["Over 75 years","15 April 2024"],["Over 85 years","15 April 2024"],["Received vaccine in the last 90 days","15 April 2024"]] %}
+{% set ageFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"]] %}
+{% set locationFilterList = [["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"]] %}
+{% set givenVaccineFilterList = [["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
+{% set allFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"],["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"],["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
+
+<form action="summary-filters?repickFilters=false" method="post">
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-xl">Filter library</h1>
+
+      <p class="nhsuk-body">Filter library lorem ipsum dolor amet sit blah.</p>
+
+      <h2 class="nhsuk-heading-l">Commonly used filters [{{ commonFilterList.length }}]</h2>
+
+      {% for items,date in commonFilterList %}
+
+      {{ checkboxes({
+        "idPrefix": "commonFilters",
+        "name": "commonFilters",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": date
+          },
+          checked: checked('commonFilters',items)
+        }
+        ]
+      }) }}
+      {% endfor %}
+
+      {% set ageHTML %}
+
+      {% for items,date in ageFilterList %}
+
+      {{ checkboxes({
+        "idPrefix": "ageFilters",
+        "name": "ageFilters",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": date
+          },
+          checked: checked('ageFilters',items)
+        }
+        ]
+      }) }}
+      {% endfor %}
+      {% endset %}
+
+      {% set locationHTML %}
+
+      {% for items,date in locationFilterList %}
+
+      {{ checkboxes({
+        "idPrefix": "locationFilters",
+        "name": "locationFilters",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": date
+          },
+          checked: checked('locationFilters',items)
+          }
+        ]
+      }) }}
+      {% endfor %}
+      {% endset %}
+
+      {% set allHTML %}
+
+      {% for items,date in allFilterList %}
+
+      {{ checkboxes({
+        "idPrefix": "allFilters",
+        "name": "allFilters",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": date
+          },
+          checked: checked('allFilters',items)
+        }
+        ]
+      }) }}
+      {% endfor %}
+      {% endset %}
+
+      {% from 'details/macro.njk' import details %}
+
+
+      {% if data['ageFilters'].length > 0 %}
+      {% set ageOpen = 'true' %}
+      {% endif %}
+
+      {% if data['locationFilters'].length > 0 %}
+      {% set locationOpen = 'true' %}
+      {% endif %}
+
+      {% if data['allFilters'].length > 0 %}
+      {% set allOpen = 'true' %}
+      {% endif %}
+
+
+      {{ details({
+        "classes": "nhsuk-expander",
+        "open": ageOpen,
+        "text": "Age filters ["+ageFilterList.length+" filters]",
+        "HTML": ageHTML
+      }) }}
+
+      {{ details({
+        "classes": "nhsuk-expander",
+        "open": locationOpen,
+        "text": "Location-based filters ["+locationFilterList.length+" filters]",
+        "HTML": locationHTML
+      }) }}
+
+
+      {{ details({
+        "classes": "nhsuk-expander",
+        "open": allOpen,
+        "text": "All filters ["+allFilterList.length+" filters]",
+        "HTML": allHTML
+      }) }}
+
+
+
+
+      <button class="nhsuk-button" data-module="nhsuk-button" type="submit">
+        Save and continue
+      </button>
+
+    </div>
+  </div>
+
+
+</form>
+
+{% endblock %}
+
+
+  <h2 class="nhsuk-heading-l">Commonly used filters [{{ commonFilterList.length }}]</h2>
+
+  {% for items,date in commonFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "commonFilters",
+    "name": "commonFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('commonFilters',items)
+    }
+    ]
+  }) }}
+  {% endfor %}
+
+  {% set ageHTML %}
+
+  {% for items,date in ageFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "ageFilters",
+    "name": "ageFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('ageFilters',items)
+    }
+    ]
+  }) }}
+  {% endfor %}
+  {% endset %}
+
+  {% set locationHTML %}
+
+  {% for items,date in locationFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "locationFilters",
+    "name": "locationFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('locationFilters',items)
+      }
+    ]
+  }) }}
+  {% endfor %}
+  {% endset %}
+
+  {% set allHTML %}
+
+  {% for items,date in allFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "allFilters",
+    "name": "allFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('allFilters',items)
+    }
+    ]
+  }) }}
+  {% endfor %}
+  {% endset %}
+
+  {% from 'details/macro.njk' import details %}
+
+
+  {% if data['ageFilterList'].length > 0 %}
+  {% set ageOpen = 'true' %}
+  {% endif %}
+
+  {% if data['locationFilterList'].length > 0 %}
+  {% set locationOpen = 'true' %}
+  {% endif %}
+
+  {% if data['allFilterList'].length > 0 %}
+  {% set allOpen = 'true' %}
+  {% endif %}
+
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": commonOpen,
+    "text": "Age filters ["+commonFilterList.length+" filters]",
+    "HTML": commonHTML
+  }) }}
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": ageOpen,
+    "text": "Age filters ["+ageFilterList.length+" filters]",
+    "HTML": ageHTML
+  }) }}
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": locationOpen,
+    "text": "Location-based filters ["+locationFilterList.length+" filters]",
+    "HTML": locationHTML
+  }) }}
+
+
+  {{ details({
+    "classes": "nhsuk-expander",
+    "open": allOpen,
+    "text": "All filters ["+allFilterList.length+" filters]",
+    "HTML": allHTML
+  }) }}
+
+
+
+  {% for items,date in allFilterList %}
+
+  {{ checkboxes({
+    "idPrefix": "allFilters",
+    "name": "allFilters",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+    {
+      "value": items,
+      "text": items,
+      "hint": {
+        "text": date
+      },
+      checked: checked('allFilters',items)
+    }
+    ]
+  }) }}
+  {% endfor %}

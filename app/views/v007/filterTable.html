@@ -1,0 +1,105 @@
+
+   {% set filters =
+      {
+         "1":
+         {
+            "filterId": "uuid",
+            "name": "Over 75 years",
+            "estSize": 3612542,
+            "refreshDate": "11 April 2024",
+            "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl."
+         },
+         "2":
+         {
+            "filterId": "uuid",
+            "name": "Over 85 years",
+            "estSize": 1442553,
+            "refreshDate": "4 March 2024",
+            "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+         },
+         "3":
+         {
+            "filterId": "uuid",
+            "name": "Over 5 years",
+            "estSize": 34444986,
+            "refreshDate": "14 May 2024",
+            "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem."
+         },
+         "4":
+         {
+            "filterId": "uuid",
+            "name": "All Integrated Care Boards excluding London",
+            "estSize": 21542825,
+            "refreshDate": "14 May 2024",
+            "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum."
+         },
+         "5":
+         {
+            "filterId": "uuid",
+            "name": "No record of vaccine given",
+            "estSize": 5364262,
+            "Est. date": "14 May 2024",
+            "description": "Aliquam vitae pellentesque lacus, non condimentum massa."
+         }
+      }
+      %}
+
+   
+   {% set loader = [] %}
+
+   {% if data['commonFilters'].length > 0 %}
+   {% set loader = (loader.push(data['commonFilters']), loader) %}
+   {% elif (data['allFilters'].length > 0) %}
+   {% set loader = (loader.push(data['allFilters']), loader) %}
+   {% endif %}
+
+
+
+   {% set testRay = [] %}
+   {% for key, value in filters %}
+   {% for thing in loader %}
+   {% if thing == value.name  %}
+
+   {% else %}
+   {% endif %}
+   {% endfor %}
+   {% endfor %}
+
+
+
+
+
+   {% set sumCountFilters = [] %}
+   {% if data['commonFilters'].length > 0 %}
+   {% elif data['allFilters'].length > 0 %}
+   <table style="" class="nhsuk-table">
+      <thead role="rowgroup" class="nhsuk-table__head">
+         <tr style="" role="row">
+            <th style="line-height:-121px;text-align:left" role="columnheader" class="" scope="col">
+               Filters applied
+            </th>
+            <th style="line-height:-121px;text-align:right" role="columnheader" class="" scope="col">
+              Est. size
+            </th>
+         </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+         {% for key, value in filters %}
+         {% for item in loader %}
+         {% if item == value.name  %}
+            <tr style=";padding-top:-10px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+              <td style="text-align:left" class="nhsuk-table__cell">{{value.name}}</td>
+              <td style="text-align:right" class="nhsuk-table__cell "> - {{value.estSize| thouCommaNum}}</td>
+
+            {% set sumCountFilters = (sumCountFilters.push(value.estSize|int), sumCountFilters) %}
+            {% set numb = sumCountCohort - sumCountFilters %}
+
+         </tr>
+         {% endif %}
+         {% endfor %}
+         {% endfor %}
+
+
+      </tbody>
+   </table>
+   {% endif %}

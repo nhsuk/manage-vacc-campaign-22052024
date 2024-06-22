@@ -1,0 +1,277 @@
+{% set pagetitle ="Task list" %}{% extends 'layout.html' %}
+
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% block pageTitle %}{{ pagetitle }}{% endblock %}
+{% block outerContent %}
+{{ backLink({   "href": "javascript:window.history.back()",   "text": "Back",   "classes": "nhsuk-u-margin-top-3"}) }}{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div  class="nhsuk-grid-column-three-quarters">
+
+<div class="nhsuk-u-padding-bottom-0" style=";;;margin-top:-10px">
+
+      {% if data['campaign-type'].length > 0 %}<span  class="nhsuk-caption">{{ data['campaign-target']}} {{ data['campaign-type']|lower}}</span>{% else %}<span style="font-size:1.0em" class="nhsuk-caption nhsuk-u-padding-bottom-0">COVID-19 vaccination campaign</span>{% endif %}
+      <h1 style="font-size:1.6em" class="nhsuk-heading-l">{{ data['name'] | default("Spring 2024 Covid-19 Booster") }}{% if data['fromDate']|length > 0 %}<span class="nhsuk-body-m nhsuk-u-padding-top-0">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>{% else %}<span class="nhsuk-body-m nhsuk-u-padding-bottom-0 nhsuk-u-padding-top-2">Mon 24 Jun 2024 - Sun 25 Aug 2024</span>{% endif %}</h1>
+
+</div>
+
+      {% set filters = { "1": { "filterId": "uuid", "name": "Over 75 years", "estSize": 3612542, "refreshDate": "11 April 2024", "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl." }, "2": { "filterId": "uuid", "name": "Over 85 years", "estSize": 1442553, "refreshDate": "4 March 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "3": { "filterId": "uuid", "name": "Over 5 years", "estSize": 34444986, "refreshDate": "14 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "4": { "filterId": "uuid", "name": "All Integrated Care Boards excluding London", "estSize": 21542825, "refreshDate": "14 May 2024", "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum." }, "5": { "filterId": "uuid", "name": "London Integrated Care Boards only", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "6": { "filterId": "uuid", "name": "Received vaccine in the last 90 days", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "7": { "filterId": "uuid", "name": "No record of vaccine given", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "8": { "filterId": "uuid", "name": "Over 114 years", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "9": { "filterId": "uuid", "name": "London Region only", "estSize": 5364262, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "10": { "filterId": "uuid", "name": "Under 5 years", "estSize": 5364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "11": { "filterId": "uuid", "name": "Over 16 years", "estSize": 35364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "12": { "filterId": "uuid", "name": "Under 75 years", "estSize": 1364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "13": { "filterId": "uuid", "name": "Under 85 years", "estSize": 364262, "Est. date": "15 April 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." } } %}
+
+      {% set cohorts = { "1": { "cohortId": "uuid", "name": "Under 16 Chronic neurological Disease", "estSize": 5782|int, "refreshDate": "11 April 2024", "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl." }, "2": { "cohortId": "uuid", "name": "Age 75+", "estSize": 2820102|int, "refreshDate": "4 March 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "3": { "cohortId": "uuid", "name": "Age 75-84", "estSize": 3442325|int, "refreshDate": "14 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "4": { "cohortId": "uuid", "name": "Immunosuppressed (5-74s)", "estSize": 1149754|int, "refreshDate": "14 May 2024", "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum." }, "5": { "cohortId": "uuid", "name": "16+ Chronic neurological Disease", "estSize": 5782|int, "refreshDate": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "6": { "cohortId": "uuid", "name": "Age 75+ (London)", "estSize": 720102|int, "refreshDate": "14 May 2024", "description": "Donec efficitur et ligula ut blandit. Curabitur fringilla molestie dignissim." }, "7": { "cohortId": "uuid", "name": "Under 5s", "estSize": 125782|int, "refreshDate": "14 May 2024", "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat." }, "8": { "cohortId": "uuid", "name": "Age 85+", "estSize": 427932|int, "refreshDate": "17 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "9": { "cohortId": "uuid", "name": "Age 5-74 immunosuppressed", "estSize": 1149754|int, "refreshDate": "14 May 2024", "description": "Cras fringilla erat vel lectus porttitor egestas. Cras vulputate nisi a est fermentum feugiat." }, "10": { "cohortId": "uuid", "name": "16+ Serious Genetic Abnormalities", "estSize": 19264|int, "refreshDate": "21 April 2024", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas ante rutrum, iaculis odio eget, fringilla mauris." } } %}
+      {% set suppressions = { "1": { "suppressId": "uuid", "name": "User has opted out of receiving COVID-19 messages", "estSuppd": 12542|int, "refreshDate": "11 April 2024", "description": "Aliquam erat volutpat. Duis sit amet orci scelerisque, porttitor magna vel, congue nisl." }, "2": { "suppressId": "uuid", "name": "Care Home Residents", "estSuppd": 442553|int, "refreshDate": "4 March 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." }, "3": { "suppressId": "uuid", "name": "Detained Estate", "estSuppd": 94986|int, "refreshDate": "14 May 2024", "description": "Etiam mattis massa ut erat hendrerit tempus ac nec sem. Fusce sit amet sagittis quam. Cras quis dapibus sem." }, "4": { "suppressId": "uuid", "name": "DPHC/DMS Military staff", "estSuppd": 142825|int, "refreshDate": "14 May 2024", "description": "lorem ipsum dolor sit amet, blah blah, lorem ipsum." }, "5": { "suppressId": "uuid", "name": "Future COVID-19 vaccine booking", "estSuppd": 4262|int, "Est. date": "14 May 2024", "description": "Aliquam vitae pellentesque lacus, non condimentum massa." } } %}
+      {% set loader = [] %} {% set testRay = [] %} {% if data['cohorts'].length > 0 %} {% for item in data['cohorts']|slice(1) %} {% set loader = (loader.push(item), loader) %} {% for key, value in cohorts %} {% if item == value.name  %} {% set testRay = (testRay.push(value.estSize),testRay) %} {% endif %} {% endfor %} {% endfor %} {% endif %}
+      {% if data['cohorts-drop'].length > 0 %} {% set loader = (loader.push(data['cohorts-drop']), loader) %} {% endif %}
+      <style>
+      .govuk-tag:hover { background:none; display: inline-block; margin-top: -2px; margin-bottom: -3px; padding-top: 2px; padding-right: 8px; padding-bottom: 3px; padding-left: 8px; text-decoration: none; overflow-wrap: break-word; font-weight: bold; font-size:17px; font-weight:normal; }
+      .govuk-tag { display: inline-block; margin-top: -2px; margin-bottom: -3px; padding-top: 2px; padding-right: 8px; padding-bottom: 3px; padding-left: 8px; text-decoration: none; overflow-wrap: break-word; font-weight: bold; font-size:17px; font-weight:normal; }
+      .govuk-tag--grey { background:#f0f4f5; }
+      .govuk-task-list { background:#f0f4f5;padding-top: 10px; padding-bottom: 5px; padding: 0; list-style-type: none; }
+      .govuk-task-list__item { background-color:none;display: table; position: relative; width: 100%; margin-bottom: 0;; padding-top: 15px; padding-bottom: 15px; ; font-size:19px; font-weight:200; }
+      .govuk-task-list__item:first-child { background-color:white;; } .govuk-task-list__item--with-link:hover { background-color:#D8DDE0;} .govuk-task-list__name-and-hint { display: table-cell; vertical-align: top; ; }
+      .govuk-task-list__status { display: table-cell; float:right; text-align: right; padding-right:5px; vertical-align: top; }
+      .govuk-task-list__link::after { content: ""; display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+      .govuk-task-list__hint { margin-top: 5px; } .nhsuk-body { font-size:17px; margin-top:3px; margin-bottom:2px; } .dwp-timeline__events { padding: 0; list-style-type: none; border-left: 3px solid #1d70b8; }
+      .dwp-timeline__events--entry { position: relative; top: -10px; margin: 32px 0; padding-left: 0px; }
+      .dwp-timeline__events--entry::before { content: ""; position: absolute; top: 10px; left: -1px; width: 11px; height: 3px; background-color: #1d70b8; }
+      .spacer { padding-bottom:5px; margin-top:-5px; margin-bottom:-5px; font-size:17px; }
+      .headspacer { padding-bottom:5px; margin-top:-5px; margin-bottom:-5px; font-size:19px; }
+      </style>
+
+      {% macro newIterationTasklist(title="",date="",hint="",count=" ") %}
+         <div style="padding-top:10px;;;color:#212b32;max-width:990px;height:flex;">
+            <span style="font-size:1rem;;;font-weight:900">Iteration {{count}}</span>
+            <h2 style="text-align:left;line-height:1.1em;font-weight:800;;;max-width:99%;;" class="nhsuk-heading-l">{{title}}</h2>
+            <p style=";font-size:1.15em;font-weight:121;margin-top:-10px" class="nhsuk-body-m">{{date|formatDate}}</p>
+         </div>
+      {% endmacro %}
+
+
+      {% macro taskListItem(title="'title'", sectionHead="",background="",passData="", hint='', link='#', colour='', status='') %}
+         <div class="nhsuk-u-padding-top-4" style="padding-top:0px;border-top:0px solid lightgrey;background:{{background|default("none")}};padding-top:10px;margin-top:-5px;padding-right:0px;">
+            <h3 style="font-weight:600;font-size:1.4em;margin-bottom:0px;" class="nhsuk-u-padding-top-0 nhsuk-u-margin-top-0 nhsuk-u-padding-left-0 nhsuk-heading-l">{{sectionHead}}</h3>
+            <div style="font-color:#aeb7bd;padding-bottom:15px;line-height:1.3em;;;font-weight:100;font-size:1em" id="company-details-3-hint" class="nhsuk-u-padding-top-0 nhsuk-u-padding-bottom-3 govuk-task-list__hint"> {{hint}}</div>
+            <li style="border-top:1px solid lightgrey;;font-size:1.1em;line-height:1.1em;font-weight:600;" class="nhsuk-u-margin-top-0 nhsuk-u-padding-right-0 nhsuk-u-padding-left-0 nhsuk-u-margin-bottom-0 govuk-task-list__item  govuk-task-list__item--with-link govuk-task-list__item:first-child">
+               <div style="" class="govuk-task-list__name-and-hint">
+                  <a onclick="{{passData}}" style="font-size:1.1em" class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="{{link}}" aria-describedby="company-details-2-status"> {{title}} </a>
+               </div>
+               <div style="" class="govuk-task-list__status" id="company-details-2-status">
+                  <strong class="govuk-tag nhsuk-tag--{{colour}}"> {{status}} </strong>
+               </div>
+            </li>
+         </div>
+      {% endmacro %}
+
+
+
+
+      {% macro taskListSoloItem(title="",link="") %}<a class="nhsuk-link nhsuk-link--no-visited-state nhsuk-u-margin-top-9" style=";font-weight:600;font-size:19px;color:#005eb8" href="{{link}}">{{title}}</a> {% endmacro %}
+
+      {% macro taskListContent(title="'title'") %} <li style=";border:0;;;" class="govuk-task-list__item"> <div class="govuk-task-list__name-and-hint nhsuk-u-padding-left-0"> {{title}} </div> </li> {% endmacro %}
+
+      <div class="nhsuk-u-margin-top-4" style=";margin-top:0px;padding-top:0px;;">
+      {% if data['nextIt']| int | length > 0 %}{% set nextIt = data['nextIt']| int %}{% else %}{% set nextIt = 1| int %}{% endif %}
+      {% if (data['iteration-name1'].length == 0) %} <!-- iteration1 hasn't been created yet --> {% set nextIt = "1"|int %}{% endif %}
+
+      {% if (data['iteration-name1'].length > 0) and (data['cohortsSel'] == "true") %}
+      {{ newIterationTasklist(title=data['iteration-name1']|default("first iteration name"),date=data['iterationDate1'],count="1")}}
+
+      <table role="table" class="nhsuk-table-responsive nhsuk-u-margin-left-0 nhsuk-u-padding-bottom-3" style="background-color:white">
+         <thead role="rowgroup" class="nhsuk-table__head">
+            <tr role="row">
+               <th style="font-size:1em;width:50%;border:0;line-height:0.2em;" role="columnheader" class="" scope="col">Cohort</th>
+               <th style="font-size:1em;width:20%;border:0;line-height:0.2em;" role="columnheader" class="" scope="col">Est.</th>
+               <th style=";font-size:1em;width:15%;border:0;line-height:0.2em;" role="columnheader" class="" scope="col">Cohort total</th>
+            </tr>
+         </thead>
+
+         {{ taskListItem(title="Edit the cohorts",sectionHead="Cohorts",background="none",hint="Cohort means the eligibility criteria you can choose from.",link="/grabCohorts") }}
+         {% set sumCountCohort = [] %}
+         <tbody class="nhsuk-table__body">
+         {% for key, value in cohorts %}
+         {% for item in data['cohorts'] %}
+         {% if item == value.name %}
+            <tr style=";padding-top:30px;padding-bottom:30px" role="row" class="nhsuk-table__row">
+               <td style="font-size:1em;width:50%;border:0;line-height:0.2em;" class="nhsuk-table__cell">{{value.name|truncate(40)}}</td>
+               <td style="font-size:1em;width:20%;border:0;line-height:0.2em;" class="nhsuk-table__cell ">{{value.estSize| thouCommaNum}}</td>
+               {% set sumCountCohort = (sumCountCohort.push(value.estSize|int), sumCountCohort) %}
+               {% endif %} {% endfor %} {% endfor %}
+               {% for key, value in cohorts %}
+               {% for item in data['cohorts-drop'] %}
+               {% if item == value.name %}
+               <td style="font-size:1em;width:50%;border:0;line-height:0.2em;" class="nhsuk-table__cell">{{value.name}}</td>
+               <td style="font-size:1em;width:20%;border:0;line-height:0.2em;" class="nhsuk-table__cell ">{{value.estSize| thouCommaNum}}</td>
+               {% set sumCountCohort = (sumCountCohort.push(value.estSize|int), sumCountCohort) %}{% endif %} {% endfor %} {% endfor %}
+               <td style="font-size:1em;text-align:center;;width:15%;border:0;line-height:0.2em;color:black;font-weight:900;" class="nhsuk-table__cell ">
+                  {{sumCountCohort | sum | thouCommaNum }}</td>
+               {% set totalCohort = sumCountCohort | sum | int %}
+            </tr>
+         </tbody>
+      </table>
+
+
+
+
+
+
+      {% if (data['iteration-name1'].length > 0) and (data['cohortsSel'] == "true") and (data['filtSupp'] !== "true") %}
+      {{ taskListItem(title="Apply filters and suppressions to the cohorts",sectionHead="Filters and suppressions",background="none",hint="The filter group you choose removes the people in a group from being invited for a vaccination. The suppression group you choose ensures these individuals are not contacted during a campaign.",link="add-filter-alt",colour='blue',status="Not started") }}
+      {% elif (data['iteration-name1'].length > 0) and (data['cohortsSel'] == "true") and (data['filtSupp'] == "true") %}
+      {% set suppressAddedArray = [] %}
+      {% if (data['suppCollect'].length > 0) %} {% set suppressAddedArray = (suppressAddedArray.push(data['suppCollect']),suppressAddedArray) %} {% endif %}
+      {% set loader = [] %}{% set testRay = [] %}
+      {% if (data['suppCollect'].length > 0) %}
+         {% for item in data['suppCollect']|slice(1) %}
+         {% set loader = (loader.push(item), loader) %}
+         {% for key, value in suppressions %}
+         {% if (item == value.name)  %}
+            {% set testRay = (testRay.push(value.estSuppd),testRay) %}
+      {% endif %} {% endfor %} {% endfor %}{% endif %}
+
+      {% if (data['selectedAttrib'] !=="" ) or (loader.length > 0) %}
+         {{ taskListItem(title="Update filters and suppressions for the cohorts",sectionHead="Filters and suppressions",background="none",hint="The filter group you choose removes the people in a group from being invited for a vaccination. The suppression group you choose ensures these individuals are not contacted during a campaign.",link="add-filter-alt") }}
+      {% endif %}
+
+      {% if (data['selectedAttrib'] !=="" ) or (loader.length > 0) %}
+         {% include './foundations/customF.html' %}
+      {% else %}
+      {% endif %}
+
+      {% if (loader.length > 0)  %}
+         {% set sumCountSuppress = [] %}
+         {% set sumCohortMinusSuppress = [] %}
+         {% include './foundations/libraryFilterTable.html' %}
+
+
+
+         <table id="mytable" class="nhsuk-table-responsive nhsuk-u-margin-left-0 nhsuk-u-margin-right-0" style="background-color:white">
+            <thead role="rowgroup" class="nhsuk-table__head">
+               <tr style="" role="row">
+                  <th style="font-size:1em;width:50%;border:0;line-height:0.2em;" role="columnheader" class="" scope="col">Suppression</th>
+                  <th style="font-size:1em;width:20%;border:0;line-height:0.2em;" role="columnheader" class="" scope="col">Est.</th>
+                  <th style="font-size:1em;;width:15%;border:0;line-height:0.2em;" role="columnheader" class="" scope="col">New cohort total</th>
+               </tr>
+            </thead>
+
+	        {%  set sumCountSuppress = [] %}
+
+
+            <tbody class="nhsuk-table__body">
+
+               {% for key, value in suppressions %}
+               {% for item in data['suppCollect'] %}
+               {% if item == value.name  %}
+
+               {% set sumCountSuppress = (sumCountSuppress.push(value.estSuppd|int), sumCountSuppress) %}
+
+            <tr style=";padding-top:0px;padding-bottom:0px" role="row" class="nhsuk-table__row">
+               <td style="font-size:1em;width:50%;border:0;line-height:0.2em;" class="nhsuk-table__cell">{{value.name|truncate(45)}}</td>
+               <td style="font-size:1em;width:20%;border:0;line-height:0.2em;" class="nhsuk-table__cell "> - {{value.estSuppd| thouCommaNum}}</td>
+               {% endif %} {% endfor %} {% endfor %}{% set totalSupp = sumCountSuppress | sum | int %}
+               {% set supSum = totalCohort|int - totalSupp|int %}
+               <!-- <td style="font-size:1em;;width:15%;;border:0;line-height:0.2em;" class="nhsuk-table__cell ">{{ supSum | string | thouCommaNum }}</td> -->
+               </tr>
+               <tr style=";padding-top:0px;padding-bottom:-5px" role="row" class="nhsuk-table__row">
+
+               <td style="font-size:1em;width:50%;border:0;line-height:0.2em;" class="nhsuk-table__cell"></td>
+               <td style="font-size:1em;;;width:20%;border:0;line-height:0.2em;color:black;font-weight:900;" class="nhsuk-table__cell">- {{ sumCountSuppress | sum | thouCommaNum }}</td>
+               <td style="font-size:1em;text-align:center;;width:15%;border:0;line-height:0.2em;color:black;font-weight:900;" class="nhsuk-table__cell">{{ supSum | string | thouCommaNum }}</td>
+
+               </tr>
+            </tbody>
+         </table>
+
+
+
+         {% endif %} {% endif %}
+
+         {% set nextIt = "2"|int %}
+         {% elif (data['iteration-name1'].length > 0) and (data['cohortsSel'] !== "true") %}
+         {{ newIterationTasklist(title=data['iteration-name1']|default("first iteration name"),date=data['iterationDate1']|default("09-06-2024")|formatDate,count="1")}}
+         {{ taskListItem(title="Choose the cohorts",sectionHead="Cohorts",background="none",hint="Cohort means the eligibility criteria you can choose from.",link="/grabCohorts",colour='blue',status="Not started") }}
+         {% set nextIt = "2"|int %}
+         {% endif %}
+
+         {% if (data['iteration-name2'].length > 0) %}
+               <!-- iteration2 has been created -->
+               {{ newIterationTasklist(title=data['iteration-name2']|default("sec iteration name"),date=data['iterationDate2']|default("09-06-2024")|formatDate,count="2")}}
+               {% set nextIt = "3"|int %}
+               {% endif %}
+
+               {% if (data['iteration-name3'].length > 0) %}
+               <!-- iteration3 has been created -->
+               {{ newIterationTasklist(title=data['iteration-name3']|default("th iteration name"),date=data['iterationDate3']|default("09-06-2024")|formatDate,count="3")}}
+               {% set nextIt = "4"|int %}
+               {% endif %}
+
+               {% if (data['iteration-name4'].length > 0) %}
+               <!-- iteration3 has been created -->
+               {{ newIterationTasklist(title=data['iteration-name4']|default("ff iteration name"),date=data['iterationDate4']|default("09-06-2024")|formatDate,count="4")}}
+               {% set nextIt = "5"|int %}
+               {% endif %}
+
+            </div>
+
+
+
+                  <div style="border-top:1px solid lightgrey;margin-top:50px;padding-bottom:30px;text-align:left;">
+                     {{ taskListSoloItem(title="Create a new iteration",link="create-iteration?nextIt="+nextIt|int) }}
+                  </div>
+
+
+
+               <!-- <div style=";margin-top:10px;padding-bottom:30px;text-align:right;display:inline;;;font-weight:800;font-size:19px">
+                  {{ taskListSoloItem(title="Create a new iteration",link="create-iteration?nextIt="+nextIt|int) }}
+               </div> -->
+
+
+
+
+               <details  class="nhsuk-details nhsuk-expander nhsuk-u-padding-bottom-0 nhsuk-u-margin-bottom-3 nhsuk-u-padding-top-0 nhsuk-u-margin-top-3">
+                  <summary style="background:#f0f4f5" class="nhsuk-details__summary">
+                     <span class="nhsuk-details__summary-text">Manage the campaign</span>
+                  </summary>
+                  <div style="" class="nhsuk-details__text">
+                     <ul style="" class="govuk-task-list">
+                        <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                           <div class="govuk-task-list__name-and-hint">
+                              <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="name" aria-describedby="company-details-1-status">
+                                 Update campaign name, start and end dates
+                              </a>
+                           </div>
+                        </li>
+                        <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                           <div class="govuk-task-list__name-and-hint">
+                              <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="campaign-type" aria-describedby="company-details-2-status">
+                                 Update campaign type and target
+                              </a>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </details>
+
+   </div>
+</div>
+
+<script>
+   function doDataDump(){
+      // const returnCohorts = JSON.parse(window.sessionStorage.getItem("cohorts"));
+      // cohortList.value = returnCohorts;
+      // return cohortList;
+      console.log("modelled")
+      window.sessionStorage.setItem("campaignData", JSON.stringify(campaignData));
+      console.log("stored")
+   }
+
+   // const cohorts = JSON.parse(window.sessionStorage.getItem("cohorts"));
+   // var cList = Object.values(cohorts.cohortsList);
+   // var level = cList;
+
+   function showDiv(div1) {
+      document.getElementById(div1).style.display = 'block';
+   }
+   function hideDiv(div1) {
+      document.getElementById(div1).style.display = 'none';
+   }
+</script>{% endblock %}

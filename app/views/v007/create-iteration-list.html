@@ -1,0 +1,196 @@
+{% set pagetitle ="Iteration name" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% if data['name']|length > 0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+
+
+
+     {% if data['iter'] == "first" %}
+         {% set itVala = "1" %}
+     {% elif data['iter'] == "second" %}
+         {% set itVala = "2" %}
+     {% elif data['iter'] == "third" %}
+         {% set itVala = "3" %}
+     {% else %}
+         {% set itVala = "" %}
+     {% endif %}
+
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-three-quarters">
+
+
+           <div style="width:400px" class="nhsuk-form-group nhsuk-input--width-30 ">
+             <label for="autocomplete-default" class="nhsuk-label--s">What is the job title?</label>
+             <div id="jobtitle" class="autocomplete-wrapper"></div>
+           </div>
+     </div>
+
+
+
+<!-- 
+            <textarea onkeyup="handleInput(event)" class="nhsuk-textarea" id="team-detail" name="team-detail" value="{{ data['team-detail']}}" rows="8" aria-describedby="team-detail-hint">
+
+
+               </textarea> -->
+             </div>
+
+
+
+
+
+
+             </div>
+
+             <script src="/public/js/accessible-autocomplete.js"></script>
+            <script src="/public/js/jobtitle.js"></script>
+
+           <script>
+
+
+             const bullet = "–";
+             const bulletWithSpace = `${bullet} `;
+             const enter = 13;
+
+
+             const handleInput = (event) => {
+               const { keyCode, target } = event;
+               const { selectionStart, value } = target;
+
+               if (keyCode === enter) {
+                 console.log('a');
+                 target.value = [...value]
+                   .map((c, i) => i === selectionStart - 1
+                     ? `\n${bulletWithSpace}`
+                     : c
+                   )
+                   .join('');
+                   console.log(target.value);
+
+                 target.selectionStart = selectionStart+bulletWithSpace.length;
+                 target.selectionEnd = selectionStart+bulletWithSpace.length;
+               }
+
+               if (value[0] !== bullet) {
+                 target.value = `${bulletWithSpace}${value}`;
+               }
+             }
+           </script>
+
+
+
+      <form action="create-iteration-2?nextIt={{+nextIt|int}} method="post">
+  <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+
+        <span class="nhsuk-caption-l">Create iteration {{data['nextIt']}}</span>
+        <h1>
+          What is the iteration name?
+        </h1>
+      <p class="nhsuk-body">Lorem ipsum any guidance on choosing a format for name? Lorem ipsum...</p>
+
+      {% set counter = data['nextIt']  %}
+
+      {% from 'input/macro.njk' import input %}
+
+      {{ input({
+        "label": {
+          "text": "Iteration name"+counter
+        },
+        "id": "iteration-name"+counter,
+        "name": "iteration-name"+counter,
+        "value": data['iteration-name'+counter]
+
+      }) }}
+
+
+      <div class="nhsuk-form-group">
+        <label class="nhsuk-label" for="example-longer">
+          Create a list of iterations
+        </label>
+        <div class="nhsuk-hint" id="example-longer-hint">
+          Make a list with 1 iteration per line, comprised of an iteration name and date. Use comma-separated format.
+        </div>
+        <textarea onkeyup="handleInput(event)" class="nhsuk-textarea" value="{{data['iterationList']}}" id="iterationList" name="iterationList" rows=" 10 " aria-describedby="example-longer-hint"></textarea>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="file-upload-1">
+          Upload a file
+        </label>
+        <input class="govuk-file-upload" id="file-upload-1" name="file-upload-1" type="file">
+      </div>
+
+
+         <button class="nhsuk-button" data-module="nhsuk-button" type="submit">
+          Save and continue
+        </button>
+
+      </form>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}
+<script>
+
+
+var fill = document.getElementById("iterationList");
+
+  const bullet = "–";
+  const bulletWithSpace = `${bullet} `;
+  const enter = 13;
+
+
+  const handleInput = (event) => {
+    const { keyCode, target } = event;
+    const { selectionStart, value } = target;
+
+    if (keyCode === enter) {
+      console.log('a');
+      target.value = [...value]
+        .map((c, i) => i === selectionStart - 1
+          ? `\n${bulletWithSpace}`
+          : c
+        )
+        .join('');
+        console.log(target.value);
+
+      target.selectionStart = selectionStart+bulletWithSpace.length;
+      target.selectionEnd = selectionStart+bulletWithSpace.length;
+    }
+
+    if (value[0] !== bullet) {
+      target.value = `${bulletWithSpace}${value}`;
+    }
+  }
+
+
+
+
+</script>
