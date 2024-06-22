@@ -102,33 +102,7 @@
          <h1 class="nhsuk-heading-xl">Choose cohorts</h1>
 
 
-         {% set val =
-            {
-               "1":
-               {
-                  "cohortId": "uuid",
-                  "name": "Under 16 Chronic neurological Disease",
-                  "estSize": 5782,
-                  "refreshDate": "11 April 2024"
-               },
-               "2":
-               {
-                  "cohortId": "uuid",
-                  "name": "Age 75+",
-                  "estSize": 2820102,
-                  "refreshDate": "4 March 2024"
-               },
-               "3":
-               {
-                  "cohortId": "uuid",
-                  "name": "Age 75-84",
-                  "estSize": 3442325,
-                  "refreshDate": "14 May 2024"
-               }
-            }
-            %}
-
-
+         {% set val = { "1": { "cohortId": "uuid", "name": "COVID-19 vaccination for people aged 75 to 115 years old", "estSize": 825782, "refreshDate": "11 April 2024" }, "2": { "cohortId": "uuid", "name": "COVID-19 vaccination for people aged 6 months to 74 years old with a weakened immune system", "estSize": 2820102, "refreshDate": "4 March 2024" }, "3": { "cohortId": "uuid", "name": "COVID-19 vaccination for people who live in a care home for older adults", "estSize": 3442325, "refreshDate": "14 May 2024" } } %}
 
 
             <!-- {{ data['repickCohorts']}} -->
@@ -157,7 +131,7 @@
       "value": value.name,
       "text": value.name,
       "hint": {
-         "text": value.estSize|thouCommaNum +", ("+value.refreshDate+")"
+         "text": value.estSize|thouCommaNum +" ("+value.refreshDate+")"
       }
    }
    ]
