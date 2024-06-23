@@ -14,6 +14,14 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
   }
 
 
+  filters.month = string => {
+    return moment(string).format("ddd DD MMM");
+  }
+
+  filters.formatNoYear = string => {
+    return moment(string).format("ddd DD MMM");
+  }
+
   filters.subtract = function(string,varia){
      return moment(string).subtract(varia,'years');
   }
